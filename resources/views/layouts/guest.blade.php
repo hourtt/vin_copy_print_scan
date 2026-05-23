@@ -16,6 +16,9 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
+{{-- *Default value for using in Login & Signup page [Pasts the title and subtitle inside the x-guest-layout]* --}}
+@props(['title' => 'Welcome back','subtitle'=>'Sign in to manage your printing order and tracking your data'])
+
 <body class="font-sans text-gray-900 antialiased">
     <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
         <div class="mt-6 text-center">
@@ -23,8 +26,8 @@
                 <x-application-logo class="w-20 h-20 fill-current text-gray-500 rounded-fill" />
             </div>
             <div>
-                <h1 class="text-2xl font-medium text-gray-900 font-bold">Welcome back</h1>
-                <p class="mt-2 text-sm text-gray-500 max-w-xs mx-auto leading-relaxed"> Sign in to manage your printing order and tracking your data</p>
+                <h1 class="text-2xl font-medium text-gray-900 font-bold">{{ $title }}</h1>
+                <p class="mt-2 text-sm text-gray-500 max-w-xs mx-auto leading-relaxed">{{ $subtitle }}</p>
             </div>
         </div>
 
