@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-guest-layout title="Welcome back!" subtitle="Sign in to your account to continue">
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
