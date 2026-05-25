@@ -4,22 +4,18 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
         Schema::create('voucher_products', function (Blueprint $table) {
-            $table->id(); // * Work the same as $table->bigIncrements('id');
-
             //* Define foreign keys for voucher_id and product_id
             $table->foreignId('voucher_id')->constrained('vouchers')->onDelete('cascade');
             $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
-            $table->timestamps();
             // * Ensure each voucher-product id combination is unique
-            $table->unique(['voucher_id', 'product_id']);
+            $table->primary(['voucher_id', 'product_id']);
         });
     }
 
