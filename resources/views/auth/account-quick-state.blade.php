@@ -3,9 +3,9 @@
         <div class="account-card">
             <div class="role-badge">
                 @if (Auth::user()->role === 'admin')
-                    👑 Admin
+                   Admin
                 @else
-                    🛍️ {{ ucfirst(Auth::user()->role ?? 'Customer') }}
+                    {{ ucfirst(Auth::user()->role ?? 'Customer') }}
                 @endif
             </div>
             <h3>{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</h3>
