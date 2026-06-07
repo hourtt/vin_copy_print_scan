@@ -20,6 +20,34 @@ class ProductController extends Controller
         return view('dashboard', compact('products', 'category', 'heroProduct'));
     }
 
+    public function admin_index()
+    {
+        $products = Product::with('category', 'voucher')->get();
+        $category = Category::all();
+        return view('auth.admin.dashboard', compact('products', 'category'));
+    }
+
+    public function printers_index()
+    {
+        $products = Product::with('category', 'voucher')->get();
+        $category = Category::all();
+        return view('collections.printers.index', compact('products', 'category'));
+    }
+
+    public function toners_index()
+    {
+        $products = Product::with('category', 'voucher')->get();
+        $category = Category::all();
+        return view('collections.toners.index', compact('products', 'category'));
+    }
+
+    public function papers_index()
+    {
+        $products = Product::with('category', 'voucher')->get();
+        $category = Category::all();
+        return view('collections.papers.index', compact('products', 'category'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */

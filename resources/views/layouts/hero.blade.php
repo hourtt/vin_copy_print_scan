@@ -22,7 +22,7 @@
                 Explore our curated collections. Sign in to add items to your cart and start purchasing.
             </p>
             <div class="hero-cta fade-up fade-up-4">
-                <a href="#products" class="btn btn-primary">Explore products</a>
+                <a href="#products" id="explore-btn" class="btn btn-primary btn-explore">Explore products</a>
                 <a href="{{ route('register') }}" class="btn btn-ghost">Create account</a>
             </div>
         @endauth

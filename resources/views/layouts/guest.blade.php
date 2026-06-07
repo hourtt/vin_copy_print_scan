@@ -12,8 +12,11 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
+    {{-- Favicon --}}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
+
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css','resources/css/papers.css', 'resources/js/app.js'])
 </head>
 
 {{-- *Default value for using in Login & Signup page [Pasts the title and subtitle inside the x-guest-layout]* --}}

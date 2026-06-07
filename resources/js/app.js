@@ -2,64 +2,47 @@ import "bootstrap";
 import Alpine from "alpinejs";
 
 window.Alpine = Alpine;
-
 Alpine.start();
 
-// ── CATEGORY PILL FILTER ──
-// Operates on .category-section wrappers (grouped by Laravel), not individual cards.
-window.filterPills = function (clickedBtn) {
-    // Update active pill
-    document
-        .querySelectorAll(".pill")
-        .forEach((btn) => btn.classList.remove("active"));
-    clickedBtn.classList.add("active");
+// * Explore Product Button — dashboard only
+const exploreBtn = document.getElementById("explore-btn");
+if (exploreBtn) {
+    exploreBtn.addEventListener("click", function (e) {
+        e.preventDefault();
 
-    const selected = clickedBtn.dataset.category; // undefined for "All" pill
-    const sections = document.querySelectorAll(".category-section");
+        const target = document.getElementById("products");
+        const navbar = document.querySelector("nav");
 
-    sections.forEach((section) => {
-        // Show all when no category is selected (All pill), or match by data-category
-        const show = !selected || section.dataset.category === selected;
-        section.classList.toggle("hidden", !show);
-        section.classList.toggle("visible", show);
+        const navbarHeight = navbar ? navbar.offsetHeight : 0;
+        const gap = parseFloat(getComputedStyle(target).paddingTop) || 0;
+        const targetPosition =
+            target.getBoundingClientRect().top +
+            window.scrollY -
+            navbarHeight -
+            gap;
+
+        window.scrollTo({
+            top: targetPosition,
+            behavior: "smooth",
+        });
     });
-};
-
-// ── SKELETON LOADING ──
-// Call showSkeletons() before a fetch; call hideSkeletons() when data is ready.
-// Renders N skeleton cards into the given container element.
-function buildSkeletonCard() {
-    return `
-    <div class="product-card-skeleton" aria-hidden="true">
-        <div class="skeleton-img"></div>
-        <div class="skeleton-body">
-            <div class="skeleton-block skeleton-line-sm"></div>
-            <div class="skeleton-block skeleton-line-md"></div>
-            <div class="skeleton-block skeleton-line-lg"></div>
-            <div class="skeleton-block skeleton-line-btn"></div>
-        </div>
-    </div>`;
 }
 
-window.showSkeletons = function (container, count = 8) {
-    container.innerHTML = Array.from({ length: count }, buildSkeletonCard).join(
-        "",
+// * Feature strip scroll animation — dashboard only
+document.addEventListener("DOMContentLoaded", function () {
+    const animatedItems = document.querySelectorAll(".feature-animate");
+    if (!animatedItems.length) return;
+
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("is-visible");
+                    observer.unobserve(entry.target);
+                }
+            });
+        },
+        { threshold: 0.2 },
     );
-};
-
-window.hideSkeletons = function (container) {
-    container
-        .querySelectorAll(".product-card-skeleton")
-        .forEach((el) => el.remove());
-};
-// Show skeletons immediately, remove once real product DOM is ready
-const skeletonContainer = document.getElementById("skeleton-container");
-const productContainer = document.getElementById("grouped-products-container");
-
-showSkeletons(skeletonContainer, 8);
-productContainer.style.visibility = "hidden";
-
-window.addEventListener("DOMContentLoaded", () => {
-    skeletonContainer.remove();
-    productContainer.style.visibility = "visible";
+    animatedItems.forEach((item) => observer.observe(item));
 });

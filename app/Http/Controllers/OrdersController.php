@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 class OrdersController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the orders.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        //* Get all orders that belong to the authenticated user and display them. */
+        $orders = Order::whereBelongTo($request->user())->get();
+        return view('orders.index', compact('orders'));
     }
 
     /**
@@ -31,11 +34,13 @@ class OrdersController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified orders.
      */
-    public function show(string $id)
+    public function show(string $id, Request $request)
     {
-        //
+        //* Find the order that belongs to the authenticated user and display it. If the order does not belong to the user, it will throw a 404 error. */
+        $order = Order::query()->whereBelongsTo($request->user())->findOrFail($id);
+        return view('orders.show', compact('order'));
     }
 
     /**

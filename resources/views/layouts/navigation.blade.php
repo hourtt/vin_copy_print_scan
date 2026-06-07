@@ -1,37 +1,46 @@
  @guest
      <div class="guest-banner">
-         🛍️ You're browsing as a guest — <a href="{{ route('login') }}">sign in</a> or <a
-             href="{{ route('register') }}">create an account</a> to unlock purchasing.
+         You're browsing as a guest — <a href="{{ route('login') }}">sign in</a> or <a href="{{ route('register') }}">create
+             an account</a> to unlock purchasing.
      </div>
  @endguest
 
- <style src="{{ asset('app.css') }}"></style>
-
- <nav x-data="{ open: false, dropdownOpen: false }" class="vd-nav">
+ <nav x-data="{ open: false }" class="vd-nav">
      <div class="vd-nav-inner">
 
-         {{-- ── LOGO ── --}}
+         {{--  LOGO  --}}
          <a href="{{ route('dashboard') }}" class="vd-logo">
              <img src="{{ asset('storage/images/logo-icon-only.png') }}" alt="{{ config('app.name', 'App') }} logo">
          </a>
 
-         {{-- ── DESKTOP NAV LINKS ── --}}
+         {{--  DESKTOP NAV LINKS  --}}
          <ul class="vd-nav-links">
              <li>
                  <a href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'active' : '' }}">
-                     {{ __('Shop') }}
+                     {{ __('Home') }}
                  </a>
              </li>
-             <li><a href="#">{{ __('Collections') }}</a></li>
-             <li><a href="#">{{ __('About') }}</a></li>
+             <li>
+                 <a href="{{ route('collections.printers.index') }}"
+                     class="{{ request()->routeIs('collections.printers.*') ? 'active' : '' }}">
+                     {{ __('Printers') }}
+                 </a>
+             </li>
+             <li>
+                 <a href="{{ route('collections.toners.index') }}"
+                     class="{{ request()->routeIs('collections.toners.*') ? 'active' : '' }}">
+                     {{ __('Toners') }}
+                 </a>
+             </li>
+             <li>
+                 <a href="{{ route('collections.papers.index') }}"
+                     class="{{ request()->routeIs('collections.papers.*') ? 'active' : '' }}">
+                     {{ __('Papers') }}
+                 </a>
+             </li>
          </ul>
 
-         {{-- ── SEARCH BAR ── --}}
-         <div class="vd-search-wrap">
-             <input type="text" class="vd-search" placeholder="Search products…">
-         </div>
-
-         {{-- ── DESKTOP ACTIONS ── --}}
+         {{--  DESKTOP ACTIONS  --}}
          <div class="vd-actions">
              @auth
                  {{-- Avatar chip + dropdown --}}
@@ -58,7 +67,7 @@
                          </div>
 
                          <a href="{{ route('profile.edit') }}">
-                             👤 {{ __('Profile') }}
+                             {{ __('Profile') }}
                          </a>
 
                          <hr>
@@ -66,8 +75,8 @@
                          {{-- Logout — preserves Laravel's POST logout flow --}}
                          <form method="POST" action="{{ route('logout') }}">
                              @csrf
-                             <button type="submit" class="vd-dd-logout">
-                                 🚪 {{ __('Log Out') }}
+                             <button type="submit" class="vd-dd-logout" style="color:red">
+                                 {{ __('Log Out') }}
                              </button>
                          </form>
                      </div>
@@ -82,35 +91,40 @@
              @endauth
          </div>
 
-         {{-- ── HAMBURGER (mobile) ── --}}
+         {{--  HAMBURGER (mobile)  --}}
          <button class="vd-hamburger" @click="open = !open" :aria-expanded="open" aria-label="Toggle menu">
-             <svg x-show="!open" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                 <line x1="4" y1="6" x2="20" y2="6" />
-                 <line x1="4" y1="12" x2="20" y2="12" />
-                 <line x1="4" y1="18" x2="20" y2="18" />
-             </svg>
-             <svg x-show="open" x-cloak xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                 stroke-linejoin="round">
-                 <line x1="6" y1="6" x2="18" y2="18" />
-                 <line x1="6" y1="18" x2="18" y2="6" />
-             </svg>
+             <img src="" alt="">
          </button>
 
      </div>
 
-     {{-- ── MOBILE MENU DRAWER ── --}}
+     {{--  MOBILE MENU DRAWER  --}}
      <div class="vd-mobile-menu" :class="{ 'open': open }" x-show="open" x-transition x-cloak>
 
          <ul class="vd-mobile-links">
              <li>
-                 <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                     {{ __('Shop') }}
-                 </x-responsive-nav-link>
+                 <a href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                     {{ __('Home') }}
+                 </a>
              </li>
-             <li><a href="#">{{ __('Collections') }}</a></li>
-             <li><a href="#">{{ __('About') }}</a></li>
+             <li>
+                 <a href="{{ route('collections.printers.index') }}"
+                     class="{{ request()->routeIs('collections.printers.*') ? 'active' : '' }}">
+                     {{ __('Printers') }}
+                 </a>
+             </li>
+             <li>
+                 <a href="{{ route('collections.toners.index') }}"
+                     class="{{ request()->routeIs('collections.toners.*') ? 'active' : '' }}">
+                     {{ __('Toners') }}
+                 </a>
+             </li>
+             <li>
+                 <a href="{{ route('collections.papers.index') }}"
+                     class="{{ request()->routeIs('collections.papers.*') ? 'active' : '' }}">
+                     {{ __('Papers') }}
+                 </a>
+             </li>
          </ul>
 
          @auth
