@@ -1,0 +1,92 @@
+/* By default, hide the overlay on screens 1280px and wider */
+.dw-overlay {
+    display: none;
+}
+
+/* Activate the overlay strictly on screens smaller than 1280px */
+@media (max-width: 400px) {
+    .dw-overlay {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        /* Lock it to the viewport */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 999999;
+
+        background-color: #fcfcfc; /* Slight off-white */
+        text-align: center;
+        font-family: "Inter", "Segoe UI", sans-serif;
+    }
+
+    .dw-container {
+        max-width: 600px;
+        padding: 2rem;
+    }
+
+    .dw-brand {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.6rem;
+        margin-bottom: 2.5rem;
+    }
+
+    .dw-logo {
+        /* Minimum width 36px, preferred width 6% of viewport, maximum width 55px */
+        width: clamp(36px, 6vw, 55px);
+        height: auto; /* Ensures the aspect ratio remains perfect */
+        object-fit: contain;
+        border-radius: 10px;
+    }
+
+    .dw-brand-text {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #1a202c;
+    }
+    .dw-brand {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.6rem;
+        margin-bottom: 2.5rem;
+    }
+
+    .dw-title {
+        font-size: 5.5rem;
+        font-weight: 500;
+        color: #374151; /* Dark slate */
+        margin: 0 0 0.5rem 0;
+        line-height: 1;
+        letter-spacing: -0.02em;
+    }
+
+    .dw-subtitle {
+        font-size: 1.7rem;
+        font-weight: 600;
+        color: #3b82f6; /* Bright blue */
+        margin: 1.5rem 0 1rem 0;
+    }
+
+    .dw-text {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: #111827;
+        font-weight: 600;
+        margin: 0;
+    }
+
+    .dw-link {
+        color: #3b82f6;
+        text-decoration: none;
+    }
+
+    .dw-link:hover {
+        text-decoration: underline;
+    }
+}

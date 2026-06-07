@@ -1,0 +1,115 @@
+/* Center everything on the screen */
+/* body styling For auth pages only  */
+body .auth-page {
+    background-color: var(--surface-warm);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 2rem 1rem;
+}
+
+/* Auth Layout Wrapper */
+.auth-container {
+    width: 100%;
+    max-width: 480px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 2.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+}
+
+/* Brand Logo Placement */
+.auth-logo-wrap {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.auth-logo-wrap img {
+    height: 50px;
+    width: auto;
+    margin: 0 auto;
+}
+
+/* Headings */
+.auth-title {
+    font-family: "Fraunces", serif;
+    font-size: 1.75rem;
+    color: var(--ink);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.auth-subtitle {
+    font-size: 0.9rem;
+    color: var(--ink-muted);
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+/* Form Groups */
+.form-group {
+    margin-bottom: 1.25rem;
+    position: relative;
+}
+
+/* Checkbox Alignment (Remember Me) */
+.remember-me-wrap {
+    display: flex;
+    align-items: center;
+    margin: 1rem 0 1.5rem 0;
+}
+
+.remember-me-wrap input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    border: 1.5px solid var(--gray-100);
+    border-radius: 4px;
+    cursor: pointer;
+    accent-color: var(--brand);
+}
+
+.remember-me-wrap span {
+    font-size: 0.875rem;
+    color: var(--ink-soft);
+    margin-left: 0.5rem;
+}
+
+/* Links & Redirections */
+.auth-links-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.5rem;
+    font-size: 0.85rem;
+}
+
+.auth-link {
+    color: var(--ink-muted);
+    text-decoration: underline;
+    transition: color 0.2s;
+}
+
+.auth-link:hover {
+    color: var(--brand-dark);
+}
+
+.register-redirect-box {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-soft);
+    text-align: center;
+    font-size: 0.875rem;
+    color: var(--ink-soft);
+}
+
+/* Error States */
+.input-error-msg {
+    color: #c1440e;
+    font-size: 0.8rem;
+    margin-top: 0.35rem;
+    font-weight: 500;
+}
