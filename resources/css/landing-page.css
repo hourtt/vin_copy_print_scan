@@ -207,7 +207,7 @@
 
 /* Ticker Bar */
 .ticker-bar {
-    background: var(--brand-deeper);
+    background-color: var(--surface-warm);
     overflow: hidden;
     padding: 0.75rem 0;
 }
@@ -215,7 +215,7 @@
 .ticker-track {
     display: flex;
     gap: 3rem;
-    animation: ticker 28s linear infinite;
+    animation: ticker 30s linear infinite;
     white-space: nowrap;
     width: max-content;
 }
@@ -246,7 +246,7 @@
 }
 
 .section-label {
-    font-family: "Noto Sans Kaithi", sans-serif;
+    font-family: "Inter", sans-serif;
     font-weight: 700;
     font-style: normal;
     letter-spacing: 0.12em;
@@ -256,7 +256,7 @@
 }
 
 .section-title {
-    font-family: "Noto Sans Kaithi", sans-serif;
+    font-family: "Inter", sans-serif;
     font-weight: bold;
     font-style: normal;
     font-size: clamp(2rem, 4vw, 3rem);
@@ -314,7 +314,7 @@
 }
 
 .service-card {
-    cursor: default;
+    cursor: pointer;
     border-radius: var(--r-xl);
     padding: 2.5rem 2rem 2rem;
     display: flex;
@@ -560,7 +560,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: "Fraunces", serif;
+    font-family: "Inter", sans-serif;
     font-size: 1.1rem;
     font-weight: 700;
     color: var(--brand);
@@ -577,7 +577,7 @@
 }
 
 .step h4 {
-    font-family: "Fraunces", serif;
+    font-family: "Inter", sans-serif;
     font-size: 1.05rem;
     font-weight: 600;
     color: var(--ink);

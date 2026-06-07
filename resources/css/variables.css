@@ -1,31 +1,33 @@
 /* CSS Custom Properties & Theme Variables */
 :root {
-    --ink: #0d0d0b;
-    --ink-soft: #2c2c2a;
-    --ink-muted: #5f5e5a;
-    --ink-faint: #888780;
-    --surface: #ffffff;
-    --surface-warm: #f8f7f4;
-    --surface-mid: #f1efe8;
-    --brand: #1d9e75;
-    --brand-dark: #0f6e56;
-    --brand-deeper: #085041;
-    --brand-light: #e1f5ee;
-    --brand-mid: #9fe1cb;
-    --coral: #d85a30;
-    --coral-light: #faece7;
-    --rust: #c1440e;
-    --gold: #d4a574;
-    --border: rgba(0, 0, 0, 0.08);
-    --border-soft: rgba(0, 0, 0, 0.05);
-    --r: 16px;
-    --r-sm: 10px;
-    --r-xl: 28px;
+    --primary: #0056b3;
+    --primary-dark: #003f87;
+    --secondary: #6c757d;
+    --accent: #00a896;
 
-    /* Aliases for legacy naming */
-    --sage: #1d9e75;
-    --mist: #f1efe8;
-    --cream: #f8f7f4;
+    --surface: #ffffff;
+    --surface-warm: #f8f9fa;
+    --surface-mid: #dee2e6;
+
+    --ink: #212529;
+    --ink-muted: #6c757d;
+
+    --border: #dee2e6;
+    --border-soft: rgba(0, 0, 0, 0.05);
+
+    --r: 10px;
+    --r-sm: 8px;
+    --r-xl: 12px;
+
+    /* Legacy fallbacks just in case */
+    --brand: var(--primary);
+    --brand-dark: var(--primary-dark);
+    --sage: var(--primary);
+    --coral: var(--primary);
+    --rust: var(--primary-dark);
+    --gold: var(--secondary);
+    --mist: var(--surface-warm);
+    --cream: var(--surface-warm);
 
     /* Premium Easing Curves */
     --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -33,8 +35,8 @@
 
     /* Footer variables */
     --bg-footer: #f8f9fa;
-    --text-main: #333333;
-    --text-muted: #666666;
-    --accent-color: #2c3e50;
-    --border-color: #e5e7eb;
+    --text-main: #212529;
+    --text-muted: #6c757d;
+    --accent-color: #0056b3;
+    --border-color: #ffffff;
 }

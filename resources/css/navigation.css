@@ -32,6 +32,7 @@
     flex-shrink: 0;
 }
 .vd-logo img {
+    border-radius: 10px;
     height: 36px;
     width: auto;
     display: block;
@@ -59,7 +60,7 @@
 }
 /* Keep hover subtle */
 .vd-nav-links a:hover {
-    background: #69ef62;
+    color: var(--primary);
     opacity: 1;
 }
 
@@ -428,7 +429,7 @@ nav {
     text-transform: uppercase;
 }
 .guest-banner {
-    background: linear-gradient(135deg, var(--ink) 0%, #2d2d4e 100%);
+    background: linear-gradient(135deg, var(--ink) 0%, #0c0c45 100%);
     color: #fff;
     text-align: center;
     padding: 0.6rem 1.5rem;

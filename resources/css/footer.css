@@ -1,6 +1,5 @@
 /* Standard Footer */
 footer {
-    margin-top: 6rem;
     border-top: 1px solid var(--border);
     padding: 2rem;
 }
@@ -32,10 +31,10 @@ footer {
 
 /* Shop Detailed Footer */
 .shop-footer {
-    background-color: var(--bg-footer);
-    color: var(--text-main);
-    border-top: 1px solid var(--border-color);
-    font-family: "DM Sans", sans-serif;
+    background-color: var(--surface-warm);
+    color: var(--ink);
+    border-top: 1px solid var(--border);
+    font-family: "Inter", sans-serif;
     padding-top: 4rem;
 }
 .footer-container {
