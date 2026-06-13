@@ -6,7 +6,6 @@
 
 /* Component Styles */
 @import "buttons.css";
-@import "navigation.css";
 @import "hero.css";
 
 /* Auth Styles */
@@ -14,14 +13,10 @@
 @import "auth/register.css";
 
 /* Page-Specific Styles */
-@import "base-styling-index-page.css";
+@import "views/pages/product-catalog.css";
 @import "landing-page.css";
 @import "dashboard.css";
 @import "footer.css";
-@import "shop.css";
-@import "services.css";
-@import "collections-minimal.css";
-@import "navigation.css";
 @import "profile.css";
 @import "./components/desktop-only-warning.css";
 

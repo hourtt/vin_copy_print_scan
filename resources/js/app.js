@@ -1,6 +1,8 @@
 import "bootstrap";
 import Alpine from "alpinejs";
 
+import "./checkout-form";
+
 window.Alpine = Alpine;
 Alpine.start();
 
