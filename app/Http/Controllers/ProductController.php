@@ -20,6 +20,48 @@ class ProductController extends Controller
         return view('dashboard', compact('products', 'category', 'heroProduct'));
     }
 
+    public function product_catalog_index(Request $request)
+    {
+        $query = Product::with('category');
+
+        // Apply Category Filters
+        if ($request->has('categories') && !empty($request->categories)) {
+            $query->whereIn('category_id', $request->categories);
+        }
+
+        // Apply Price Filters
+        if ($request->has('min_price') && is_numeric($request->min_price)) {
+            $query->where('price', '>=', $request->min_price);
+        }
+        if ($request->has('max_price') && is_numeric($request->max_price)) {
+            $query->where('price', '<=', $request->max_price);
+        }
+
+        // Apply Sort
+        $sort = $request->get('sort', 'recommended');
+        switch ($sort) {
+            case 'newest':
+                $query->orderBy('created_at', 'desc');
+                break;
+            case 'price_asc':
+                $query->orderBy('price', 'asc');
+                break;
+            case 'price_desc':
+                $query->orderBy('price', 'desc');
+                break;
+            case 'recommended':
+            default:
+                // If there's a recommended column, use it. Otherwise fallback to id/created_at
+                $query->orderBy('id', 'desc');
+                break;
+        }
+
+        $products = $query->paginate(12)->withQueryString();
+        $categories = Category::all();
+
+        return view('products-catalog.index', compact('products', 'categories'));
+    }
+
     public function admin_index()
     {
         $products = Product::with('category', 'voucher')->get();
