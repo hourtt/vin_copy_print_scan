@@ -46,9 +46,18 @@ document.addEventListener("DOMContentLoaded", () => {
     if (catPills.length > 0) {
         catPills.forEach((pill) => {
             pill.addEventListener("click", (e) => {
-                catPills.forEach((p) => p.classList.remove("active"));
-                e.target.classList.add("active");
-                currentCategory = e.target.dataset.cat;
+                // Reset all pills to inactive Tailwind styles
+                catPills.forEach((p) => {
+                    p.classList.remove("active", "border-transparent", "bg-[#27272a]", "text-white");
+                    p.classList.add("border-[#e4e4e7]", "bg-white", "text-[#71717a]", "hover:border-[#3f3f46]", "hover:text-[#3f3f46]");
+                });
+
+                // Set clicked pill to active Tailwind styles
+                const target = e.currentTarget;
+                target.classList.add("active", "border-transparent", "bg-[#27272a]", "text-white");
+                target.classList.remove("border-[#e4e4e7]", "bg-white", "text-[#71717a]", "hover:border-[#3f3f46]", "hover:text-[#3f3f46]");
+
+                currentCategory = target.dataset.cat;
                 updateView();
             });
         });

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ config('app.name', 'PrintCo') }}</title>
 
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -13,26 +13,20 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-{{-- TODO : Implement desktop-only warning component & make the mobile screen phone still work --}}
-<body>
-    <x-desktop-only-warning brandName="Vin Copy Print Scan" />
+<body class="font-sans antialiased overflow-x-hidden w-full relative">
     {{-- NAVIGATION --}}
     @include('layouts.navigation')
 
     {{-- Cinematic Hero --}}
-    @include('components.cnimeatic-hero')
+    @include('components.cinematic-hero')
 
     @include('components.ticker-bar')
 
 
     {{-- ACCOUNT QUICK-STATS (auth users only)  --}}
-    {{-- @auth
-        <div class="account-section">
-            <div class="container">
-                @include('auth.account-quick-state')
-            </div>
-        </div>
-    @endauth --}}
+    @auth
+        @include('auth.account-quick-state')
+    @endauth
 
 
     {{--  SERVICES SHOWCASE --}}
