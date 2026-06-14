@@ -86,7 +86,7 @@
                     </div>
 
                     {{-- Product Grid --}}
-                    <div class="product-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5"
+                    <div class="product-grid grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-5"
                         id="grid-{{ $catId }}">
                         @foreach ($grouped as $product)
                             @php
@@ -101,13 +101,13 @@
                             @endphp
 
                             <article
-                                class="product-card group bg-white border border-[#e4e4e7] rounded-2xl overflow-hidden flex flex-col shadow-sm hover:-translate-y-1 hover:shadow-md transition-all duration-300 ease-in-out"
+                                class="product-card group bg-white border border-[#e4e4e7] rounded-xl sm:rounded-2xl overflow-hidden flex flex-col shadow-sm hover:-translate-y-1 hover:shadow-md transition-all duration-300 ease-in-out"
                                 data-cat="{{ $product->category_id }}"
                                 data-name="{{ strtolower($product->name) }}"
                                 data-price="{{ $product->price }}">
 
                                 {{-- Image --}}
-                                <div class="relative aspect-[4/3] bg-white flex items-center justify-center overflow-hidden border-b border-[#e4e4e7]">
+                                <div class="relative aspect-[3/2] sm:aspect-[4/3] bg-white flex items-center justify-center overflow-hidden border-b border-[#e4e4e7]">
                                     @if ($product->image)
                                         <img src="{{ asset($product->image) }}" alt="{{ $product->name }}"
                                             loading="lazy"
@@ -116,39 +116,39 @@
                                         <span class="text-sm text-[#71717a]">No image</span>
                                     @endif
 
-                                    <span class="absolute top-3 right-3 text-[0.7rem] font-bold uppercase tracking-wide px-2 py-1 rounded-lg {{ $badgeBg }}">
+                                    <span class="absolute top-2 right-2 text-[0.6rem] sm:text-[0.7rem] font-bold uppercase tracking-wide px-1.5 py-0.5 rounded-md {{ $badgeBg }}">
                                         {{ $stockLabel }}
                                     </span>
                                 </div>
 
                                 {{-- Card Body --}}
-                                <div class="flex flex-col flex-1 p-5 gap-2">
-                                    <div class="text-xs font-bold uppercase tracking-wide text-[#3f3f46]">
+                                <div class="flex flex-col flex-1 p-3 sm:p-5 gap-1.5 sm:gap-2">
+                                    <div class="text-[10px] sm:text-xs font-bold uppercase tracking-wide text-[#3f3f46]">
                                         {{ $product->category->name ?? 'Paper' }}
                                     </div>
-                                    <div class="font-['Fraunces',serif] text-lg font-semibold text-[#27272a] leading-snug">
+                                    <div class="font-['Fraunces',serif] text-sm sm:text-lg font-semibold text-[#27272a] leading-tight line-clamp-2" title="{{ $product->name }}">
                                         {{ $product->name }}
                                     </div>
 
                                     @if ($product->compatibility)
-                                        <div class="text-sm text-[#71717a]">Fits: {{ $product->compatibility }}</div>
+                                        <div class="hidden sm:block text-xs sm:text-sm text-[#71717a] line-clamp-1">Fits: {{ $product->compatibility }}</div>
                                     @endif
 
                                     {{-- Footer --}}
-                                    <div class="flex items-center justify-between mt-auto pt-4 border-t border-[#e4e4e7]">
-                                        <span class="text-xl font-bold text-[#27272a]">
+                                    <div class="flex flex-col mt-auto pt-3 border-t border-[#e4e4e7] gap-2.5 sm:flex-row sm:items-center sm:justify-between sm:pt-4 sm:gap-0">
+                                        <span class="text-base sm:text-xl font-bold text-[#27272a]">
                                             ${{ number_format($product->price, 2) }}
                                         </span>
 
                                         @auth
                                             <button
-                                                class="inline-flex items-center justify-center px-4 py-2 bg-[#3f3f46] text-white text-sm font-semibold rounded-lg hover:bg-[#18181b] active:scale-95 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                                                class="w-full sm:w-auto inline-flex items-center justify-center min-h-[44px] sm:min-h-[36px] px-3 py-2 bg-[#3f3f46] text-white text-xs sm:text-sm font-semibold rounded-lg hover:bg-[#18181b] active:scale-95 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                                                 @if ($stock <= 0) disabled @endif>
                                                 {{ $stock <= 0 ? 'Unavailable' : 'Add to Cart' }}
                                             </button>
                                         @else
                                             <a href="{{ route('login') }}"
-                                                class="inline-flex items-center justify-center px-4 py-2 border border-[#e4e4e7] bg-[#faf9f6] text-[#27272a] text-sm font-semibold rounded-lg hover:border-[#3f3f46] hover:text-[#3f3f46] transition-all duration-200">
+                                                class="w-full sm:w-auto inline-flex items-center justify-center min-h-[44px] sm:min-h-[36px] px-3 py-2 border border-[#e4e4e7] bg-[#faf9f6] text-[#27272a] text-xs sm:text-sm font-semibold rounded-lg hover:border-[#3f3f46] hover:text-[#3f3f46] transition-all duration-200">
                                                 Sign In
                                             </a>
                                         @endauth
