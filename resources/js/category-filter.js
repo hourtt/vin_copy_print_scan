@@ -110,10 +110,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 (currentCategory !== "all" && currentCategory !== sectionCat)
             ) {
                 section.style.display = "none";
-                section.classList.add("hidden");
+                section.classList.add("filter-hidden");
             } else {
                 section.style.display = "block";
-                section.classList.remove("hidden");
+                section.classList.remove("filter-hidden");
             }
         });
 
