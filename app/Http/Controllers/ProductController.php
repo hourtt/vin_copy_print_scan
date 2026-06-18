@@ -111,7 +111,7 @@ class ProductController extends Controller
         $activeIssues = 0;
         $issueGrowth = $this->calculatePercentageChange(0, 0);
 
-        return view('auth.admin.dashboard', compact(
+        return view('components.auth.admin.dashboard', compact(
             'products', 'category', 'totalRevenue', 'totalOrders', 'activeCustomers', 'activeIssues',
             'revenueGrowth', 'orderGrowth', 'customerGrowth', 'issueGrowth'
         ));

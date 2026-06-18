@@ -48,3 +48,13 @@ document.addEventListener("DOMContentLoaded", function () {
     );
     animatedItems.forEach((item) => observer.observe(item));
 });
+
+// * Ordering button animation effect
+document.querySelectorAll(".order-btn").forEach((btn) => {
+    function onRelease() {
+        btn.classList.add("releasing");
+        setTimeout(() => btn.classList.remove("releasing"), 200);
+    }
+    btn.addEventListener("mouseup", onRelease);
+    btn.addEventListener("mouseleave", onRelease);
+});

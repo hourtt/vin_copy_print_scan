@@ -1,10 +1,10 @@
-<section class="py-16 md:py-24 bg-white font-sans">
+<section class="py-16 md:py-15 bg-white font-sans">
     <div class="max-w-7xl mx-auto px-4 md:px-8">
         <h2 class="text-3xl md:text-4xl font-bold text-center text-[#1a1a2e] mb-12 md:mb-16">
             The Advantage
         </h2>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {{-- Best Services --}}
             <div class="flex flex-col items-center text-center p-8 bg-white rounded-2xl border border-[#1a1a2e]/5 hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300">
                 <div class="w-16 h-16 bg-blue-50 text-blue-600 flex items-center justify-center rounded-2xl mb-6">

@@ -16,9 +16,7 @@ Route::get('/printers', [ProductController::class, 'printers_index'])->name('col
 Route::get('/toners', [ProductController::class, 'toners_index'])->name('collections.toners.index');
 Route::get('/inks', [ProductController::class, 'inks_index'])->name('collections.inks.index');
 Route::get('/papers', [ProductController::class, 'papers_index'])->name('collections.papers.index');
-Route::get('/services', function () {
-    return view('services');
-})->name('services');
+Route::view('/services', 'services.index')->name('services');
 
 Route::middleware(['auth', 'user'])->group(function () {
     Route::get('/orders', [OrdersController::class, 'index'])->name('orders.index');

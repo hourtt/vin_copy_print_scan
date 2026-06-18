@@ -18,32 +18,29 @@
     @include('layouts.navigation')
 
     {{-- Cinematic Hero --}}
-    @include('components.cinematic-hero')
+    @include('components.dashboard.cinematic-hero')
 
-    @include('components.ticker-bar')
+    @include('components.dashboard.ticker-bar')
 
 
     {{-- ACCOUNT QUICK-STATS (auth users only)  --}}
     @auth
-        @include('auth.account-quick-state')
+        @include('components.dashboard.account-quick-state')
     @endauth
 
 
     {{--  SERVICES SHOWCASE --}}
-    @include('components.service-showcase')
+    @include('components.dashboard.service-showcase')
 
     {{-- HOW IT WORKS --}}
-    @include('components.how-it-works')
+    @include('components.dashboard.how-it-works')
 
     {{-- PROMOTIONAL BANNER --}}
-    {{-- @include('components.promotional-banner') --}}
+    {{-- @include('components.dashboard.promotional-banner') --}}
 
 
     {{-- FEATURED PRODUCTS --}}
-    @include('components.featured-products')
-
-    {{-- Trust Signals --}}
-    @include('components.trust-signal')
+    @include('components.dashboard.featured-products')
 
     {{-- FOOTER --}}
     @include('layouts.footer')
