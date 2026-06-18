@@ -12,22 +12,38 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->id(); // * Work the same as $table->bigIncrements('id');
-            //* Foreign key to user table
+            $table->id();
+            // Foreign key to users table
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->dateTime('order_date');
             $table->timestamp('shipped_time')->nullable();
-            $table->decimal('subtotal',10,2)->default(0);
+            $table->decimal('subtotal', 10, 2)->default(0);
 
-            //* Foreign key to voucher table
+            // Foreign key to vouchers table
             $table->foreignId('voucher_id')->nullable()->constrained('vouchers')->onDelete('set null');
-            $table->decimal('applied_voucher_discount',10,2)->default(0);
-            $table->decimal('total', 10, 2);
-            $table->enum('status',['pending', 'processing', 'completed', 'cancelled']);
+            $table->decimal('applied_voucher_discount', 10, 2)->default(0);
 
-            // * created_by is created in case, that admin has a manual order from customer
+            // Shipping
+            $table->foreignId('shipping_method_id')->nullable()->constrained('shipping_methods')->onDelete('set null');
+            $table->decimal('shipping_fee', 10, 2)->default(0);
+            $table->text('shipping_address')->nullable();     // snapshot of address at order time
+            $table->date('estimated_delivery_date')->nullable();
+            $table->text('tracking_notes')->nullable();       // admin notes per status update
+
+            $table->decimal('total', 10, 2);
+
+            // Full delivery tracking status set
+            $table->enum('status', [
+                'pending',
+                'processing',
+                'packed',
+                'out_for_delivery',
+                'delivered',
+                'cancelled',
+            ])->default('pending');
+
+            // Admin audit trail
             $table->foreignId('created_by')->nullable()->constrained('users')->onDelete('set null');
-            // * updated_by is created in case, when admin changes status or shipped date manually
             $table->foreignId('updated_by')->nullable()->constrained('users')->onDelete('set null');
             $table->timestamps();
         });

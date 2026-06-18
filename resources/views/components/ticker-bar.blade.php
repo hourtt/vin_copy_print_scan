@@ -4,8 +4,8 @@
         @php
             $ticks = [
                 'Quality printing',
-                'A3 · A4 formats',
                 'Best Service',
+                'A3 & A4 formats',
                 'Color &amp; black & white',
                 'Scan to PDF or email',
                 'Pick-up or delivery',
@@ -13,7 +13,7 @@
             ];
         @endphp
         @foreach (array_merge($ticks, $ticks) as $tick)
-            <span class="inline-flex items-center px-8 shrink-0">
+            <span class="inline-flex items-center px-8 shrink-0 py-8">
                 {!! $tick !!}
             </span>
         @endforeach

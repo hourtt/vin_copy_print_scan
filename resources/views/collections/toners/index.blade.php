@@ -18,8 +18,8 @@
 
     {{-- Hero --}}
     <div class="pt-24 pb-12 px-8 text-center bg-transparent">
-        <h1 class="font-['Fraunces',serif] text-5xl font-medium text-[#27272a] tracking-tight leading-tight">
-            Toners & Ink
+        <h1 class="font-khmer text-5xl font-medium text-[#27272a] tracking-tight leading-tight">
+            ធូន័រ (Toners)
         </h1>
         <p class="mt-4 text-[#71717a] text-lg max-w-[500px] mx-auto">
             Reliable, high-yield cartridges to keep your workspace flowing without interruption.

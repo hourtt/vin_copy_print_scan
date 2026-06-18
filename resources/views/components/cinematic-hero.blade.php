@@ -2,14 +2,13 @@
     <div class="max-w-[1280px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
         <div>
             <h1
-                class="font-['Inter',sans-serif] text-4xl md:text-5xl font-bold text-[var(--ink)] leading-[1.15] tracking-[-0.02em] mb-6">
-                Empowering Your<br>Workspace with Precision
+                class="font-khmer text-2xl md:text-3xl font-medium text-[#1a1a2e] leading-[1.15] tracking-[-0.02em] mb-6 text-center">
+               សូមស្វាគមន៏ មកកាន់ហាងរបស់យើងខ្ញុំ
             </h1>
-            <p class="font-['Inter',sans-serif] text-base md:text-lg text-[var(--ink-muted)] leading-relaxed mb-8 max-w-full md:max-w-[90%]">
-                High-performance printing solutions, reliable toners, and premium paper for modern professionals.
-                Experience clarity in every print.
+            <p class="font-khmer text-base md:text-lg text-[var(--ink-muted)] leading-relaxed mb-6 max-w-full md:max-w-[100%] text-center">
+               ហាងយើងខ្ញុំលក់និងជួលម៉ាសុីនព្រីន, ម៉ាស៊ីនកូពី, ទឹកថ្នាំ(Ink), ធូន័រ(Toner) <br> និងក្រដាសទំហំ A4 និង A3 ក្នុងតម្លៃសមរម្យ
             </p>
-            <div class="flex flex-col sm:flex-row gap-4">
+            <div class="flex flex-col sm:flex-row gap-4 flex items-center justify-center">
                 <a href="{{ route('product-catalog.index') }}"
                     class="flex items-center justify-center gap-2 px-6 py-3 bg-[#1a1a2e] text-white rounded-lg text-base font-semibold hover:bg-[#1a1a2e]/90 transition-colors shadow-[0_4px_16px_rgba(0,0,0,0.1)]">
                     {{ __('Shop All Products') }}
@@ -19,7 +18,7 @@
                         <polyline points="12 5 19 12 12 19"></polyline>
                     </svg>
                 </a>
-                <a href="{{ route('collections.printers.index') }}"
+                <a href="{{ route('product-catalog.index') }}"
                     class="flex items-center justify-center gap-2 px-6 py-3 bg-transparent border border-[#1a1a2e] text-[#1a1a2e] rounded-lg text-base font-semibold hover:bg-[#1a1a2e]/5 transition-colors">
                     {{ __('Explore Categories') }}
                     <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"

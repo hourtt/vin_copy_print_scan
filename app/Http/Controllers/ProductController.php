@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Models\Order;
+use App\Models\User;
+use Carbon\Carbon;
 
 class ProductController extends Controller
 {
@@ -13,11 +16,15 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
-        $products = Product::with('category', 'voucher')->get();
-        $category = Category::all();
-        $heroProduct = Product::with('category')->inRandomOrder()->first();
-        return view('dashboard', compact('products', 'category', 'heroProduct'));
+        $products = Product::with('category', 'brand', 'voucher')->latest()->get();
+        $category = Category::orderBy('sort_order')->get();
+        $featured = Product::with('category', 'brand')
+            ->where('is_featured', true)
+            ->inStock()
+            ->latest()
+            ->take(8)
+            ->get();
+        return view('dashboard', compact('products', 'category', 'featured'));
     }
 
     public function product_catalog_index(Request $request)
@@ -62,11 +69,52 @@ class ProductController extends Controller
         return view('products-catalog.index', compact('products', 'categories'));
     }
 
+    private function calculatePercentageChange($current, $previous)
+    {
+        if ($previous == 0 && $current > 0) return 100;
+        if ($previous == 0 && $current == 0) return 0;
+        return (($current - $previous) / $previous) * 100;
+    }
+
     public function admin_index()
     {
         $products = Product::with('category', 'voucher')->get();
         $category = Category::all();
-        return view('auth.admin.dashboard', compact('products', 'category'));
+
+        $now = Carbon::now();
+        
+        $currentMonthStart = $now->copy()->startOfMonth();
+        $currentMonthEnd = $now->copy()->endOfMonth();
+        $previousMonthStart = $now->copy()->subMonth()->startOfMonth();
+        $previousMonthEnd = $now->copy()->subMonth()->endOfMonth();
+        
+        $currentHourStart = $now->copy()->startOfHour();
+        $currentHourEnd = $now->copy()->endOfHour();
+        $previousHourStart = $now->copy()->subHour()->startOfHour();
+        $previousHourEnd = $now->copy()->subHour()->endOfHour();
+
+        $totalRevenue = Order::where('status', 'delivered')->sum('total') ?? 0;
+        $currentRevenue = Order::where('status', 'delivered')->whereBetween('created_at', [$currentMonthStart, $currentMonthEnd])->sum('total') ?? 0;
+        $previousRevenue = Order::where('status', 'delivered')->whereBetween('created_at', [$previousMonthStart, $previousMonthEnd])->sum('total') ?? 0;
+        $revenueGrowth = $this->calculatePercentageChange($currentRevenue, $previousRevenue);
+
+        $totalOrders = Order::count() ?? 0;
+        $currentOrders = Order::whereBetween('created_at', [$currentMonthStart, $currentMonthEnd])->count();
+        $previousOrders = Order::whereBetween('created_at', [$previousMonthStart, $previousMonthEnd])->count();
+        $orderGrowth = $this->calculatePercentageChange($currentOrders, $previousOrders);
+
+        $activeCustomers = User::where('role', 'user')->count() ?? 0;
+        $currentCustomers = User::where('role', 'user')->whereBetween('created_at', [$currentMonthStart, $currentMonthEnd])->count();
+        $previousCustomers = User::where('role', 'user')->whereBetween('created_at', [$previousMonthStart, $previousMonthEnd])->count();
+        $customerGrowth = $this->calculatePercentageChange($currentCustomers, $previousCustomers);
+
+        $activeIssues = 0;
+        $issueGrowth = $this->calculatePercentageChange(0, 0);
+
+        return view('auth.admin.dashboard', compact(
+            'products', 'category', 'totalRevenue', 'totalOrders', 'activeCustomers', 'activeIssues',
+            'revenueGrowth', 'orderGrowth', 'customerGrowth', 'issueGrowth'
+        ));
     }
 
     public function printers_index()
@@ -83,10 +131,21 @@ class ProductController extends Controller
         return view('collections.toners.index', compact('products', 'category'));
     }
 
+    public function inks_index()
+    {
+        $products = Product::with('category', 'brand', 'voucher')
+            ->whereHas('category', fn($q) => $q->where('slug', 'ink-cartridges'))
+            ->get();
+        $category = Category::orderBy('sort_order')->get();
+        return view('collections.inks.index', compact('products', 'category'));
+    }
+
     public function papers_index()
     {
-        $products = Product::with('category', 'voucher')->get();
-        $category = Category::all();
+        $products = Product::with('category', 'brand', 'voucher')
+            ->whereHas('category', fn($q) => $q->where('slug', 'paper'))
+            ->get();
+        $category = Category::orderBy('sort_order')->get();
         return view('collections.papers.index', compact('products', 'category'));
     }
 

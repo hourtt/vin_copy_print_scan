@@ -11,6 +11,29 @@ class OrderItem extends Model
         'product_id',
         'quantity',
         'unit_price',
-        'subtotal'
+        'subtotal',
     ];
+
+    protected $casts = [
+        'unit_price' => 'decimal:2',
+        'subtotal'   => 'decimal:2',
+    ];
+
+    // ─── Relationships ────────────────────────────────────────────────────────
+
+    /**
+     * The order this item belongs to.
+     */
+    public function order()
+    {
+        return $this->belongsTo(Order::class);
+    }
+
+    /**
+     * The product for this line item.
+     */
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }

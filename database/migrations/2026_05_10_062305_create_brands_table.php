@@ -8,16 +8,15 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
+     * Must run BEFORE products table (products.brand_id references this table).
      */
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('brands', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('slug')->unique();
-            $table->text('description')->nullable();
-            $table->string('icon')->nullable();       // e.g. 'printer', 'toner', 'ink', 'paper'
-            $table->unsignedTinyInteger('sort_order')->default(0);
+            $table->string('logo')->nullable(); // path to brand logo image
             $table->timestamps();
         });
     }
@@ -27,7 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-   //   Schema::table('categories', function (Blueprint $table) {});
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('brands');
     }
 };

@@ -41,6 +41,7 @@
                         <div class="py-1">
                             <a href="{{ route('collections.printers.index') }}" class="block px-4 py-2 text-sm text-[#0D0D0B] hover:bg-gray-100">Printers</a>
                             <a href="{{ route('collections.toners.index') }}" class="block px-4 py-2 text-sm text-[#0D0D0B] hover:bg-gray-100">Toners</a>
+                            <a href="{{ route('collections.inks.index') }}" class="block px-4 py-2 text-sm text-[#0D0D0B] hover:bg-gray-100">Ink Cartridges</a>
                             <a href="{{ route('collections.papers.index') }}" class="block px-4 py-2 text-sm text-[#0D0D0B] hover:bg-gray-100">Papers</a>
                         </div>
                     </div>
@@ -94,8 +95,8 @@
                 @else
                     <!-- Guest links (Desktop/Tablet) -->
                     <div class="hidden sm:flex items-center space-x-4">
-                        <a href="{{ route('login') }}" class="text-sm font-medium text-[#0D0D0B] hover:text-[#0818A8]">Sign In</a>
-                        <a href="{{ route('register') }}" class="text-sm font-medium bg-[#0818A8] text-white px-4 py-2 rounded-md hover:bg-[#15825f]">Register</a>
+                        <a href="{{ route('login') }}" class="text-sm font-medium text-[#0D0D0B]">Sign In</a>
+                        <a href="{{ route('register') }}" class="text-sm font-medium bg-[#0818A8] text-white px-4 py-2 rounded-md hover:bg-[#000000]">Register</a>
                     </div>
                 @endauth
 
@@ -146,6 +147,7 @@
                      class="pl-8 space-y-1">
                     <a href="{{ route('collections.printers.index') }}" class="block px-4 py-2 text-sm font-medium text-gray-500 hover:text-[#0818A8] hover:bg-gray-50">Printers</a>
                     <a href="{{ route('collections.toners.index') }}" class="block px-4 py-2 text-sm font-medium text-gray-500 hover:text-[#0818A8] hover:bg-gray-50">Toners</a>
+                    <a href="{{ route('collections.inks.index') }}" class="block px-4 py-2 text-sm font-medium text-gray-500 hover:text-[#0818A8] hover:bg-gray-50">Ink Cartridges</a>
                     <a href="{{ route('collections.papers.index') }}" class="block px-4 py-2 text-sm font-medium text-gray-500 hover:text-[#0818A8] hover:bg-gray-50">Papers</a>
                 </div>
             </div>

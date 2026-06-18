@@ -12,7 +12,11 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ["Roboto", ...defaultTheme.fontFamily.sans],
+                sans: [
+                    "Noto Sans Khmer",
+                    "Roboto",
+                    ...defaultTheme.fontFamily.sans,
+                ],
             },
             // Ticker Bar Animation
             keyframes: {

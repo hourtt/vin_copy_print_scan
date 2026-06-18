@@ -8,16 +8,16 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
+     * Stores additional product images (a product can have multiple gallery images).
      */
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('product_images', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('slug')->unique();
-            $table->text('description')->nullable();
-            $table->string('icon')->nullable();       // e.g. 'printer', 'toner', 'ink', 'paper'
+            $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
+            $table->string('image_path');
             $table->unsignedTinyInteger('sort_order')->default(0);
+            $table->boolean('is_primary')->default(false); // marks the main display image
             $table->timestamps();
         });
     }
@@ -27,7 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-   //   Schema::table('categories', function (Blueprint $table) {});
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('product_images');
     }
 };
