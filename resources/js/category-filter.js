@@ -1,164 +1,217 @@
 document.addEventListener("DOMContentLoaded", () => {
     // 1. DOM Elements
-    // Works for both #paper-search and #printer-search (or any future category)
     const searchInput = document.querySelector('input[type="search"]');
     const catPills = document.querySelectorAll("#cat-pills .pill");
     const sortSelect = document.getElementById("sort-select");
-    const categorySections = document.querySelectorAll(".category-section");
-    const emptyState = document.getElementById("empty-state");
     const countNum = document.getElementById("count-num");
     const skeletonGrid = document.getElementById("skeleton-grid");
     const productGroups = document.getElementById("product-groups");
+    const emptyState = document.getElementById("empty-state");
+    
+    // Announcer for screen readers
+    let announcer = document.getElementById("aria-announcer");
+    if (!announcer) {
+        announcer = document.createElement("div");
+        announcer.id = "aria-announcer";
+        announcer.setAttribute("aria-live", "polite");
+        announcer.classList.add("sr-only"); // visually hidden
+        document.body.appendChild(announcer);
+    }
 
-    // 2. Initial State
-    let currentCategory = "all";
-    let currentSearch = "";
-    let currentSort = "default";
+    let abortController = null;
 
-    // 3. Initialization & Skeleton Handoff
-    function init() {
-        setTimeout(() => {
-            if (skeletonGrid) skeletonGrid.style.display = "none";
-            if (productGroups) productGroups.style.display = "block";
+    // 2. Initial State from URL
+    function getParams() {
+        const params = new URLSearchParams(window.location.search);
+        return {
+            cat: params.get("cat") || "all",
+            search: params.get("search") || "",
+            sort: params.get("sort") || "default"
+        };
+    }
 
-            // Store original DOM order for 'default' sorting fallback
-            categorySections.forEach((section) => {
-                const cards = Array.from(
-                    section.querySelectorAll(".product-card"),
-                );
-                cards.forEach((card, index) =>
-                    card.setAttribute("data-original-index", index),
-                );
+    function syncUI(params) {
+        if (searchInput && searchInput.value !== params.search) {
+            searchInput.value = params.search;
+        }
+
+        if (sortSelect && sortSelect.value !== params.sort) {
+            sortSelect.value = params.sort;
+        }
+
+        if (catPills.length > 0) {
+            catPills.forEach((p) => {
+                p.classList.remove("active", "border-transparent", "bg-[#27272a]", "text-white");
+                p.classList.add("border-[#e4e4e7]", "bg-white", "text-[#71717a]", "hover:border-[#3f3f46]", "hover:text-[#3f3f46]");
+                
+                if (p.dataset.cat === params.cat) {
+                    p.classList.add("active", "border-transparent", "bg-[#27272a]", "text-white");
+                    p.classList.remove("border-[#e4e4e7]", "bg-white", "text-[#71717a]", "hover:border-[#3f3f46]", "hover:text-[#3f3f46]");
+                }
+            });
+        }
+    }
+
+    // 3. Fetch Update
+    async function updateView(pushState = true) {
+        const params = getParams();
+        
+        // Build URL
+        const url = new URL(window.location.href);
+        Object.keys(params).forEach(key => {
+            if (params[key] && params[key] !== "all" && params[key] !== "default") {
+                url.searchParams.set(key, params[key]);
+            } else {
+                url.searchParams.delete(key);
+            }
+        });
+
+        if (pushState) {
+            window.history.pushState(params, "", url);
+        }
+
+        // Cancel previous request if any
+        if (abortController) {
+            abortController.abort();
+        }
+        abortController = new AbortController();
+
+        // Start animations
+        let showSkeleton = false;
+        if (productGroups) {
+            productGroups.style.opacity = '0';
+        }
+
+        // Show skeleton if request takes > 150ms
+        const skeletonTimeout = setTimeout(() => {
+            showSkeleton = true;
+            if (productGroups) productGroups.style.display = 'none';
+            if (skeletonGrid) skeletonGrid.style.display = 'block';
+        }, 150);
+
+        try {
+            const response = await fetch(url, {
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Accept': 'application/json'
+                },
+                signal: abortController.signal
             });
 
-            updateView();
-        }, 150);
+            if (!response.ok) throw new Error("Network response was not ok");
+            
+            const data = await response.json();
+            clearTimeout(skeletonTimeout);
+
+            // Update DOM
+            if (productGroups) {
+                productGroups.innerHTML = data.html;
+            }
+
+            if (countNum) {
+                countNum.textContent = data.count;
+            }
+
+            if (emptyState) {
+                emptyState.style.display = data.count === 0 ? "flex" : "none";
+            }
+            if (productGroups && data.count === 0) {
+                productGroups.style.display = 'none';
+            } else if (productGroups) {
+                productGroups.style.display = 'block';
+            }
+
+            // Restore from skeleton
+            if (skeletonGrid) {
+                skeletonGrid.style.display = 'none';
+            }
+
+            // Fade in new content
+            if (productGroups && data.count > 0) {
+                // Little slide and fade in
+                productGroups.style.transform = 'translateY(10px)';
+                productGroups.style.opacity = '0';
+                
+                requestAnimationFrame(() => {
+                    productGroups.style.transition = 'opacity 200ms ease, transform 200ms ease';
+                    productGroups.style.transform = 'translateY(0)';
+                    productGroups.style.opacity = '1';
+                });
+            }
+
+            announcer.textContent = `List updated. Showing ${data.count} items.`;
+
+        } catch (error) {
+            if (error.name === 'AbortError') return;
+            console.error("Fetch error:", error);
+            clearTimeout(skeletonTimeout);
+            
+            if (skeletonGrid) skeletonGrid.style.display = 'none';
+            if (productGroups) {
+                productGroups.style.opacity = '1';
+                productGroups.style.display = 'block';
+            }
+            // Show error state
+            if (emptyState) {
+                emptyState.style.display = "flex";
+                emptyState.innerHTML = `<p class="text-lg text-red-500">Failed to load products. Please try again.</p>`;
+                if (productGroups) productGroups.style.display = 'none';
+            }
+        }
+    }
+
+    function setParamAndUpdate(key, value) {
+        const url = new URL(window.location.href);
+        if (value && value !== "all" && value !== "default") {
+            url.searchParams.set(key, value);
+        } else {
+            url.searchParams.delete(key);
+        }
+        window.history.replaceState(null, "", url); // Update URL immediately for state picking up
+        updateView(true);
     }
 
     // 4. Event Listeners
+    let debounceTimer;
     if (searchInput) {
         searchInput.addEventListener("input", (e) => {
-            currentSearch = e.target.value.toLowerCase().trim();
-            updateView();
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+                setParamAndUpdate("search", e.target.value.trim());
+            }, 300); // debounce search
         });
     }
 
     if (catPills.length > 0) {
         catPills.forEach((pill) => {
             pill.addEventListener("click", (e) => {
-                // Reset all pills to inactive Tailwind styles
-                catPills.forEach((p) => {
-                    p.classList.remove("active", "border-transparent", "bg-[#27272a]", "text-white");
-                    p.classList.add("border-[#e4e4e7]", "bg-white", "text-[#71717a]", "hover:border-[#3f3f46]", "hover:text-[#3f3f46]");
-                });
-
-                // Set clicked pill to active Tailwind styles
                 const target = e.currentTarget;
-                target.classList.add("active", "border-transparent", "bg-[#27272a]", "text-white");
-                target.classList.remove("border-[#e4e4e7]", "bg-white", "text-[#71717a]", "hover:border-[#3f3f46]", "hover:text-[#3f3f46]");
-
-                currentCategory = target.dataset.cat;
-                updateView();
+                syncUI({ ...getParams(), cat: target.dataset.cat });
+                setParamAndUpdate("cat", target.dataset.cat);
             });
         });
     }
 
     if (sortSelect) {
         sortSelect.addEventListener("change", (e) => {
-            currentSort = e.target.value;
-            updateView();
+            setParamAndUpdate("sort", e.target.value);
         });
     }
 
-    // 5. Core View Update Logic
-    function updateView() {
-        let globalVisibleCount = 0;
+    window.addEventListener("popstate", () => {
+        syncUI(getParams());
+        updateView(false);
+    });
 
-        categorySections.forEach((section) => {
-            const sectionCat = section.dataset.cat;
-            const grid = section.querySelector(".product-grid");
-            const cards = Array.from(section.querySelectorAll(".product-card"));
-            let sectionVisibleCount = 0;
-
-            // Sort before filtering display
-            sortCards(cards, currentSort);
-            cards.forEach((card) => grid.appendChild(card));
-
-            cards.forEach((card) => {
-                const cardCat = card.dataset.cat;
-                const cardName = (card.dataset.name || "").toLowerCase();
-
-                const matchesCategory =
-                    currentCategory === "all" || currentCategory === cardCat;
-
-                // Strict Name matching only. No description searching.
-                const matchesSearch =
-                    currentSearch === "" || cardName.includes(currentSearch);
-
-                if (matchesCategory && matchesSearch) {
-                    card.style.display = "";
-                    sectionVisibleCount++;
-                    globalVisibleCount++;
-                } else {
-                    card.style.display = "none";
-                }
-            });
-
-            // Hide section wrapper if empty
-            if (
-                sectionVisibleCount === 0 ||
-                (currentCategory !== "all" && currentCategory !== sectionCat)
-            ) {
-                section.style.display = "none";
-                section.classList.add("filter-hidden");
-            } else {
-                section.style.display = "block";
-                section.classList.remove("filter-hidden");
-            }
-        });
-
-        if (countNum) {
-            countNum.textContent = globalVisibleCount;
-        }
-
-        if (emptyState) {
-            emptyState.style.display =
-                globalVisibleCount === 0 ? "flex" : "none";
-        }
+    // Initialize UI on load based on URL params
+    syncUI(getParams());
+    
+    // Initial load: don't fetch if there are no params (serverside render is enough)
+    // But ensure productGroups has transition applied if we want it to work later
+    if (productGroups) {
+        productGroups.style.transition = 'opacity 150ms ease';
     }
-
-    // 6. Sorting Helper (Combines all logic from Printers and Papers)
-    function sortCards(cards, sortType) {
-        cards.sort((a, b) => {
-            const priceA = parseFloat(a.dataset.price) || 0;
-            const priceB = parseFloat(b.dataset.price) || 0;
-            const nameA = a.dataset.name || "";
-            const nameB = b.dataset.name || "";
-            const stockA = parseInt(a.dataset.stock, 10) || 0;
-            const stockB = parseInt(b.dataset.stock, 10) || 0;
-            const yearA = parseInt(a.dataset.year, 10) || 0;
-            const yearB = parseInt(b.dataset.year, 10) || 0;
-
-            switch (sortType) {
-                case "price-asc":
-                    return priceA - priceB;
-                case "price-desc":
-                    return priceB - priceA;
-                case "name-asc":
-                    return nameA.localeCompare(nameB);
-                case "stock-desc":
-                    return stockB - stockA;
-                case "year-desc":
-                    return yearB - yearA;
-                case "default":
-                default:
-                    return (
-                        parseInt(a.dataset.originalIndex) -
-                        parseInt(b.dataset.originalIndex)
-                    );
-            }
-        });
-    }
-
-    init();
+    
+    // Hide skeleton immediately on page load since the server rendered it
+    if (skeletonGrid) skeletonGrid.style.display = "none";
 });
