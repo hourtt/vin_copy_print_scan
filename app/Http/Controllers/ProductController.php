@@ -117,35 +117,140 @@ class ProductController extends Controller
         ));
     }
 
-    public function printers_index()
+    public function printers_index(Request $request)
     {
-        $products = Product::with('category', 'voucher')->get();
+        $query = Product::with('category', 'voucher');
+
+        if ($request->filled('search')) {
+            $query->where('name', 'like', '%' . $request->search . '%');
+        }
+
+        if ($request->filled('cat') && $request->cat !== 'all') {
+            $query->where('category_id', $request->cat);
+        }
+
+        $sort = $request->get('sort', 'default');
+        switch ($sort) {
+            case 'price-asc': $query->orderBy('price', 'asc'); break;
+            case 'price-desc': $query->orderBy('price', 'desc'); break;
+            case 'year-desc': $query->orderBy('created_at', 'desc'); break;
+            case 'name-asc': $query->orderBy('name', 'asc'); break;
+            case 'stock-desc': $query->orderBy('stock', 'desc'); break;
+            default: $query->latest(); break;
+        }
+
+        $products = $query->get();
         $category = Category::all();
+
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json([
+                'html' => view('collections.printers._grid', compact('products'))->render(),
+                'count' => $products->count()
+            ]);
+        }
+
         return view('collections.printers.index', compact('products', 'category'));
     }
 
-    public function toners_index()
+    public function toners_index(Request $request)
     {
-        $products = Product::with('category', 'voucher')->get();
+        $query = Product::with('category', 'voucher');
+
+        if ($request->filled('search')) {
+            $query->where('name', 'like', '%' . $request->search . '%');
+        }
+
+        if ($request->filled('cat') && $request->cat !== 'all') {
+            $query->where('category_id', $request->cat);
+        }
+
+        $sort = $request->get('sort', 'default');
+        switch ($sort) {
+            case 'price-asc': $query->orderBy('price', 'asc'); break;
+            case 'price-desc': $query->orderBy('price', 'desc'); break;
+            case 'name-asc': $query->orderBy('name', 'asc'); break;
+            default: $query->latest(); break;
+        }
+
+        $products = $query->get();
         $category = Category::all();
+
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json([
+                'html' => view('collections.toners._grid', compact('products'))->render(),
+                'count' => $products->count()
+            ]);
+        }
+
         return view('collections.toners.index', compact('products', 'category'));
     }
 
-    public function inks_index()
+    public function inks_index(Request $request)
     {
-        $products = Product::with('category', 'brand', 'voucher')
-            ->whereHas('category', fn($q) => $q->where('slug', 'ink-cartridges'))
-            ->get();
+        $query = Product::with('category', 'brand', 'voucher')
+            ->whereHas('category', fn($q) => $q->where('slug', 'ink-cartridges'));
+
+        if ($request->filled('search')) {
+            $query->where('name', 'like', '%' . $request->search . '%');
+        }
+
+        if ($request->filled('cat') && $request->cat !== 'all') {
+            $query->where('brand_id', $request->cat);
+        }
+
+        $sort = $request->get('sort', 'default');
+        switch ($sort) {
+            case 'price-asc': $query->orderBy('price', 'asc'); break;
+            case 'price-desc': $query->orderBy('price', 'desc'); break;
+            case 'name-asc': $query->orderBy('name', 'asc'); break;
+            default: $query->latest(); break;
+        }
+
+        $products = $query->get();
         $category = Category::orderBy('sort_order')->get();
+
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json([
+                'html' => view('collections.inks._grid', compact('products'))->render(),
+                'count' => $products->count()
+            ]);
+        }
+
         return view('collections.inks.index', compact('products', 'category'));
     }
 
-    public function papers_index()
+    public function papers_index(Request $request)
     {
-        $products = Product::with('category', 'brand', 'voucher')
-            ->whereHas('category', fn($q) => $q->where('slug', 'paper'))
-            ->get();
+        $query = Product::with('category', 'brand', 'voucher')
+            ->whereHas('category', fn($q) => $q->where('slug', 'paper'));
+
+        if ($request->filled('search')) {
+            $query->where('name', 'like', '%' . $request->search . '%');
+        }
+
+        if ($request->filled('cat') && $request->cat !== 'all') {
+            $query->where('category_id', $request->cat);
+        }
+
+        $sort = $request->get('sort', 'default');
+        switch ($sort) {
+            case 'price-asc': $query->orderBy('price', 'asc'); break;
+            case 'price-desc': $query->orderBy('price', 'desc'); break;
+            case 'name-asc': $query->orderBy('name', 'asc'); break;
+            case 'stock-desc': $query->orderBy('stock', 'desc'); break;
+            default: $query->latest(); break;
+        }
+
+        $products = $query->get();
         $category = Category::orderBy('sort_order')->get();
+
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json([
+                'html' => view('collections.papers._grid', compact('products'))->render(),
+                'count' => $products->count()
+            ]);
+        }
+
         return view('collections.papers.index', compact('products', 'category'));
     }
 
