@@ -23,7 +23,7 @@
 }
 
 .hero h1 {
-    font-family: "Fraunces", serif;
+    font-family: "Noto Sans Khmer", sans-serif;
     font-size: clamp(2.4rem, 5vw, 3.6rem);
     font-weight: 900;
     line-height: 1.05;
@@ -52,7 +52,7 @@
 
 /* Auth-aware hero greeting */
 .hero-greeting {
-    font-family: "Fraunces", serif;
+    font-family: "Noto Sans Khmer", sans-serif;
     font-size: clamp(2.4rem, 5vw, 3.6rem);
     font-weight: 900;
     line-height: 1.05;
@@ -130,7 +130,7 @@
 }
 
 .card-main-body h4 {
-    font-family: "Roboto", serif;
+    font-family: "Noto Sans Khmer", sans-serif;
     font-weight: 700;
     font-size: 1.1rem;
     margin-bottom: 0.25rem;

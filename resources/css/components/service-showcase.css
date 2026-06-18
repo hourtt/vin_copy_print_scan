@@ -26,7 +26,7 @@
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05);
 }
 .title {
-    font-family: "Inter", sans-serif;
+    font-family: "Noto Sans Khmer", sans-serif;
     font-size: 1.25rem;
     font-weight: 600;
     color: var(--ink);
@@ -41,7 +41,7 @@
     max-width: 1280px;
     margin: 0 auto;
     text-align: center;
-    font-family: "Inter", sans-serif;
+    font-family: "Noto Sans Khmer", sans-serif;
     font-size: 2rem;
     font-weight: 600;
     color: var(--ink);

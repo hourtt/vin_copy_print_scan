@@ -16,7 +16,7 @@ html {
 }
 
 body {
-    font-family: "DM Sans", sans-serif;
+    font-family: "Noto Sans Khmer", sans-serif;
     background: var(--surface);
     color: var(--ink-soft);
     overflow-x: hidden;
@@ -204,7 +204,7 @@ a {
 }
 
 .section-header h2 {
-    font-family: "Fraunces", serif;
+    font-family: "Noto Sans Khmer", sans-serif;
     font-size: 1.75rem;
     font-weight: 700;
     letter-spacing: -0.02em;

@@ -62,7 +62,7 @@
 }
 
 .profile-avatar-initials {
-    font-family: "DM Sans", sans-serif;
+    font-family: "Noto Sans Khmer", sans-serif;
     font-size: 2.2rem;
     font-weight: 700;
     color: var(--surface);
@@ -73,7 +73,7 @@
 }
 
 .profile-user-name {
-    font-family: "DM Sans", sans-serif;
+    font-family: "Noto Sans Khmer", sans-serif;
     font-size: 1.5rem;
     font-weight: 700;
     color: var(--ink);
@@ -83,7 +83,7 @@
 }
 
 .profile-user-email {
-    font-family: "DM Sans", sans-serif;
+    font-family: "Noto Sans Khmer", sans-serif;
     font-size: 0.9rem;
     color: var(--ink-muted);
     text-align: center;
@@ -100,7 +100,7 @@
     border: 1.5px solid var(--border);
     background: var(--surface);
     color: var(--ink-soft);
-    font-family: "DM Sans", sans-serif;
+    font-family: "Noto Sans Khmer", sans-serif;
     font-size: 0.82rem;
     font-weight: 500;
     cursor: pointer;
@@ -207,7 +207,7 @@
 
 .profile-menu-title {
     text-align: left;
-    font-family: "DM Sans", sans-serif;
+    font-family: "Noto Sans Khmer", sans-serif;
     font-size: 0.97rem;
     font-weight: 600;
     color: var(--ink);
@@ -217,7 +217,7 @@
 
 .profile-menu-sub {
     text-align: left;
-    font-family: "DM Sans", sans-serif;
+    font-family: "Noto Sans Khmer", sans-serif;
     font-size: 0.78rem;
     color: var(--ink-muted);
     margin: 0;
@@ -239,7 +239,7 @@
 
 /* ─── Section Divider Label ─── */
 .profile-section-label {
-    font-family: "DM Sans", sans-serif;
+    font-family: "Noto Sans Khmer", sans-serif;
     font-size: 0.72rem;
     font-weight: 600;
     color: var(--ink-faint);
@@ -259,7 +259,7 @@
     border: 1.5px solid rgba(216, 90, 48, 0.3);
     border-radius: var(--r);
     color: var(--coral);
-    font-family: "DM Sans", sans-serif;
+    font-family: "Noto Sans Khmer", sans-serif;
     font-size: 0.95rem;
     font-weight: 600;
     cursor: pointer;
@@ -333,7 +333,7 @@
 }
 
 .profile-modal-title {
-    font-family: "DM Sans", sans-serif;
+    font-family: "Noto Sans Khmer", sans-serif;
     font-size: 1.05rem;
     font-weight: 700;
     color: var(--ink);
@@ -373,7 +373,7 @@
 
 .profile-form-label {
     display: block;
-    font-family: "DM Sans", sans-serif;
+    font-family: "Noto Sans Khmer", sans-serif;
     font-size: 0.8rem;
     font-weight: 600;
     color: var(--ink-muted);
@@ -395,7 +395,7 @@
     color: white;
     border: none;
     border-radius: var(--r-sm);
-    font-family: "DM Sans", sans-serif;
+    font-family: "Noto Sans Khmer", sans-serif;
     font-size: 0.9rem;
     font-weight: 600;
     cursor: pointer;
@@ -413,7 +413,7 @@
     color: var(--ink-soft);
     border: none;
     border-radius: var(--r-sm);
-    font-family: "DM Sans", sans-serif;
+    font-family: "Noto Sans Khmer", sans-serif;
     font-size: 0.9rem;
     font-weight: 600;
     cursor: pointer;
@@ -434,7 +434,7 @@
     border: 1px solid rgba(29, 158, 117, 0.25);
     border-radius: var(--r-sm);
     color: var(--brand-dark);
-    font-family: "DM Sans", sans-serif;
+    font-family: "Noto Sans Khmer", sans-serif;
     font-size: 0.85rem;
     font-weight: 500;
     margin-bottom: 1rem;
@@ -442,7 +442,7 @@
 
 /* ─── Coming Soon Badge ─── */
 .profile-badge-coming {
-    font-family: "DM Sans", sans-serif;
+    font-family: "Noto Sans Khmer", sans-serif;
     font-size: 0.68rem;
     font-weight: 600;
     text-transform: uppercase;

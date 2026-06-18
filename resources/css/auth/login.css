@@ -35,7 +35,7 @@ body .auth-page {
 
 /* Headings */
 .auth-title {
-    font-family: "Fraunces", serif;
+    font-family: "Noto Sans Khmer", sans-serif;
     font-size: 1.75rem;
     color: var(--ink);
     font-weight: 700;
