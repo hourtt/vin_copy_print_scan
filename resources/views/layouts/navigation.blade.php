@@ -4,9 +4,8 @@
         <!-- Flex wrapper -->
         <div class="flex justify-between h-16">
             
-            <!-- Left: Logo -->
             <div class="flex-shrink-0 flex items-center">
-                <a href="{{ route('dashboard') }}">
+                <a href="{{ Auth::check() ? Auth::user()->getRedirectRoute() : route('dashboard') }}">
                     <img class="h-10 w-auto rounded-lg" src="{{ asset('storage/images/logo-icon-only.png') }}" alt="Logo">
                 </a>
             </div>
@@ -14,7 +13,7 @@
             <!-- Center: Desktop Links (Hidden below lg) -->
             <div class="hidden lg:flex lg:items-center lg:space-x-8">
                 <!-- Home -->
-                <a href="{{ route('dashboard') }}" class="relative group text-[#0D0D0B] hover:text-[#0818A8] px-3 py-2 rounded-md text-sm font-medium">
+                <a href="{{ Auth::check() ? Auth::user()->getRedirectRoute() : route('dashboard') }}" class="relative group text-[#0D0D0B] hover:text-[#0818A8] px-3 py-2 rounded-md text-sm font-medium">
                     Home
                     <span class="absolute bottom-0 left-0 w-full h-0.5 bg-[#0818A8] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
                 </a>
@@ -127,7 +126,7 @@
          x-cloak 
          class="lg:hidden border-t border-gray-200 bg-white">
         <div class="pt-2 pb-3 space-y-1">
-            <a href="{{ route('dashboard') }}" class="block px-4 py-2 text-base font-medium text-[#0D0D0B] hover:text-[#0818A8] hover:bg-gray-50">Home</a>
+            <a href="{{ Auth::check() ? Auth::user()->getRedirectRoute() : route('dashboard') }}" class="block px-4 py-2 text-base font-medium text-[#0D0D0B] hover:text-[#0818A8] hover:bg-gray-50">Home</a>
             
             <div x-data="{ mobileProductsOpen: false }">
                 <button @click="mobileProductsOpen = !mobileProductsOpen" class="w-full flex items-center justify-between px-4 py-2 text-base font-medium text-[#0D0D0B] hover:text-[#0818A8] hover:bg-gray-50">
