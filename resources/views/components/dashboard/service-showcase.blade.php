@@ -1,7 +1,7 @@
 <section class="py-16 md:py-15 bg-white font-sans">
     <div class="max-w-7xl mx-auto px-4 md:px-8">
         <h2 class="text-3xl md:text-4xl font-bold text-center text-[#1a1a2e] mb-12 md:mb-16">
-            The Advantage
+            ហេតុអ្វីត្រូវជ្រើសរើសសេវាកម្មរបស់ហាងយើងខ្ញុំ?
         </h2>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -15,10 +15,10 @@
                     </svg>
                 </div>
                 <h3 class="text-xl font-bold text-[#1a1a2e] mb-3">
-                    Best Services
+                   សេវាកម្មល្អ  
                 </h3>
                 <p class="text-[#1a1a2e]/70 leading-relaxed">
-                    We provide a wide range of printing services to meet your diverse needs.
+                   យើងខ្ញុំផ្តល់ជូននូវសេវាកម្មដ៏ល្អសម្រាប់អតិថិជនគ្រប់រូប
                 </p>
             </div>
 
@@ -32,10 +32,10 @@
                     </svg>
                 </div>
                 <h3 class="text-xl font-bold text-[#1a1a2e] mb-3">
-                    Valid Guarantee
+                    មានការធានាច្បាស់លាស់
                 </h3>
                 <p class="text-[#1a1a2e]/70 leading-relaxed">
-                    We stand behind our work with a comprehensive guarantee, ensuring your satisfaction.
+                   យើងខ្ញុំមានការធានាយ៉ាងត្រេឹមត្រូវជូនអតិថិជនគ្រប់រូបទៅលើសេវាកម្មរបស់ពួកយើង
                 </p>
             </div>
 
@@ -49,10 +49,10 @@
                     </svg>
                 </div>
                 <h3 class="text-xl font-bold text-[#1a1a2e] mb-3">
-                    Reliable Support
+                    ផ្តល់ទំនុកចិត្ត
                 </h3>
                 <p class="text-[#1a1a2e]/70 leading-relaxed">
-                    24/7 technical assistance and seamless warranty services for peace of mind.
+                    រាល់ម៉ាស៊ីនព្រីន, ទឹកថ្នាំ, ធូន័រណាដែលបងប្អូនប្រើមានបញ្ហាពីខាងយើងខ្ញុំ, យើងខ្ញុំនឹងធ្វើការឆែកជូនឬផ្លាស់ប្តូរថ្មីជូនភ្លាមៗ
                 </p>
             </div>
         </div>
