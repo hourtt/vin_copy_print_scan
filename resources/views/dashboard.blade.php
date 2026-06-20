@@ -30,7 +30,7 @@
 
 
     {{--  SERVICES SHOWCASE --}}
-    @include('components.dashboard.service-showcase')
+    @include('components.dashboard.the-advantage')
 
     {{-- HOW IT WORKS --}}
     @include('components.dashboard.how-it-works')
