@@ -51,14 +51,17 @@
         </div>
 
         {{-- Sort --}}
-        <select id="sort-select" aria-label="Sort toners"
-            class="py-[0.65rem] pl-4 pr-9 border border-[#e4e4e7] rounded-lg text-sm text-[#27272a] bg-white cursor-pointer focus:outline-none focus:border-[#3f3f46] transition-colors appearance-none"
-            style="background-image: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"%235f5e5a\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M6 9l6 6 6-6\"/></svg>'); background-repeat: no-repeat; background-position: right 0.8rem center; background-size: 14px;">
-            <option value="default">Sort: Default</option>
-            <option value="price-asc">Price: Low - High</option>
-            <option value="price-desc">Price: High - Low</option>
-            <option value="name-asc">Name: A - Z</option>
-        </select>
+        <x-sort-dropdown
+            id="sort-select"
+            :options="[
+                'default'    => 'Sort: Default',
+                'price-asc'  => 'Price: Low → High',
+                'price-desc' => 'Price: High → Low',
+                'name-asc'   => 'Name A → Z',
+            ]"
+            label="Sort toners"
+        />
+
     </div>
 
     {{-- Main content --}}

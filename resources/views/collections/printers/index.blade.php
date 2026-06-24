@@ -19,7 +19,7 @@
     {{-- Hero --}}
     <div class="pt-24 pb-12 px-8 text-center bg-transparent">
         <h1 class="font-khmer text-5xl font-medium text-[#27272a] tracking-tight leading-tight">
-            Printers
+            (ព្រីនធ័រ)Printers
         </h1>
         <p class="mt-4 text-[#71717a] text-lg max-w-[500px] mx-auto">
             Find the perfect printer for your home or office
@@ -55,23 +55,18 @@
         </div>
 
         {{-- Sort --}}
-        <div class="relative w-64 group">
-            <select id="sort-select" aria-label="Sort printers"
-                class="w-full py-[0.65rem] pl-4 pr-9 border border-zinc-200 rounded-lg text-sm text-zinc-800 bg-white bg-none cursor-pointer appearance-none outline-none transition-all duration-200 hover:border-zinc-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20">
-                <option value="default">Sort: Default</option>
-                <option value="price-asc">Price: Low → High</option>
-                <option value="price-desc">Price: High → Low</option>
-                <option value="year-desc">Newest Model First</option>
-                <option value="name-asc">Name A → Z</option>
-                <option value="stock-desc">Most in Stock</option>
-            </select>
-
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                class="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none transition-transform duration-200 group-focus-within:rotate-180 group-focus-within:text-blue-500">
-                <path d="M6 9l6 6 6-6" />
-            </svg>
-        </div>
+        <x-sort-dropdown
+            id="sort-select"
+            :options="[
+                'default'    => 'Sort: Default',
+                'price-asc'  => 'Price: Low → High',
+                'price-desc' => 'Price: High → Low',
+                'year-desc'  => 'Newest Model First',
+                'name-asc'   => 'Name A → Z',
+                'stock-desc' => 'Most in Stock',
+            ]"
+            label="Sort printers"
+        />
     </div>
 
     {{-- Main content --}}
