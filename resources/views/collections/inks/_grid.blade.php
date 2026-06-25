@@ -27,7 +27,8 @@
 
                 <article
                     class="product-card group bg-white border border-[#e4e4e7] rounded-xl sm:rounded-2xl overflow-hidden flex flex-col shadow-sm hover:-translate-y-1 hover:shadow-md transition-all duration-300 ease-in-out"
-                    data-cat="{{ $product->brand_id }}"
+                    data-cat="{{ $product->category_id }}"
+                    data-brand="{{ $product->brand_id ?? '' }}"
                     data-name="{{ strtolower($product->name) }}"
                     data-price="{{ $product->price }}">
 

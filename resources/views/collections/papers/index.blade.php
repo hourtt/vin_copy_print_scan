@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Papers — {{ config('app.name') }}</title>
+    <title>ក្រដាសរ៉ាម (Papers) — {{ config('app.name') }}</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=fraunces:400,500,600,700,900i&family=dm-sans:300,400,500"
         rel="stylesheet" />
@@ -19,10 +19,10 @@
     {{-- Hero --}}
     <div class="pt-24 pb-12 px-8 text-center bg-transparent">
         <h1 class="font-khmer text-5xl font-medium text-[#27272a] tracking-tight leading-tight">
-            ក្រដាស (Papers)
+            ក្រដាសរ៉ាម (Papers)
         </h1>
         <p class="mt-4 text-[#71717a] text-lg max-w-[500px] mx-auto">
-            ក្រដាសរ៉ាមដែលមានគុណភាពល្អ ប្រើយ៉ាងមានទំនុកចិត្ត មិនព្រួយបារម្ភអំពីការធ្វើឲ្យម៉ាស៊ីនមានបញ្ហា
+            ហាងរបស់យើងខ្ញុំមានលក់នូវ ក្រដាសរ៉ាមដែលមានគុណភាពល្អ ប្រើយ៉ាងមានទំនុកចិត្ត មិនព្រួយបារម្ភអំពីការធ្វើឲ្យម៉ាស៊ីនមានបញ្ហា
         </p>
     </div>
 
@@ -41,15 +41,16 @@
                 class="w-full pl-11 pr-4 py-3 border border-[#e4e4e7] rounded-lg text-sm bg-white text-[#27272a] placeholder-[#71717a] focus:outline-none focus:border-[#3f3f46] focus:ring-2 focus:ring-[#3f3f46]/10 transition-all">
         </div>
 
-        {{-- Category Pills --}}
+        {{-- Brand Pills --}}
         <div class="flex flex-wrap gap-2 pb-1" id="cat-pills">
             <button class="pill active px-4 py-2 rounded-full border border-transparent bg-[#27272a] text-white text-sm font-medium transition-all duration-200 cursor-pointer"
                 data-cat="all">All</button>
-            @foreach ($category as $cat)
+            @foreach ($brands as $brand)
                 <button class="pill px-4 py-2 rounded-full border border-[#e4e4e7] bg-white text-[#71717a] text-sm font-medium transition-all duration-200 cursor-pointer hover:border-[#3f3f46] hover:text-[#3f3f46]"
-                    data-cat="{{ $cat->id }}">{{ $cat->name }}</button>
+                    data-cat="{{ $brand->id }}">{{ $brand->name }}</button>
             @endforeach
         </div>
+
 
         {{-- Sort --}}
         <x-sort-dropdown

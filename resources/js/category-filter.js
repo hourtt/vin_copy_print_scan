@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const skeletonGrid = document.getElementById("skeleton-grid");
     const productGroups = document.getElementById("product-groups");
     const emptyState = document.getElementById("empty-state");
-    
+
     // Announcer for screen readers
     let announcer = document.getElementById("aria-announcer");
     if (!announcer) {
@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
             catPills.forEach((p) => {
                 p.classList.remove("active", "border-transparent", "bg-[#27272a]", "text-white");
                 p.classList.add("border-[#e4e4e7]", "bg-white", "text-[#71717a]", "hover:border-[#3f3f46]", "hover:text-[#3f3f46]");
-                
+
                 if (p.dataset.cat === params.cat) {
                     p.classList.add("active", "border-transparent", "bg-[#27272a]", "text-white");
                     p.classList.remove("border-[#e4e4e7]", "bg-white", "text-[#71717a]", "hover:border-[#3f3f46]", "hover:text-[#3f3f46]");
@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // 3. Fetch Update
     async function updateView(pushState = true) {
         const params = getParams();
-        
+
         // Build URL
         const url = new URL(window.location.href);
         Object.keys(params).forEach(key => {
@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             if (!response.ok) throw new Error("Network response was not ok");
-            
+
             const data = await response.json();
             clearTimeout(skeletonTimeout);
 
@@ -128,10 +128,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // Fade in new content
             if (productGroups && data.count > 0) {
-                // Little slide and fade in
                 productGroups.style.transform = 'translateY(10px)';
                 productGroups.style.opacity = '0';
-                
+
                 requestAnimationFrame(() => {
                     productGroups.style.transition = 'opacity 200ms ease, transform 200ms ease';
                     productGroups.style.transform = 'translateY(0)';
@@ -145,7 +144,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (error.name === 'AbortError') return;
             console.error("Fetch error:", error);
             clearTimeout(skeletonTimeout);
-            
+
             if (skeletonGrid) skeletonGrid.style.display = 'none';
             if (productGroups) {
                 productGroups.style.opacity = '1';
@@ -167,7 +166,7 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
             url.searchParams.delete(key);
         }
-        window.history.replaceState(null, "", url); // Update URL immediately for state picking up
+        window.history.replaceState(null, "", url);
         updateView(true);
     }
 
@@ -205,13 +204,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Initialize UI on load based on URL params
     syncUI(getParams());
-    
-    // Initial load: don't fetch if there are no params (serverside render is enough)
-    // But ensure productGroups has transition applied if we want it to work later
+
+    // Ensure productGroups has transition applied
     if (productGroups) {
         productGroups.style.transition = 'opacity 150ms ease';
     }
-    
+
     // Hide skeleton immediately on page load since the server rendered it
     if (skeletonGrid) skeletonGrid.style.display = "none";
 });

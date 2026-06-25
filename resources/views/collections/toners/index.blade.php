@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Toners & Ink - {{ config('app.name') }}</title>
+    <title>ធូន័រ​ (Toners) - {{ config('app.name') }}</title>
 
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=fraunces:400,500,600|dm-sans:400,500,600" rel="stylesheet" />
@@ -40,13 +40,13 @@
                 class="w-full pl-11 pr-4 py-3 border border-[#e4e4e7] rounded-lg text-sm bg-white text-[#27272a] placeholder-[#71717a] focus:outline-none focus:border-[#3f3f46] focus:ring-2 focus:ring-[#3f3f46]/10 transition-all">
         </div>
 
-        {{-- Category Pills --}}
+        {{-- Brand Pills --}}
         <div class="flex flex-wrap gap-2 pb-1" id="cat-pills">
             <button class="pill active px-4 py-2 rounded-full border border-transparent bg-[#27272a] text-white text-sm font-medium transition-all duration-200 cursor-pointer"
                 data-cat="all">All</button>
-            @foreach ($category as $cat)
+            @foreach ($brands as $brand)
                 <button class="pill px-4 py-2 rounded-full border border-[#e4e4e7] bg-white text-[#71717a] text-sm font-medium transition-all duration-200 cursor-pointer hover:border-[#3f3f46] hover:text-[#3f3f46]"
-                    data-cat="{{ $cat->id }}">{{ $cat->name }}</button>
+                    data-cat="{{ $brand->id }}">{{ $brand->name }}</button>
             @endforeach
         </div>
 
