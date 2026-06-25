@@ -23,7 +23,9 @@
         </h1>
         <p class="mt-4 text-[#71717a] text-lg max-w-[500px] mx-auto">
             ទឹកថ្នាំគ្រប់ប្រភេទ ធានាតម្លៃ និងគុណភាព សម្រាប់ម៉ាស៊ីនរបស់លោកអ្នក
+        </p>
     </div>
+
 
     {{-- Controls bar --}}
     <div class="sticky top-0 z-30 flex flex-wrap items-center justify-between gap-6 px-6 py-4 bg-white border border-[#e4e4e7] rounded-2xl shadow-sm max-w-[1320px] mx-auto mb-8">
@@ -39,25 +41,30 @@
                 class="w-full pl-11 pr-4 py-3 border border-[#e4e4e7] rounded-lg text-sm bg-white text-[#27272a] placeholder-[#71717a] focus:outline-none focus:border-[#3f3f46] focus:ring-2 focus:ring-[#3f3f46]/10 transition-all">
         </div>
 
+
         {{-- Brand Pills --}}
         <div class="flex flex-wrap gap-2 pb-1" id="cat-pills">
             <button class="pill active px-4 py-2 rounded-full border border-transparent bg-[#27272a] text-white text-sm font-medium transition-all duration-200 cursor-pointer"
                 data-cat="all">All</button>
-            @foreach ($category as $cat)
+            @foreach ($brands as $brand)
                 <button class="pill px-4 py-2 rounded-full border border-[#e4e4e7] bg-white text-[#71717a] text-sm font-medium transition-all duration-200 cursor-pointer hover:border-[#3f3f46] hover:text-[#3f3f46]"
-                    data-cat="{{ $cat->id }}">{{ $cat->name }}</button>
+                    data-cat="{{ $brand->id }}">{{ $brand->name }}</button>
             @endforeach
         </div>
 
+
         {{-- Sort --}}
-        <select id="sort-select" aria-label="Sort ink cartridges"
-            class="py-[0.65rem] pl-4 pr-9 border border-[#e4e4e7] rounded-lg text-sm text-[#27272a] bg-white cursor-pointer focus:outline-none focus:border-[#3f3f46] transition-colors appearance-none"
-            style="background-image: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"%235f5e5a\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M6 9l6 6 6-6\"/></svg>'); background-repeat: no-repeat; background-position: right 0.8rem center; background-size: 14px;">
-            <option value="default">Sort: Default</option>
-            <option value="price-asc">Price: Low - High</option>
-            <option value="price-desc">Price: High - Low</option>
-            <option value="name-asc">Name: A - Z</option>
-        </select>
+        <x-sort-dropdown
+            id="sort-select"
+            :options="[
+                'default'    => 'Sort: Default',
+                'price-asc'  => 'Price: Low → High',
+                'price-desc' => 'Price: High → Low',
+                'name-asc'   => 'Name A → Z',
+            ]"
+            label="Sort ink cartridges"
+        />
+
     </div>
 
     {{-- Main content --}}

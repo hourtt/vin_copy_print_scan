@@ -44,4 +44,12 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Get the appropriate dashboard route based on user role.
+     */
+    public function getRedirectRoute(): string
+    {
+        return $this->role === 'admin' ? route('admin.dashboard') : route('dashboard');
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -119,70 +120,76 @@ class ProductController extends Controller
 
     public function printers_index(Request $request)
     {
-        $query = Product::with('category', 'voucher');
+        $query = Product::with('category', 'brand', 'voucher');
 
         if ($request->filled('search')) {
             $query->where('name', 'like', '%' . $request->search . '%');
         }
 
+        // Pills are now brand pills — filter by brand_id
         if ($request->filled('cat') && $request->cat !== 'all') {
-            $query->where('category_id', $request->cat);
+            $query->where('brand_id', $request->cat);
         }
 
         $sort = $request->get('sort', 'default');
         switch ($sort) {
-            case 'price-asc': $query->orderBy('price', 'asc'); break;
-            case 'price-desc': $query->orderBy('price', 'desc'); break;
-            case 'year-desc': $query->orderBy('created_at', 'desc'); break;
-            case 'name-asc': $query->orderBy('name', 'asc'); break;
-            case 'stock-desc': $query->orderBy('stock', 'desc'); break;
-            default: $query->latest(); break;
+            case 'price-asc':  $query->orderBy('price', 'asc');       break;
+            case 'price-desc': $query->orderBy('price', 'desc');      break;
+            case 'year-desc':  $query->orderBy('created_at', 'desc'); break;
+            case 'name-asc':   $query->orderBy('name', 'asc');        break;
+            case 'stock-desc': $query->orderBy('stock', 'desc');      break;
+            default:           $query->latest();                       break;
         }
 
         $products = $query->get();
-        $category = Category::all();
+
+        // Brands that actually appear on this page (unfiltered)
+        $brands = Brand::whereHas('products')->orderBy('name')->get();
 
         if ($request->ajax() || $request->wantsJson()) {
             return response()->json([
-                'html' => view('collections.printers._grid', compact('products'))->render(),
-                'count' => $products->count()
+                'html'  => view('collections.printers._grid', compact('products'))->render(),
+                'count' => $products->count(),
             ]);
         }
 
-        return view('collections.printers.index', compact('products', 'category'));
+        return view('collections.printers.index', compact('products', 'brands'));
     }
 
     public function toners_index(Request $request)
     {
-        $query = Product::with('category', 'voucher');
+        $query = Product::with('category', 'brand', 'voucher');
 
         if ($request->filled('search')) {
             $query->where('name', 'like', '%' . $request->search . '%');
         }
 
+        // Pills are now brand pills — filter by brand_id
         if ($request->filled('cat') && $request->cat !== 'all') {
-            $query->where('category_id', $request->cat);
+            $query->where('brand_id', $request->cat);
         }
 
         $sort = $request->get('sort', 'default');
         switch ($sort) {
-            case 'price-asc': $query->orderBy('price', 'asc'); break;
+            case 'price-asc':  $query->orderBy('price', 'asc');  break;
             case 'price-desc': $query->orderBy('price', 'desc'); break;
-            case 'name-asc': $query->orderBy('name', 'asc'); break;
-            default: $query->latest(); break;
+            case 'name-asc':   $query->orderBy('name', 'asc');   break;
+            default:           $query->latest();                  break;
         }
 
         $products = $query->get();
-        $category = Category::all();
+
+        // Brands that actually appear on this page (unfiltered)
+        $brands = Brand::whereHas('products')->orderBy('name')->get();
 
         if ($request->ajax() || $request->wantsJson()) {
             return response()->json([
-                'html' => view('collections.toners._grid', compact('products'))->render(),
-                'count' => $products->count()
+                'html'  => view('collections.toners._grid', compact('products'))->render(),
+                'count' => $products->count(),
             ]);
         }
 
-        return view('collections.toners.index', compact('products', 'category'));
+        return view('collections.toners.index', compact('products', 'brands'));
     }
 
     public function inks_index(Request $request)
@@ -194,29 +201,34 @@ class ProductController extends Controller
             $query->where('name', 'like', '%' . $request->search . '%');
         }
 
+        // Pills filter by brand_id
         if ($request->filled('cat') && $request->cat !== 'all') {
             $query->where('brand_id', $request->cat);
         }
 
         $sort = $request->get('sort', 'default');
         switch ($sort) {
-            case 'price-asc': $query->orderBy('price', 'asc'); break;
+            case 'price-asc':  $query->orderBy('price', 'asc');  break;
             case 'price-desc': $query->orderBy('price', 'desc'); break;
-            case 'name-asc': $query->orderBy('name', 'asc'); break;
-            default: $query->latest(); break;
+            case 'name-asc':   $query->orderBy('name', 'asc');   break;
+            default:           $query->latest();                  break;
         }
 
         $products = $query->get();
-        $category = Category::orderBy('sort_order')->get();
+
+        // Brands that have ink-cartridge products
+        $brands = Brand::whereHas('products', fn($q) =>
+            $q->whereHas('category', fn($q2) => $q2->where('slug', 'ink-cartridges'))
+        )->orderBy('name')->get();
 
         if ($request->ajax() || $request->wantsJson()) {
             return response()->json([
-                'html' => view('collections.inks._grid', compact('products'))->render(),
-                'count' => $products->count()
+                'html'  => view('collections.inks._grid', compact('products'))->render(),
+                'count' => $products->count(),
             ]);
         }
 
-        return view('collections.inks.index', compact('products', 'category'));
+        return view('collections.inks.index', compact('products', 'brands'));
     }
 
     public function papers_index(Request $request)
@@ -228,30 +240,35 @@ class ProductController extends Controller
             $query->where('name', 'like', '%' . $request->search . '%');
         }
 
+        // Pills are now brand pills — filter by brand_id
         if ($request->filled('cat') && $request->cat !== 'all') {
-            $query->where('category_id', $request->cat);
+            $query->where('brand_id', $request->cat);
         }
 
         $sort = $request->get('sort', 'default');
         switch ($sort) {
-            case 'price-asc': $query->orderBy('price', 'asc'); break;
+            case 'price-asc':  $query->orderBy('price', 'asc');  break;
             case 'price-desc': $query->orderBy('price', 'desc'); break;
-            case 'name-asc': $query->orderBy('name', 'asc'); break;
+            case 'name-asc':   $query->orderBy('name', 'asc');   break;
             case 'stock-desc': $query->orderBy('stock', 'desc'); break;
-            default: $query->latest(); break;
+            default:           $query->latest();                  break;
         }
 
         $products = $query->get();
-        $category = Category::orderBy('sort_order')->get();
+
+        // Brands that have paper products
+        $brands = Brand::whereHas('products', fn($q) =>
+            $q->whereHas('category', fn($q2) => $q2->where('slug', 'paper'))
+        )->orderBy('name')->get();
 
         if ($request->ajax() || $request->wantsJson()) {
             return response()->json([
-                'html' => view('collections.papers._grid', compact('products'))->render(),
-                'count' => $products->count()
+                'html'  => view('collections.papers._grid', compact('products'))->render(),
+                'count' => $products->count(),
             ]);
         }
 
-        return view('collections.papers.index', compact('products', 'category'));
+        return view('collections.papers.index', compact('products', 'brands'));
     }
 
     /**

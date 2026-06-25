@@ -1,44 +1,81 @@
-<footer class="shop-footer">
-    <div class="footer-container">
+<footer class="bg-white border-t border-[var(--ink)]/10">
+    <div class="max-w-6xl mx-auto px-6 py-12 grid grid-cols-1 sm:grid-cols-3 gap-10">
+
+        {{-- Brand --}}
         <div>
-            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; color: var(--ink);">
-                <img src="{{asset("storage/images/logo-icon-only.png")}}" alt="Logo" width="70" style="border-radius: 12px;">
-                <span style="font-weight: 700; font-size: 1.25rem;">Vin Copy Print Scan</span>
+            <div class="flex items-center gap-2 mb-4 text-[var(--ink)]">
+                <img src="{{ asset('storage/images/logo-icon-only.png') }}" alt="Logo" width="70"
+                    class="rounded-xl">
+                <span class="font-bold text-xl">Vin Copy Print Scan</span>
             </div>
-            <p style="color: var(--ink-muted); font-size: 0.875rem; line-height: 1.6; max-width: 300px;">
-                Your trusted partner for comprehensive printing, copying, scanning, and binding solutions in Sihanoukville. Quality, and reliability guaranteed.
+            <p class="text-sm leading-relaxed text-[var(--ink-muted)] max-w-[300px]">
+                Your trusted partner for comprehensive printing, copying, scanning, and binding solutions in
+                Sihanoukville. Quality, and reliability guaranteed.
             </p>
         </div>
-        
+
+        {{-- Quick Links --}}
         <div>
-            <h4 style="font-weight: 600; font-size: 0.875rem; color: var(--ink); margin-bottom: 1.25rem;">Quick Links</h4>
-            <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.75rem;">
-                <li><a href="#" style="color: var(--ink-muted); text-decoration: none; font-size: 0.875rem;">Privacy Policy</a></li>
-                <li><a href="#" style="color: var(--ink-muted); text-decoration: none; font-size: 0.875rem;">Terms of Service</a></li>
-                <li><a href="#" style="color: var(--ink-muted); text-decoration: none; font-size: 0.875rem;">Shipping Info</a></li>
-                <li><a href="#" style="color: var(--ink-muted); text-decoration: none; font-size: 0.875rem;">FAQ</a></li>
+            <h4 class="font-semibold text-sm text-[var(--ink)] mb-5">Quick Links</h4>
+            <ul class="space-y-3 text-sm text-[var(--ink-muted)]">
+                <li><a href="#" class="hover:text-[var(--ink)] transition-colors">Privacy Policy</a></li>
+                <li><a href="#" class="hover:text-[var(--ink)] transition-colors">Terms of Service</a></li>
+                <li><a href="#" class="hover:text-[var(--ink)] transition-colors">Shipping Info</a></li>
+                <li><a href="#" class="hover:text-[var(--ink)] transition-colors">FAQ</a></li>
             </ul>
         </div>
-        
-        <div>
-            <h4 style="font-weight: 600; font-size: 0.875rem; color: var(--ink); margin-bottom: 1.25rem; text-align: right;">Contact</h4>
-            <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.75rem; text-align: right;">
+
+        {{-- Contact --}}
+        <div class="sm:text-right">
+            <h4 class="font-semibold text-sm text-[var(--ink)] mb-5">Contact</h4>
+            <ul class="space-y-3 text-sm text-[var(--ink-muted)]">
                 <li>
-                    <a href="mailto:vincopy@gmail.com" style="color: var(--ink-muted); text-decoration: none; font-size: 0.875rem; display: flex; align-items: center; justify-content: flex-end; gap: 0.5rem;">
-                        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                        vincopy@gmail.com
+                    <a href="mailto:vincopy168@gmail.com"
+                        class="inline-flex items-center sm:justify-end gap-2 hover:text-[var(--ink)] transition-colors">
+                        <svg class="shrink-0" width="14" height="14" fill="none" stroke="currentColor"
+                            stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                            <polyline points="22,6 12,13 2,6" />
+                        </svg>
+                       vincopy168@gmail.com
                     </a>
                 </li>
                 <li>
-                    <a href="tel:+855123456789" style="color: var(--ink-muted); text-decoration: none; font-size: 0.875rem; display: flex; align-items: center; justify-content: flex-end; gap: 0.5rem;">
-                        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                        +855 12 345 678
+                    <a href="tel:+85515693334"
+                        class="inline-flex items-center sm:justify-end gap-2 hover:text-[var(--ink)] transition-colors">
+                        <svg class="shrink-0" width="14" height="14" fill="none" stroke="currentColor"
+                            stroke-width="2" viewBox="0 0 24 24">
+                            <path
+                                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                        </svg>
+                        +855 15 693 334
+                    </a>
+                </li>
+                <li>
+                    <a href="https://t.me/Vincopy" target="_blank" rel="noopener"
+                        class="inline-flex items-center sm:justify-end gap-2 hover:text-[var(--ink)] transition-colors">
+                        <svg class="shrink-0" width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M21.05 3.64 2.78 10.77c-1.25.5-1.24 1.2-.23 1.51l4.69 1.47 1.8 5.62c.22.6.39.84.79.84.36 0 .54-.16.78-.4l1.86-1.81 4.43 3.27c.81.45 1.4.22 1.6-.75l2.89-13.6c.3-1.21-.46-1.75-1.34-1.28zM8.96 13.94l8.56-5.41c.4-.25.77-.11.47.16l-7.05 6.37-.27 3.04-1.71-4.16z" />
+                        </svg>
+                        Telegram
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.facebook.com/obito.ze.5" target="_blank" rel="noopener"
+                        class="inline-flex items-center sm:justify-end gap-2 hover:text-[var(--ink)] transition-colors">
+                        <svg class="shrink-0" width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5.02 3.66 9.18 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.51 1.49-3.9 3.77-3.9 1.09 0 2.23.2 2.23.2v2.46H15.2c-1.24 0-1.63.78-1.63 1.57v1.88h2.78l-.44 2.91h-2.34V22c4.78-.76 8.43-4.92 8.43-9.94z" />
+                        </svg>
+                        Facebook
                     </a>
                 </li>
             </ul>
-            <div style="margin-top: 1.5rem; text-align: right; color: var(--ink-muted); font-size: 0.75rem;">
-                © {{date('Y')}} Vin Copy Print Scan. All rights reserved.
-            </div>
+            <p class="mt-6 text-xs text-[var(--ink-muted)]">
+                © {{ date('Y') }} Vin Copy Print Scan. All rights reserved.
+            </p>
         </div>
+
     </div>
 </footer>
