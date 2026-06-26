@@ -148,7 +148,17 @@ class ProductController extends Controller
 
         if ($request->ajax() || $request->wantsJson()) {
             return response()->json([
-                'html'  => view('collections.printers._grid', compact('products'))->render(),
+                'html'  => view('components.collections._grid', [
+                    'products'         => $products,
+                    'groupBy'          => 'category_id',
+                    'headingRelation'  => 'category',
+                    'headingFallback'  => 'Uncategorized',
+                    'subLabelRelation' => 'category',
+                    'subLabelFallback' => 'Printer',
+                    'compatKey'        => 'compatibility',
+                    'emptyMessage'     => 'No printers found.',
+                    'badgeCase'        => 'uppercase',
+                ])->render(),
                 'count' => $products->count(),
             ]);
         }
@@ -184,7 +194,17 @@ class ProductController extends Controller
 
         if ($request->ajax() || $request->wantsJson()) {
             return response()->json([
-                'html'  => view('collections.toners._grid', compact('products'))->render(),
+                'html'  => view('components.collections._grid', [
+                    'products'         => $products,
+                    'groupBy'          => 'category_id',
+                    'headingRelation'  => 'category',
+                    'headingFallback'  => 'Uncategorized',
+                    'subLabelRelation' => 'category',
+                    'subLabelFallback' => 'Toner',
+                    'compatKey'        => 'compatibility',
+                    'emptyMessage'     => 'No toners found.',
+                    'badgeCase'        => 'uppercase',
+                ])->render(),
                 'count' => $products->count(),
             ]);
         }
@@ -223,7 +243,17 @@ class ProductController extends Controller
 
         if ($request->ajax() || $request->wantsJson()) {
             return response()->json([
-                'html'  => view('collections.inks._grid', compact('products'))->render(),
+                'html'  => view('components.collections._grid', [
+                    'products'         => $products,
+                    'groupBy'          => 'brand_id',
+                    'headingRelation'  => 'brand',
+                    'headingFallback'  => 'Other',
+                    'subLabelRelation' => 'brand',
+                    'subLabelFallback' => 'Ink',
+                    'compatKey'        => 'spec:Compatible Printers',
+                    'emptyMessage'     => 'No ink cartridges found.',
+                    'badgeCase'        => 'capitalize',
+                ])->render(),
                 'count' => $products->count(),
             ]);
         }
@@ -263,7 +293,17 @@ class ProductController extends Controller
 
         if ($request->ajax() || $request->wantsJson()) {
             return response()->json([
-                'html'  => view('collections.papers._grid', compact('products'))->render(),
+                'html'  => view('components.collections._grid', [
+                    'products'         => $products,
+                    'groupBy'          => 'category_id',
+                    'headingRelation'  => 'category',
+                    'headingFallback'  => 'Uncategorized',
+                    'subLabelRelation' => 'category',
+                    'subLabelFallback' => 'Paper',
+                    'compatKey'        => 'compatibility',
+                    'emptyMessage'     => 'No paper products found.',
+                    'badgeCase'        => 'uppercase',
+                ])->render(),
                 'count' => $products->count(),
             ]);
         }

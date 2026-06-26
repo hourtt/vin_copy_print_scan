@@ -78,9 +78,9 @@
         <div class="relative min-h-[400px]" id="grid-container">
             {{-- Skeleton Loader (Hidden by default) --}}
             <div id="skeleton-grid" class="absolute inset-0 z-10 bg-white" style="display: none;">
-                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-5 animate-pulse">
-                    @for ($i = 0; $i < 10; $i++)
-                        <div class="bg-gray-200 rounded-xl sm:rounded-2xl h-[250px] sm:h-[300px] w-full"></div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 lg:gap-6 animate-pulse">
+                    @for ($i = 0; $i < 8; $i++)
+                        <div class="bg-gray-200 rounded-2xl h-[360px] w-full"></div>
                     @endfor
                 </div>
             </div>
@@ -92,7 +92,17 @@
 
             {{-- Product Groups --}}
             <div id="product-groups" class="transition-opacity duration-150 relative z-0">
-                @include('collections.inks._grid')
+                @include('components.collections._grid', [
+                    'products'         => $products,
+                    'groupBy'          => 'brand_id',
+                    'headingRelation'  => 'brand',
+                    'headingFallback'  => 'Other',
+                    'subLabelRelation' => 'brand',
+                    'subLabelFallback' => 'Ink',
+                    'compatKey'        => 'spec:Compatible Printers',
+                    'emptyMessage'     => 'No ink cartridges found.',
+                    'badgeCase'        => 'capitalize',
+                ])
             </div>
         </div>
     </main>
