@@ -29,7 +29,7 @@ class Product extends Model
         'price'          => 'decimal:2',
     ];
 
-    // ─── Relationships ────────────────────────────────────────────────────────
+    // ─ Relationships 
 
     /**
      * One product belongs to one category.
@@ -84,7 +84,7 @@ class Product extends Model
         return $this->hasMany(OrderItem::class);
     }
 
-    // ─── Scopes ──────────────────────────────────────────────────────────────
+    // ─ Scopes 
 
     /**
      * Only return featured products.
@@ -102,7 +102,7 @@ class Product extends Model
         return $query->where('stock', '>', 0);
     }
 
-    // ─── Accessors / Helpers ─────────────────────────────────────────────────
+    // ─ Accessors / Helpers ─
 
     /**
      * Auto-generate slug from name if not set.

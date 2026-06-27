@@ -46,7 +46,7 @@ class Order extends Model
         'cancelled'        => 'Cancelled',
     ];
 
-    // ─── Relationships ────────────────────────────────────────────────────────
+    // ─ Relationships 
 
     public function user()
     {
@@ -78,7 +78,7 @@ class Order extends Model
         return $this->belongsTo(User::class, 'updated_by');
     }
 
-    // ─── Helpers ─────────────────────────────────────────────────────────────
+    // ─ Helpers ─
 
     /**
      * Returns the human-readable status label.

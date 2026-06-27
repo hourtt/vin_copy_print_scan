@@ -19,7 +19,7 @@ class OrderItem extends Model
         'subtotal'   => 'decimal:2',
     ];
 
-    // ─── Relationships ────────────────────────────────────────────────────────
+    // ─ Relationships 
 
     /**
      * The order this item belongs to.
