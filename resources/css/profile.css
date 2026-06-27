@@ -1,4 +1,4 @@
-/* ─── Page Wrapper ─── */
+/* ─ Page Wrapper ─ */
 .profile-page {
     min-height: calc(100vh - 70px);
     background: var(--surface-warm);
@@ -8,7 +8,7 @@
     padding: 3rem 1.5rem 4rem;
 }
 
-/* ─── Hero / Avatar Section ─── */
+/* ─ Hero / Avatar Section ─ */
 .profile-hero {
     display: flex;
     flex-direction: column;
@@ -86,7 +86,7 @@
     margin: 0;
 }
 
-/* ─── Edit Profile Info Button ─── */
+/* ─ Edit Profile Info Button ─ */
 .profile-edit-info-btn {
     display: inline-flex;
     align-items: center;
@@ -118,7 +118,7 @@
     height: 14px;
 }
 
-/* ─── Menu Cards Container ─── */
+/* ─ Menu Cards Container ─ */
 .profile-menu {
     width: 100%;
     max-width: 480px;
@@ -127,7 +127,7 @@
     gap: 0.75rem;
 }
 
-/* ─── Individual Menu Card ─── */
+/* ─ Individual Menu Card ─ */
 .profile-menu-card {
     display: flex;
     align-items: center;
@@ -158,7 +158,7 @@
     transform: translateY(0);
 }
 
-/* ─── Card Icon Bubble ─── */
+/* ─ Card Icon Bubble ─ */
 .profile-menu-icon {
     width: 42px;
     height: 42px;
@@ -196,7 +196,7 @@
     color: var(--coral);
 }
 
-/* ─── Card Text ─── */
+/* ─ Card Text ─ */
 .profile-menu-text {
     flex: 1;
 }
@@ -220,7 +220,7 @@
     line-height: 1.4;
 }
 
-/* ─── Chevron Arrow ─── */
+/* ─ Chevron Arrow ─ */
 .profile-menu-chevron {
     color: var(--ink-faint);
     transition:
@@ -233,7 +233,7 @@
     color: var(--brand);
 }
 
-/* ─── Section Divider Label ─── */
+/* ─ Section Divider Label ─ */
 .profile-section-label {
     font-family: "Noto Sans Khmer", sans-serif;
     font-size: 0.72rem;
@@ -245,7 +245,7 @@
     margin-top: 0.5rem;
 }
 
-/* ─── Log Out Button ─── */
+/* ─ Log Out Button ─ */
 .profile-logout-btn {
     width: 100%;
     max-width: 480px;
@@ -282,7 +282,7 @@
     height: 18px;
 }
 
-/* ─── Modal / Slide-over overlay for sub-sections ─── */
+/* ─ Modal / Slide-over overlay for sub-sections ─ */
 .profile-modal-overlay {
     position: fixed;
     inset: 0;
@@ -362,7 +362,7 @@
     padding: 1.5rem;
 }
 
-/* ─── Form elements inside modal ─── */
+/* ─ Form elements inside modal ─ */
 .profile-form-group {
     margin-bottom: 1.25rem;
 }
@@ -420,7 +420,7 @@
     background: var(--border);
 }
 
-/* ─── Success / Info badges ─── */
+/* ─ Success / Info badges ─ */
 .profile-success-toast {
     display: flex;
     align-items: center;
@@ -436,7 +436,7 @@
     margin-bottom: 1rem;
 }
 
-/* ─── Coming Soon Badge ─── */
+/* ─ Coming Soon Badge ─ */
 .profile-badge-coming {
     font-family: "Noto Sans Khmer", sans-serif;
     font-size: 0.68rem;
@@ -449,7 +449,7 @@
     border-radius: 999px;
 }
 
-/* ─── Responsive ─── */
+/* ─ Responsive ─ */
 @media (max-width: 600px) {
     .profile-page {
         padding: 2rem 1rem 3rem;
