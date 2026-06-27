@@ -1,7 +1,7 @@
 <section class="py-16 md:py-15 bg-white font-sans">
     <div class="max-w-7xl mx-auto px-4 md:px-8">
         <h2 class="text-3xl md:text-4xl font-bold text-center text-[#1a1a2e] mb-12 md:mb-16">
-            ហេតុអ្វីត្រូវជ្រើសរើសសេវាកម្មរបស់ហាងយើងខ្ញុំ?
+            ហេតុអ្វីគួរតែជ្រើសរើសសេវាកម្មរបស់ហាងយើងខ្ញុំ?
         </h2>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

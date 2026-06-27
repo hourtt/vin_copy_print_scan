@@ -1,40 +1,72 @@
-<section class="hero-section bg-[var(--surface-warm)] py-8 px-4 md:px-8 border-b border-[var(--border)] w-full overflow-hidden">
-    <div class="max-w-[1280px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
-        <div>
-            <h1
-                class="font-khmer text-2xl md:text-3xl font-medium text-[#1a1a2e] leading-[1.15] tracking-[-0.02em] mb-6 text-center">
-               សូមស្វាគមន៏ មកកាន់ហាងរបស់យើងខ្ញុំ
-            </h1>
-            <p class="font-khmer text-base md:text-lg text-[var(--ink-muted)] leading-relaxed mb-6 max-w-full md:max-w-[100%] text-center">
-               ហាងយើងខ្ញុំលក់និងជួលម៉ាសុីនព្រីន, ម៉ាស៊ីនកូពី, ទឹកថ្នាំ(Ink), ធូន័រ(Toner) <br> និងក្រដាសទំហំ A4 និង A3 ក្នុងតម្លៃសមរម្យ
-            </p>
-            <div class="flex flex-col sm:flex-row gap-4 flex items-center justify-center">
-                <a href="{{ route('product-catalog.index') }}"
-                    class="flex items-center justify-center gap-2 px-6 py-3 bg-[#1a1a2e] text-white rounded-lg text-base font-semibold hover:bg-[#1a1a2e]/90 transition-colors shadow-[0_4px_16px_rgba(0,0,0,0.1)]">
-                    {{ __('Shop All Products') }}
-                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                        <path d="M5 12h14"></path>
-                        <polyline points="12 5 19 12 12 19"></polyline>
-                    </svg>
-                </a>
-                <a href="{{ route('product-catalog.index') }}"
-                    class="flex items-center justify-center gap-2 px-6 py-3 bg-transparent border border-[#1a1a2e] text-[#1a1a2e] rounded-lg text-base font-semibold hover:bg-[#1a1a2e]/5 transition-colors">
-                    {{ __('Explore Categories') }}
-                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                        <path d="M12 5v14"></path>
-                        <path d="M5 12h14"></path>
-                    </svg>
-                </a>
+<section class="w-full overflow-hidden bg-[#F5F5F3]">
+    <div class="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-16">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-12 lg:gap-20 items-center min-h-[82vh] md:min-h-[78vh]">
+
+            {{-- LEFT COLUMN: Text block  --}}
+            <div class="flex flex-col justify-center py-16 md:py-0 order-2 md:order-1">
+
+                {{-- Display headline — Fraunces serif, stacked --}}
+                <h1
+                    class="mb-6 leading-[1.08] tracking-[-0.03em] font-['Fraunces',serif] text-[clamp(2.6rem,5.5vw,4.25rem)] font-bold text-[#0D0D0B]">
+                    Order<br>
+                    Prints<br>
+                    <em class="italic font-normal">Repeat</em>
+                </h1>
+
+                {{-- Khmer subtitle --}}
+                <p
+                    class="mb-10 max-w-md leading-relaxedfont-['Kantumruy_Pro',sans-serif] text-[1.0625rem] text-[#6B6B6B]">
+                    ហាងយើងខ្ញុំមានលក់និងជួលម៉ាសុីនព្រីន, ម៉ាស៊ីនកូពី, ទឹកថ្នាំ &amp; ធូន័រ​ ក្នុងតម្លៃសមរម្យ។
+                </p>
+
+                {{-- English subtitle --}}
+                <p class="mb-10 text-sm leading-relaxed -mt-4 text-[#9A9A96] font-['DM_Sans',sans-serif] ">
+                    We sell and rent printers, copiers, toners, ink cartridges, and A4/A3 paper at affordable prices.
+                </p>
+
+                {{-- CTA row --}}
+                <div class="flex flex-wrap items-center gap-4">
+                    <a href="{{ route('services') }}"
+                        class="inline-flex items-center gap-1 text-sm font-medium transition-colors duration-200 text-[#0D0D0B] font-['DM_Sans',sans-serif] hover:text-[#2D7A6A]">
+                        Our Services
+                        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M5 12h14" />
+                            <polyline points="12 5 19 12 12 19" />
+                        </svg>
+                    </a>
+                </div>
+
+                {{-- Trust micro-copy --}}
+                <div class="mt-12 flex items-center gap-6">
+                    <div class="font-['DM_Sans',sans-serif]">
+                        <div class="text-xs font-bold text-[#0D0D0B]">High Quality Printing</div>
+                        <div class="text-xs text-[#9A9A96]">OEM &amp; Compatible Cartridges</div>
+                    </div>
+                    <div class="w-px h-8 bg-[#DDDDD8]"></div>
+                    <div class="font-['DM_Sans',sans-serif]">
+                        <div class="text-xs font-bold text-[#0D0D0B]">Rental plans</div>
+                        <div class="text-xs text-[#9A9A96]">Flexible terms</div>
+                    </div>
+                </div>
+
             </div>
 
-        </div>
-        <div>
-            <img src="{{ asset('storage/images/modern_printer_hero.png') }}" alt="Modern Printer"
-                class="w-full rounded-xl shadow-[0_12px_32px_rgba(0,0,0,0.08)]">
-            {{-- Future Banner Image (Blank) --}}
-            {{-- <img src="{{ asset('storage/images/blank_banner.png') }}" alt="New Banner Image" class="w-full rounded-xl shadow-[0_12px_32px_rgba(0,0,0,0.08)]"> --}}
+            {{--  RIGHT COLUMN: Frameless image  --}}
+            <div class="relative flex items-center justify-center order-1 md:order-2 pt-10 md:pt-0" aria-hidden="true">
+                {{-- Large faint circle — purely decorative breath of colour --}}
+                <div
+                    class="absolute inset-0 m-auto rounded-full pointer-events-none w-[85%] aspect-square bg-[radial-gradient(circle,rgba(45,122,106,0.07)_0%,transparent_70%)] blur-[2px]">
+                </div>
+                {{-- The image — no card, no border, no shadow --}}
+                <img src="{{ asset('storage/images/modern_printer_hero.png') }}"
+                    alt="Modern Canon printer on a clean desk"
+                    class="relative w-full max-w-[520px] drop-shadow-none max-h-[68vh] object-contain mix-blend-multiply rounded-md"
+                    loading="eager">
+            </div>
         </div>
     </div>
+
+    {{-- Hairline bottom rule --}}
+    <div class="border-t border-[#E5E5E2] mt-0"></div>
 </section>
