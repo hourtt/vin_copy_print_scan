@@ -72,8 +72,10 @@ class ProductController extends Controller
 
     private function calculatePercentageChange($current, $previous)
     {
-        if ($previous == 0 && $current > 0) return 100;
-        if ($previous == 0 && $current == 0) return 0;
+        if ($previous == 0 && $current > 0)
+            return 100;
+        if ($previous == 0 && $current == 0)
+            return 0;
         return (($current - $previous) / $previous) * 100;
     }
 
@@ -83,12 +85,12 @@ class ProductController extends Controller
         $category = Category::all();
 
         $now = Carbon::now();
-        
+
         $currentMonthStart = $now->copy()->startOfMonth();
         $currentMonthEnd = $now->copy()->endOfMonth();
         $previousMonthStart = $now->copy()->subMonth()->startOfMonth();
         $previousMonthEnd = $now->copy()->subMonth()->endOfMonth();
-        
+
         $currentHourStart = $now->copy()->startOfHour();
         $currentHourEnd = $now->copy()->endOfHour();
         $previousHourStart = $now->copy()->subHour()->startOfHour();
@@ -113,8 +115,16 @@ class ProductController extends Controller
         $issueGrowth = $this->calculatePercentageChange(0, 0);
 
         return view('components.auth.admin.dashboard', compact(
-            'products', 'category', 'totalRevenue', 'totalOrders', 'activeCustomers', 'activeIssues',
-            'revenueGrowth', 'orderGrowth', 'customerGrowth', 'issueGrowth'
+            'products',
+            'category',
+            'totalRevenue',
+            'totalOrders',
+            'activeCustomers',
+            'activeIssues',
+            'revenueGrowth',
+            'orderGrowth',
+            'customerGrowth',
+            'issueGrowth'
         ));
     }
 
@@ -135,12 +145,24 @@ class ProductController extends Controller
 
         $sort = $request->get('sort', 'default');
         switch ($sort) {
-            case 'price-asc':  $query->orderBy('price', 'asc');       break;
-            case 'price-desc': $query->orderBy('price', 'desc');      break;
-            case 'year-desc':  $query->orderBy('created_at', 'desc'); break;
-            case 'name-asc':   $query->orderBy('name', 'asc');        break;
-            case 'stock-desc': $query->orderBy('stock', 'desc');      break;
-            default:           $query->latest();                       break;
+            case 'price-asc':
+                $query->orderBy('price', 'asc');
+                break;
+            case 'price-desc':
+                $query->orderBy('price', 'desc');
+                break;
+            case 'year-desc':
+                $query->orderBy('created_at', 'desc');
+                break;
+            case 'name-asc':
+                $query->orderBy('name', 'asc');
+                break;
+            case 'stock-desc':
+                $query->orderBy('stock', 'desc');
+                break;
+            default:
+                $query->latest();
+                break;
         }
 
         $products = $query->get();
@@ -154,16 +176,16 @@ class ProductController extends Controller
 
         if ($request->ajax() || $request->wantsJson()) {
             return response()->json([
-                'html'  => view('components.collections._grid', [
-                    'products'         => $products,
+                'html' => view('components.collections._grid', [
+                    'products' => $products,
                     'groupBy' => 'brand_id',
                     'headingRelation' => 'brand',
                     'headingFallback' => 'Other',
                     'subLabelRelation' => 'brand',
                     'subLabelFallback' => 'Printer',
-                    'compatKey'        => 'compatibility',
-                    'emptyMessage'     => 'No printers found.',
-                    'badgeCase'        => 'uppercase',
+                    'compatKey' => 'compatibility',
+                    'emptyMessage' => 'No printers found.',
+                    'badgeCase' => 'uppercase',
                 ])->render(),
                 'count' => $products->count(),
             ]);
@@ -189,10 +211,18 @@ class ProductController extends Controller
 
         $sort = $request->get('sort', 'default');
         switch ($sort) {
-            case 'price-asc':  $query->orderBy('price', 'asc');  break;
-            case 'price-desc': $query->orderBy('price', 'desc'); break;
-            case 'name-asc':   $query->orderBy('name', 'asc');   break;
-            default:           $query->latest();                  break;
+            case 'price-asc':
+                $query->orderBy('price', 'asc');
+                break;
+            case 'price-desc':
+                $query->orderBy('price', 'desc');
+                break;
+            case 'name-asc':
+                $query->orderBy('name', 'asc');
+                break;
+            default:
+                $query->latest();
+                break;
         }
 
         $products = $query->get();
@@ -206,16 +236,16 @@ class ProductController extends Controller
 
         if ($request->ajax() || $request->wantsJson()) {
             return response()->json([
-                'html'  => view('components.collections._grid', [
-                    'products'         => $products,
+                'html' => view('components.collections._grid', [
+                    'products' => $products,
                     'groupBy' => 'brand_id',
                     'headingRelation' => 'brand',
                     'headingFallback' => 'Other',
                     'subLabelRelation' => 'brand',
                     'subLabelFallback' => 'Toner',
-                    'compatKey'        => 'compatibility',
-                    'emptyMessage'     => 'No toners found.',
-                    'badgeCase'        => 'uppercase',
+                    'compatKey' => 'compatibility',
+                    'emptyMessage' => 'No toners found.',
+                    'badgeCase' => 'uppercase',
                 ])->render(),
                 'count' => $products->count(),
             ]);
@@ -240,31 +270,41 @@ class ProductController extends Controller
 
         $sort = $request->get('sort', 'default');
         switch ($sort) {
-            case 'price-asc':  $query->orderBy('price', 'asc');  break;
-            case 'price-desc': $query->orderBy('price', 'desc'); break;
-            case 'name-asc':   $query->orderBy('name', 'asc');   break;
-            default:           $query->latest();                  break;
+            case 'price-asc':
+                $query->orderBy('price', 'asc');
+                break;
+            case 'price-desc':
+                $query->orderBy('price', 'desc');
+                break;
+            case 'name-asc':
+                $query->orderBy('name', 'asc');
+                break;
+            default:
+                $query->latest();
+                break;
         }
 
         $products = $query->get();
 
         // Brands that have ink-cartridge products
-        $brands = Brand::whereHas('products', fn($q) =>
+        $brands = Brand::whereHas(
+            'products',
+            fn($q) =>
             $q->whereHas('category', fn($q2) => $q2->where('slug', 'ink-cartridges'))
         )->orderBy('name')->get();
 
         if ($request->ajax() || $request->wantsJson()) {
             return response()->json([
-                'html'  => view('components.collections._grid', [
-                    'products'         => $products,
-                    'groupBy'          => 'brand_id',
-                    'headingRelation'  => 'brand',
-                    'headingFallback'  => 'Other',
+                'html' => view('components.collections._grid', [
+                    'products' => $products,
+                    'groupBy' => 'brand_id',
+                    'headingRelation' => 'brand',
+                    'headingFallback' => 'Other',
                     'subLabelRelation' => 'brand',
                     'subLabelFallback' => 'Ink',
-                    'compatKey'        => 'spec:Compatible Printers',
-                    'emptyMessage'     => 'No ink cartridges found.',
-                    'badgeCase'        => 'capitalize',
+                    'compatKey' => 'spec:Compatible Printers',
+                    'emptyMessage' => 'No ink cartridges found.',
+                    'badgeCase' => 'capitalize',
                 ])->render(),
                 'count' => $products->count(),
             ]);
@@ -289,32 +329,44 @@ class ProductController extends Controller
 
         $sort = $request->get('sort', 'default');
         switch ($sort) {
-            case 'price-asc':  $query->orderBy('price', 'asc');  break;
-            case 'price-desc': $query->orderBy('price', 'desc'); break;
-            case 'name-asc':   $query->orderBy('name', 'asc');   break;
-            case 'stock-desc': $query->orderBy('stock', 'desc'); break;
-            default:           $query->latest();                  break;
+            case 'price-asc':
+                $query->orderBy('price', 'asc');
+                break;
+            case 'price-desc':
+                $query->orderBy('price', 'desc');
+                break;
+            case 'name-asc':
+                $query->orderBy('name', 'asc');
+                break;
+            case 'stock-desc':
+                $query->orderBy('stock', 'desc');
+                break;
+            default:
+                $query->latest();
+                break;
         }
 
         $products = $query->get();
 
         // Brands that have paper products
-        $brands = Brand::whereHas('products', fn($q) =>
+        $brands = Brand::whereHas(
+            'products',
+            fn($q) =>
             $q->whereHas('category', fn($q2) => $q2->where('slug', 'paper'))
         )->orderBy('name')->get();
 
         if ($request->ajax() || $request->wantsJson()) {
             return response()->json([
-                'html'  => view('components.collections._grid', [
-                    'products'         => $products,
-                    'groupBy'          => 'category_id',
-                    'headingRelation'  => 'category',
-                    'headingFallback'  => 'Uncategorized',
+                'html' => view('components.collections._grid', [
+                    'products' => $products,
+                    'groupBy' => 'category_id',
+                    'headingRelation' => 'category',
+                    'headingFallback' => 'Uncategorized',
                     'subLabelRelation' => 'category',
                     'subLabelFallback' => 'Paper',
-                    'compatKey'        => 'compatibility',
-                    'emptyMessage'     => 'No paper products found.',
-                    'badgeCase'        => 'uppercase',
+                    'compatKey' => 'compatibility',
+                    'emptyMessage' => 'No paper products found.',
+                    'badgeCase' => 'uppercase',
                 ])->render(),
                 'count' => $products->count(),
             ]);
