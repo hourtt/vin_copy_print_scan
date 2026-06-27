@@ -17,7 +17,7 @@ class ProductFactory extends Factory
      * Realistic product definitions per category slug.
      */
     private static array $products = [
-        // ── Printers ──────────────────────────────────────────────────────────
+        //  Printers 
         ['category' => 'printers', 'brand' => 'HP',      'name' => 'HP LaserJet Pro M404dn',       'price' => 349.00, 'specs' => ['Print Speed' => '38 ppm', 'Connectivity' => 'Ethernet, USB', 'Duplex' => 'Automatic']],
         ['category' => 'printers', 'brand' => 'HP',      'name' => 'HP LaserJet MFP M428fdw',      'price' => 449.00, 'specs' => ['Type' => 'All-in-One', 'Print Speed' => '40 ppm', 'Connectivity' => 'WiFi, Ethernet']],
         ['category' => 'printers', 'brand' => 'Canon',   'name' => 'Canon PIXMA G3020',             'price' => 189.00, 'specs' => ['Type' => 'Inkjet MFP', 'Print Speed' => '11 ipm', 'Ink System' => 'EcoTank']],
@@ -26,7 +26,7 @@ class ProductFactory extends Factory
         ['category' => 'printers', 'brand' => 'Brother', 'name' => 'Brother MFC-L2750DW',           'price' => 249.00, 'specs' => ['Type' => 'All-in-One', 'Print Speed' => '36 ppm', 'Connectivity' => 'WiFi']],
         ['category' => 'printers', 'brand' => 'Epson',   'name' => 'Epson EcoTank L3250',           'price' => 219.00, 'specs' => ['Type' => 'Inkjet MFP', 'Ink System' => 'EcoTank', 'Connectivity' => 'WiFi, USB']],
 
-        // ── Toners ────────────────────────────────────────────────────────────
+        //  Toners 
         ['category' => 'toners', 'brand' => 'HP',      'name' => 'HP 26A Black Toner (CF226A)',    'price' => 89.00,  'specs' => ['Yield' => '3,100 pages', 'Color' => 'Black', 'Compatible' => 'M402, M426']],
         ['category' => 'toners', 'brand' => 'HP',      'name' => 'HP 58A Black Toner (CF258A)',    'price' => 79.00,  'specs' => ['Yield' => '3,000 pages', 'Color' => 'Black', 'Compatible' => 'M404, M428']],
         ['category' => 'toners', 'brand' => 'Canon',   'name' => 'Canon Cartridge 054 Black',      'price' => 95.00,  'specs' => ['Yield' => '1,500 pages', 'Color' => 'Black', 'Compatible' => 'MF445, MF455']],
@@ -35,7 +35,7 @@ class ProductFactory extends Factory
         ['category' => 'toners', 'brand' => 'Brother', 'name' => 'Brother TN-2430 Toner',          'price' => 45.00,  'specs' => ['Yield' => '1,200 pages', 'Color' => 'Black', 'Compatible' => 'HL-L2350, MFC-L2750']],
         ['category' => 'toners', 'brand' => 'Samsung', 'name' => 'Samsung MLT-D111S Toner',        'price' => 39.00,  'specs' => ['Yield' => '1,000 pages', 'Color' => 'Black', 'Compatible' => 'M2020, M2070']],
 
-        // ── Ink Cartridges ─────────────────────────────────────────────────
+        //  Ink Cartridges ─
         ['category' => 'ink-cartridges', 'brand' => 'HP',    'name' => 'HP 682 Black Ink Cartridge',  'price' => 15.00, 'specs' => ['Yield' => '480 pages',   'Color' => 'Black', 'Compatible' => 'DeskJet 2335, 2775']],
         ['category' => 'ink-cartridges', 'brand' => 'HP',    'name' => 'HP 682 Color Ink Cartridge',  'price' => 17.00, 'specs' => ['Yield' => '200 pages',   'Color' => 'Tri-color', 'Compatible' => 'DeskJet 2335, 2775']],
         ['category' => 'ink-cartridges', 'brand' => 'Canon', 'name' => 'Canon PG-47 Black Ink',       'price' => 14.00, 'specs' => ['Yield' => '400 pages',   'Color' => 'Black', 'Compatible' => 'PIXMA E400, E480']],
@@ -43,7 +43,7 @@ class ProductFactory extends Factory
         ['category' => 'ink-cartridges', 'brand' => 'Epson', 'name' => 'Epson 003 Black Ink Bottle',  'price' => 12.00, 'specs' => ['Yield' => '7,500 pages', 'Color' => 'Black', 'Compatible' => 'L3110, L3150, L3250']],
         ['category' => 'ink-cartridges', 'brand' => 'Epson', 'name' => 'Epson 003 Color Ink Set',     'price' => 38.00, 'specs' => ['Yield' => '5,000 pages', 'Color' => 'CMY Set', 'Compatible' => 'L3110, L3150, L3250']],
 
-        // ── Paper ─────────────────────────────────────────────────────────────
+        //  Paper ─
         ['category' => 'paper', 'brand' => null, 'name' => 'A4 80gsm Multipurpose Paper (500 sheets)', 'price' => 8.50,  'specs' => ['Size' => 'A4', 'Weight' => '80 gsm', 'Sheets' => '500']],
         ['category' => 'paper', 'brand' => null, 'name' => 'A4 80gsm Multipurpose Paper (5 Reams)',    'price' => 39.00, 'specs' => ['Size' => 'A4', 'Weight' => '80 gsm', 'Sheets' => '2,500']],
         ['category' => 'paper', 'brand' => null, 'name' => 'A3 80gsm Printing Paper (500 sheets)',     'price' => 16.00, 'specs' => ['Size' => 'A3', 'Weight' => '80 gsm', 'Sheets' => '500']],

@@ -18,7 +18,7 @@ class ProductSeeder extends Seeder
     public function run(): void
     {
         $products = [
-            // ── Printers ──────────────────────────────────────────────────
+            //  Printers 
             ['category' => 'printers', 'brand' => 'HP',      'name' => 'HP LaserJet Pro M404dn',            'price' => 349.00, 'stock' => 12, 'featured' => true,  'specs' => ['Print Speed' => '38 ppm', 'Connectivity' => 'Ethernet, USB', 'Duplex' => 'Automatic', 'Monthly Duty Cycle' => '80,000 pages']],
             ['category' => 'printers', 'brand' => 'HP',      'name' => 'HP LaserJet MFP M428fdw',           'price' => 449.00, 'stock' => 8,  'featured' => true,  'specs' => ['Type' => 'All-in-One', 'Print Speed' => '40 ppm', 'Connectivity' => 'WiFi, Ethernet, USB', 'Duplex' => 'Automatic']],
             ['category' => 'printers', 'brand' => 'Canon',   'name' => 'Canon PIXMA G3020',                 'price' => 189.00, 'stock' => 20, 'featured' => false, 'specs' => ['Type' => 'Inkjet MFP', 'Print Speed' => '11 ipm (B&W)', 'Ink System' => 'Integrated EcoTank', 'Connectivity' => 'WiFi, USB']],
@@ -27,7 +27,7 @@ class ProductSeeder extends Seeder
             ['category' => 'printers', 'brand' => 'Brother', 'name' => 'Brother MFC-L2750DW',              'price' => 249.00, 'stock' => 10, 'featured' => false, 'specs' => ['Type' => 'All-in-One', 'Print Speed' => '36 ppm', 'Connectivity' => 'WiFi, Ethernet, USB', 'ADF' => '50-sheet']],
             ['category' => 'printers', 'brand' => 'Epson',   'name' => 'Epson EcoTank L3250',               'price' => 219.00, 'stock' => 15, 'featured' => false, 'specs' => ['Type' => 'Inkjet MFP', 'Ink System' => 'EcoTank', 'Connectivity' => 'WiFi, USB', 'Scan Resolution' => '1200 dpi']],
 
-            // ── Toners ────────────────────────────────────────────────────
+            //  Toners 
             ['category' => 'toners', 'brand' => 'HP',      'name' => 'HP 26A Black Toner (CF226A)',         'price' => 89.00,  'stock' => 40, 'featured' => true,  'specs' => ['Yield' => '3,100 pages', 'Color' => 'Black', 'Compatible Printers' => 'M402, M426 series']],
             ['category' => 'toners', 'brand' => 'HP',      'name' => 'HP 58A Black Toner (CF258A)',         'price' => 79.00,  'stock' => 35, 'featured' => false, 'specs' => ['Yield' => '3,000 pages', 'Color' => 'Black', 'Compatible Printers' => 'M404, M428 series']],
             ['category' => 'toners', 'brand' => 'HP',      'name' => 'HP 26X High Yield Toner (CF226X)',    'price' => 125.00, 'stock' => 20, 'featured' => false, 'specs' => ['Yield' => '9,000 pages', 'Color' => 'Black', 'Compatible Printers' => 'M402, M426 series']],
@@ -37,7 +37,7 @@ class ProductSeeder extends Seeder
             ['category' => 'toners', 'brand' => 'Brother', 'name' => 'Brother TN-2430 Standard Toner',      'price' => 45.00,  'stock' => 45, 'featured' => false, 'specs' => ['Yield' => '1,200 pages', 'Color' => 'Black', 'Compatible Printers' => 'HL-L2350, MFC-L2750 series']],
             ['category' => 'toners', 'brand' => 'Samsung', 'name' => 'Samsung MLT-D111S Toner',             'price' => 39.00,  'stock' => 22, 'featured' => false, 'specs' => ['Yield' => '1,000 pages', 'Color' => 'Black', 'Compatible Printers' => 'Xpress M2020, M2070 series']],
 
-            // ── Ink Cartridges ────────────────────────────────────────────
+            //  Ink Cartridges 
             ['category' => 'ink-cartridges', 'brand' => 'HP',    'name' => 'HP 682 Black Ink Cartridge',    'price' => 15.00,  'stock' => 80, 'featured' => true,  'specs' => ['Yield' => '480 pages',   'Color' => 'Black',     'Compatible Printers' => 'DeskJet 2335, 2775, 4175']],
             ['category' => 'ink-cartridges', 'brand' => 'HP',    'name' => 'HP 682 Tri-color Ink Cartridge','price' => 17.00,  'stock' => 75, 'featured' => false, 'specs' => ['Yield' => '200 pages',   'Color' => 'Tri-color', 'Compatible Printers' => 'DeskJet 2335, 2775, 4175']],
             ['category' => 'ink-cartridges', 'brand' => 'Canon', 'name' => 'Canon PG-47 Black Ink',         'price' => 14.00,  'stock' => 60, 'featured' => false, 'specs' => ['Yield' => '400 pages',   'Color' => 'Black',     'Compatible Printers' => 'PIXMA E400, E480, TS307']],
@@ -45,7 +45,7 @@ class ProductSeeder extends Seeder
             ['category' => 'ink-cartridges', 'brand' => 'Epson', 'name' => 'Epson 003 Black Ink Bottle',    'price' => 12.00,  'stock' => 100,'featured' => true,  'specs' => ['Yield' => '7,500 pages', 'Color' => 'Black',     'Compatible Printers' => 'EcoTank L3110, L3150, L3250']],
             ['category' => 'ink-cartridges', 'brand' => 'Epson', 'name' => 'Epson 003 CMY Color Ink Set',   'price' => 38.00,  'stock' => 90, 'featured' => false, 'specs' => ['Yield' => '5,000 pages', 'Color' => 'CMY Set',   'Compatible Printers' => 'EcoTank L3110, L3150, L3250']],
 
-            // ── Paper ─────────────────────────────────────────────────────
+            //  Paper ─
             ['category' => 'paper', 'brand' => null, 'name' => 'A4 80gsm Multipurpose Paper (500 sheets)',  'price' => 8.50,   'stock' => 200,'featured' => true,  'specs' => ['Size' => 'A4 (210×297mm)', 'Weight' => '80 gsm', 'Sheets per Ream' => '500', 'Brightness' => '104%']],
             ['category' => 'paper', 'brand' => null, 'name' => 'A4 80gsm Multipurpose Paper (5 Reams)',     'price' => 39.00,  'stock' => 80, 'featured' => false, 'specs' => ['Size' => 'A4 (210×297mm)', 'Weight' => '80 gsm', 'Total Sheets' => '2,500', 'Brightness' => '104%']],
             ['category' => 'paper', 'brand' => null, 'name' => 'A3 80gsm Printing Paper (500 sheets)',      'price' => 16.00,  'stock' => 60, 'featured' => false, 'specs' => ['Size' => 'A3 (297×420mm)', 'Weight' => '80 gsm', 'Sheets per Ream' => '500', 'Brightness' => '102%']],
@@ -83,7 +83,7 @@ class ProductSeeder extends Seeder
             );
         }
 
-        // ── Attach compatible printer models to toners and ink cartridges ──
+        //  Attach compatible printer models to toners and ink cartridges 
         $this->attachCompatibleModels();
     }
 
