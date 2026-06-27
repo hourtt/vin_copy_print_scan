@@ -25,10 +25,6 @@
                         'low-stock' => 'bg-yellow-100 text-yellow-800',
                         default     => 'bg-red-100 text-red-800',
                     };
-
-                    // Resolve the compatibility hint:
-                    // 'spec:Key Name' reads from $product->specifications['Key Name']
-                    // anything else reads the attribute directly
                     if (str_starts_with($compatKey, 'spec:')) {
                         $specKey      = substr($compatKey, 5);
                         $compatValue  = $product->specifications[$specKey] ?? null;
@@ -54,11 +50,11 @@
                                 loading="lazy"
                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                         @else
-                            <span class="text-sm text-[#71717a]">No image</span>
+                            <span class="text-sm text-[#000000]">No image</span>
                         @endif
 
                         {{-- Stock badge --}}
-                        <span class="absolute top-3 right-3 text-[0.65rem] font-bold tracking-wide px-2 py-1 rounded-lg {{ $badgeCase }} {{ $badgeBg }}">
+                        <span class="absolute top-3 right-3 text-[0.65rem] font-semibold capitalize tracking-wide px-2 py-1 rounded-lg {{ $badgeCase }} {{ $badgeBg }}">
                             {{ $stockLabel }}
                         </span>
                     </div>

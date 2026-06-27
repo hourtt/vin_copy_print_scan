@@ -15,7 +15,7 @@
     </div>
 
     <div class="p-3 sm:p-4 flex flex-col flex-1">
-        <div class="text-[10px] text-gray-500 mb-1 font-semibold uppercase tracking-wider">{{ $product->category->name ?? 'Category' }}</div>
+        <div class="text-[10px] text-gray-500 mb-1 font-semibold capitalize tracking-wider">{{ $product->category->name ?? 'Category' }}</div>
         <h3 class="text-sm font-bold text-gray-900 m-0 mb-3 leading-snug line-clamp-2">{{ $product->name }}</h3>
         
         <div class="mt-auto">

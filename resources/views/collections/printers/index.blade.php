@@ -94,10 +94,10 @@
             <div id="product-groups" class="transition-opacity duration-150 relative z-0">
                 @include('components.collections._grid', [
                     'products'         => $products,
-                    'groupBy'          => 'category_id',
-                    'headingRelation'  => 'category',
-                    'headingFallback'  => 'Uncategorized',
-                    'subLabelRelation' => 'category',
+                    'groupBy'          => 'brand_id',
+                    'headingRelation'  => 'brand',
+                    'headingFallback'  => 'Other',
+                    'subLabelRelation' => 'brand',
                     'subLabelFallback' => 'Printer',
                     'compatKey'        => 'compatibility',
                     'emptyMessage'     => 'No printers found.',

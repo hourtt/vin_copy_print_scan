@@ -120,13 +120,15 @@ class ProductController extends Controller
 
     public function printers_index(Request $request)
     {
-        $query = Product::with('category', 'brand', 'voucher');
+        // Strict category isolation — only Printers (category_id = 1)
+        $query = Product::with('category', 'brand', 'voucher')
+            ->where('category_id', 1);
 
         if ($request->filled('search')) {
             $query->where('name', 'like', '%' . $request->search . '%');
         }
 
-        // Pills are now brand pills — filter by brand_id
+        // Pills are brand pills — filter by brand_id within this category
         if ($request->filled('cat') && $request->cat !== 'all') {
             $query->where('brand_id', $request->cat);
         }
@@ -143,17 +145,21 @@ class ProductController extends Controller
 
         $products = $query->get();
 
-        // Brands that actually appear on this page (unfiltered)
-        $brands = Brand::whereHas('products')->orderBy('name')->get();
+        // Only brands that have products in the Printers category
+        $brands = Brand::whereHas(
+            'products',
+            fn($q) =>
+            $q->where('category_id', 1)
+        )->orderBy('name')->get();
 
         if ($request->ajax() || $request->wantsJson()) {
             return response()->json([
                 'html'  => view('components.collections._grid', [
                     'products'         => $products,
-                    'groupBy'          => 'category_id',
-                    'headingRelation'  => 'category',
-                    'headingFallback'  => 'Uncategorized',
-                    'subLabelRelation' => 'category',
+                    'groupBy' => 'brand_id',
+                    'headingRelation' => 'brand',
+                    'headingFallback' => 'Other',
+                    'subLabelRelation' => 'brand',
                     'subLabelFallback' => 'Printer',
                     'compatKey'        => 'compatibility',
                     'emptyMessage'     => 'No printers found.',
@@ -168,13 +174,15 @@ class ProductController extends Controller
 
     public function toners_index(Request $request)
     {
-        $query = Product::with('category', 'brand', 'voucher');
+        // Strict category isolation — only Toners (category_id = 2)
+        $query = Product::with('category', 'brand', 'voucher')
+            ->where('category_id', 2);
 
         if ($request->filled('search')) {
             $query->where('name', 'like', '%' . $request->search . '%');
         }
 
-        // Pills are now brand pills — filter by brand_id
+        // Pills are brand pills — filter by brand_id within this category
         if ($request->filled('cat') && $request->cat !== 'all') {
             $query->where('brand_id', $request->cat);
         }
@@ -189,17 +197,21 @@ class ProductController extends Controller
 
         $products = $query->get();
 
-        // Brands that actually appear on this page (unfiltered)
-        $brands = Brand::whereHas('products')->orderBy('name')->get();
+        // Only brands that have products in the Toners category
+        $brands = Brand::whereHas(
+            'products',
+            fn($q) =>
+            $q->where('category_id', 2)
+        )->orderBy('name')->get();
 
         if ($request->ajax() || $request->wantsJson()) {
             return response()->json([
                 'html'  => view('components.collections._grid', [
                     'products'         => $products,
-                    'groupBy'          => 'category_id',
-                    'headingRelation'  => 'category',
-                    'headingFallback'  => 'Uncategorized',
-                    'subLabelRelation' => 'category',
+                    'groupBy' => 'brand_id',
+                    'headingRelation' => 'brand',
+                    'headingFallback' => 'Other',
+                    'subLabelRelation' => 'brand',
                     'subLabelFallback' => 'Toner',
                     'compatKey'        => 'compatibility',
                     'emptyMessage'     => 'No toners found.',
@@ -310,9 +322,9 @@ class ProductController extends Controller
 
         return view('collections.papers.index', compact('products', 'brands'));
     }
-
+    // * For Admin Role
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new resource. 
      */
     public function create()
     {

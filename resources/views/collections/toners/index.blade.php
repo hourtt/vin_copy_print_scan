@@ -83,7 +83,7 @@
             </div>
 
             {{-- Empty State (Hidden by default) --}}
-            <div id="empty-state" style="display: none;" class="absolute inset-0 z-10 flex flex-col items-center justify-center text-center py-24 text-[#71717a] bg-white">
+            <div id="empty-state" class="hidden absolute inset-0 z-10 flex flex-col items-center justify-center text-center py-24 text-[#71717a] bg-white">
                 <p class="text-lg">No products found matching your filters.</p>
             </div>
 
@@ -91,10 +91,10 @@
             <div id="product-groups" class="transition-opacity duration-150 relative z-0">
                 @include('components.collections._grid', [
                     'products'         => $products,
-                    'groupBy'          => 'category_id',
-                    'headingRelation'  => 'category',
-                    'headingFallback'  => 'Uncategorized',
-                    'subLabelRelation' => 'category',
+                    'groupBy'          => 'brand_id',
+                    'headingRelation'  => 'brand',
+                    'headingFallback'  => 'Other',
+                    'subLabelRelation' => 'brand',
                     'subLabelFallback' => 'Toner',
                     'compatKey'        => 'compatibility',
                     'emptyMessage'     => 'No toners found.',
