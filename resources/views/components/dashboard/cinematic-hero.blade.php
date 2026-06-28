@@ -59,7 +59,7 @@
                     class="absolute inset-0 m-auto rounded-full pointer-events-none w-[85%] aspect-square bg-[radial-gradient(circle,rgba(45,122,106,0.07)_0%,transparent_70%)] blur-[2px]">
                 </div>
                 {{-- The image — no card, no border, no shadow --}}
-                <img src="{{ asset('storage/images/modern_printer_hero.png') }}"
+                <img src="{{ asset('storage/images/modern_printer_hero.webp') }}"
                     alt="Modern Canon printer on a clean desk"
                     class="relative w-full max-w-[520px] drop-shadow-none max-h-[68vh] object-contain mix-blend-multiply rounded-md"
                     loading="eager">

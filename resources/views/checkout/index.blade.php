@@ -13,7 +13,7 @@
     <header class="checkout-header">
         <div class="container">
             <a href="{{ url('/') }}" class="flex items-center gap-2 no-underline">
-                <img src="{{asset('storage/images/logo-icon-only.png')}}" alt="Logo" width="40" class="rounded-lg">
+                <img src="{{asset('storage/images/logo-icon-only.webp')}}" alt="Logo" width="40" class="rounded-lg">
                 <span class="font-['Fraunces',serif] font-bold text-xl text-[var(--brand)]">Vin Copy Print Scan</span>
             </a>
             <div class="checkout-secure">

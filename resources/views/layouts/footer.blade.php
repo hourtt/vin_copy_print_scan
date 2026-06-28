@@ -4,7 +4,7 @@
         {{-- Brand --}}
         <div>
             <div class="flex items-center gap-2 mb-4 text-[var(--ink)]">
-                <img src="{{ asset('storage/images/logo-icon-only.png') }}" alt="Logo" width="70"
+                <img src="{{ asset('storage/images/logo-icon-only.webp') }}" alt="Logo" width="70"
                     class="rounded-xl">
                 <span class="font-bold text-xl">Vin Copy Print Scan</span>
             </div>
