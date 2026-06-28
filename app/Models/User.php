@@ -32,7 +32,8 @@ class User extends Authenticatable
         'address',
         'city',
         'state',
-        'zip_code'
+        'zip_code',
+        'is_banned',
     ];
     protected $hidden = ['password', 'remember_token'];
 
@@ -51,5 +52,23 @@ class User extends Authenticatable
     public function getRedirectRoute(): string
     {
         return $this->role === 'admin' ? route('admin.dashboard') : route('dashboard');
+    }
+
+    // ─ Relationships ─
+
+    /**
+     * All orders placed by this user.
+     */
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    /**
+     * The user's shopping cart.
+     */
+    public function cart()
+    {
+        return $this->hasOne(Cart::class);
     }
 }

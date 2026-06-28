@@ -11,8 +11,6 @@ class Order extends Model
         'order_date',
         'shipped_time',
         'subtotal',
-        'voucher_id',
-        'applied_voucher_discount',
         'shipping_method_id',
         'shipping_fee',
         'shipping_address',
@@ -25,13 +23,12 @@ class Order extends Model
     ];
 
     protected $casts = [
-        'order_date'             => 'datetime',
-        'shipped_time'           => 'datetime',
-        'estimated_delivery_date'=> 'date',
-        'subtotal'               => 'decimal:2',
-        'shipping_fee'           => 'decimal:2',
-        'applied_voucher_discount'=> 'decimal:2',
-        'total'                  => 'decimal:2',
+        'order_date'              => 'datetime',
+        'shipped_time'            => 'datetime',
+        'estimated_delivery_date' => 'date',
+        'subtotal'                => 'decimal:2',
+        'shipping_fee'            => 'decimal:2',
+        'total'                   => 'decimal:2',
     ];
 
     /**
@@ -58,9 +55,11 @@ class Order extends Model
         return $this->hasMany(OrderItem::class);
     }
 
-    public function voucher()
+    public function vouchers()
     {
-        return $this->belongsTo(Voucher::class);
+        return $this->belongsToMany(Voucher::class, 'order_vouchers')
+                    ->withPivot('discount_amount', 'applied_to_product_ids')
+                    ->withTimestamps();
     }
 
     public function shippingMethod()
