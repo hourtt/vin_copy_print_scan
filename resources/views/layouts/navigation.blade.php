@@ -70,6 +70,7 @@
 
                 @auth
                     {{-- Orders / Cart icon --}}
+                    @if(Auth::user()->role === 'user')
                     <a href="{{ route('orders.index') }}"
                         class="hidden lg:flex items-center justify-center w-8 h-8 rounded-full transition-colors duration-150 text-[#6B6B6B] hover:text-[#0D0D0B]" aria-label="My Orders">
                         <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75"
@@ -79,6 +80,7 @@
                             <path d="M16 10a4 4 0 01-8 0" />
                         </svg>
                     </a>
+                    @endif
 
                     {{-- Account dropdown --}}
                     <div x-data="{ accountOpen: false }" @click.outside="accountOpen = false" class="relative">
@@ -214,6 +216,9 @@
                     </div>
                 </div>
                 <div class="space-y-0.5">
+                    @if(Auth::user()->role === 'admin')
+                        <a href="{{ route('admin.dashboard') }}" class="block px-3 py-2.5 rounded-lg text-sm font-semibold transition-colors font-['DM_Sans',sans-serif] text-indigo-600 hover:bg-[#ECEAE6] hover:text-indigo-800">Admin Dashboard</a>
+                    @endif
                     <a href="{{ route('profile.edit') }}" class="block px-3 py-2.5 rounded-lg text-sm transition-colors font-['DM_Sans',sans-serif] text-[#6B6B6B] hover:bg-[#ECEAE6] hover:text-[#0D0D0B]">Profile</a>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf

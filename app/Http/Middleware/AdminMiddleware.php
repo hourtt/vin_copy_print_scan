@@ -20,6 +20,10 @@ class AdminMiddleware
             return $next($request);
         }
 
-        abort(403, 'Unauthorized access.');
+        if (Auth::check()) {
+            return redirect()->route('dashboard');
+        }
+
+        return redirect()->route('login');
     }
 }

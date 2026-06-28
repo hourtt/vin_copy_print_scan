@@ -27,8 +27,8 @@ class UserMiddleware
                 ->withErrors(['email' => 'Your account has been suspended. Please contact support.']);
         }
 
-        // Only allow authenticated customers (not admins) through user middleware
-        if ($user && $user->role === 'customer') {
+        // Only allow authenticated users (not admins) through user middleware
+        if ($user && $user->role === 'user') {
             return $next($request);
         }
 

@@ -10,7 +10,7 @@ class AdminCustomerController extends Controller
 {
     public function index(Request $request)
     {
-        $query = User::where('role', 'customer')
+        $query = User::where('role', 'user')
             ->withCount('orders')
             ->withSum('orders', 'total');
 
