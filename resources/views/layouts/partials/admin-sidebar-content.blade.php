@@ -52,9 +52,9 @@
                    {{ request()->routeIs('admin.products.index') ? 'bg-indigo-50 text-indigo-700' : 'text-gray-500 hover:text-gray-900 hover:bg-gray-50' }}">
                     Product List
                 </a>
-                <a href="{{ Route::has('admin.products.categories') ? route('admin.products.categories') : '#' }}"
+                <a href="{{ Route::has('admin.categories.index') ? route('admin.categories.index') : '#' }}"
                     class="block pl-10 pr-3 py-2 text-sm font-medium rounded-lg transition-colors
-                   {{ request()->routeIs('admin.products.categories') ? 'bg-indigo-50 text-indigo-700' : 'text-gray-500 hover:text-gray-900 hover:bg-gray-50' }}">
+                   {{ request()->routeIs('admin.categories.*') ? 'bg-indigo-50 text-indigo-700' : 'text-gray-500 hover:text-gray-900 hover:bg-gray-50' }}">
                     Categories
                 </a>
             </div>

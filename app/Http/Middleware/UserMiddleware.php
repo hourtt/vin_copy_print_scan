@@ -17,10 +17,27 @@ class UserMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         $user = Auth::user();
-        if($user && $user->role === 'user') {
-            return redirect()->route('your_route_here'); // Replace 'your_route_here' with the actual route you want to redirect to
+
+        // Block banned customers from accessing user-protected routes
+        if ($user && $user->is_banned) {
+            Auth::logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+            return redirect()->route('login')
+                ->withErrors(['email' => 'Your account has been suspended. Please contact support.']);
         }
-        // * Guest who doesn't have an account can still using without an account
-        return $next($request);
+
+        // Only allow authenticated customers (not admins) through user middleware
+        if ($user && $user->role === 'customer') {
+            return $next($request);
+        }
+
+        // Unauthenticated users — redirect to login
+        if (!$user) {
+            return redirect()->route('login');
+        }
+
+        // Admins trying to access user routes — redirect to admin dashboard
+        return redirect()->route('admin.dashboard');
     }
 }
