@@ -1,6 +1,7 @@
-@props(['disabled' => false, 'id', 'name', 'label', 'type' => 'text'])
+@props(['disabled' => false, 'id' => null, 'name' => null, 'label', 'type' => 'text'])
 
 @php
+    $id = $id ?? $name;
     $isPassword = $type === 'password';
 @endphp
 
