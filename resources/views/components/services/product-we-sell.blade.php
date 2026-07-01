@@ -57,7 +57,7 @@
                                 class="mt-1.5 w-2 h-2 rounded-full bg-[#305CDE] flex-shrink-0"></span><span>ខ្នាតធំ
                                 ទំហំ A3 និងធំជាងនេះ សម្រាប់ផ្ទាំងរូបភាព ប្លង់ និងបដា</span></li>
                     </ul>
-                    <a href="{{ route('collections.printers.index') }}"
+                    <a href="{{ route('products.printers.index') }}"
                         class="inline-flex items-center gap-2 px-6 py-3 bg-[#1a1a2e] text-white text-sm font-semibold rounded-xl hover:bg-[#2d2d4e] transition-colors duration-200">
                         ស្វែងរកម៉ាស៊ីនបោះពុម្ព
                         <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -94,7 +94,7 @@
                                 class="mt-1.5 w-2 h-2 rounded-full bg-[#305CDE] flex-shrink-0"></span><span>អាចរកបានភ្លាមៗ
                                 អញ្ជើញមកផ្ទាល់ ឬបញ្ជាទិញសម្រាប់ការដឹកជញ្ជូននៅថ្ងៃបន្ទាប់</span></li>
                     </ul>
-                    <a href="{{ route('collections.toners.index') }}"
+                    <a href="{{ route('products.toners.index') }}"
                         class="inline-flex items-center gap-2 px-6 py-3 bg-[#1a1a2e] text-white text-sm font-semibold rounded-xl hover:bg-[#2d2d4e] transition-colors duration-200">
                         ទិញសម្ភារៈប្រើប្រាស់
                         <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -163,7 +163,7 @@
                                 ស្លាក, កាត, ក្រដាសថ្លា, និងស្រោមសំបុត្រ</span></li>
                     </ul>
                     <div class="flex flex-wrap gap-3">
-                        <a href="{{ route('collections.papers.index') }}"
+                        <a href="{{ route('products.papers.index') }}"
                             class="inline-flex items-center gap-2 px-6 py-3 bg-[#1a1a2e] text-white text-sm font-semibold rounded-xl hover:bg-[#2d2d4e] transition-colors duration-200">
                             ទិញក្រដាស
                             <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none"

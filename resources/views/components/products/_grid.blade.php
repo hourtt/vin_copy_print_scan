@@ -83,9 +83,32 @@
 
                             @auth
                                 <button
+                                    x-data="{ adding: false, added: false }"
+                                    @click="
+                                        if(adding) return;
+                                        adding = true;
+                                        fetch('{{ route('cart.add', $product->id) }}', {
+                                            method: 'POST',
+                                            headers: {
+                                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                                'Accept': 'application/json'
+                                            }
+                                        })
+                                        .then(res => res.json())
+                                        .then(data => {
+                                            if(data.success) {
+                                                window.dispatchEvent(new CustomEvent('cart-updated', { detail: { count: data.count } }));
+                                                added = true;
+                                                setTimeout(() => added = false, 2000);
+                                            }
+                                        })
+                                        .finally(() => adding = false);
+                                    "
                                     class="inline-flex items-center justify-center min-h-[36px] px-4 py-2 bg-[#3f3f46] text-white text-xs sm:text-sm font-semibold rounded-lg hover:bg-[#18181b] active:scale-95 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
-                                    @if ($stock <= 0) disabled @endif>
-                                    {{ $stock <= 0 ? 'Unavailable' : 'Add to Cart' }}
+                                    :disabled="adding || {{ $stock <= 0 ? 'true' : 'false' }}">
+                                    <span x-show="!adding && !added">{{ $stock <= 0 ? 'Unavailable' : 'Add to Cart' }}</span>
+                                    <span x-show="adding" x-cloak>Adding...</span>
+                                    <span x-show="added" x-cloak>Added!</span>
                                 </button>
                             @else
                                 <a href="{{ route('login') }}"

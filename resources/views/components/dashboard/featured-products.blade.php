@@ -6,7 +6,7 @@
                 <div class="lg:col-span-2">
                     <div class="flex justify-between items-baseline mb-8">
                         <h2 class="font-sans text-2xl font-semibold text-[#1a1a2e]">Featured Printers</h2>
-                        <a href="{{ route('collections.printers.index') }}"
+                        <a href="{{ route('products.printers.index') }}"
                             class="text-blue-600 font-semibold text-sm no-underline hover:text-blue-800 transition-colors">View
                             All &rarr;</a>
                     </div>
@@ -102,7 +102,7 @@
                         <h2 class="font-sans text-xl font-semibold text-blue-900 mb-2 relative z-10">Premium Paper</h2>
                         <p class="text-sm text-blue-800 leading-relaxed mb-6 relative z-10">Stock up on essential A4 &
                             A3 sizes for crisp, professional documents.</p>
-                        <a href="{{ route('collections.papers.index') }}"
+                        <a href="{{ route('products.papers.index') }}"
                             class="text-sm font-semibold text-blue-700 no-underline relative z-10 flex items-center gap-1 hover:text-blue-900 transition-colors">
                             Shop Paper Supplies &rarr;
                         </a>

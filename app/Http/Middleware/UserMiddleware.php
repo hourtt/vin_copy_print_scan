@@ -28,7 +28,7 @@ class UserMiddleware
         }
 
         // Only allow authenticated users (not admins) through user middleware
-        if ($user && $user->role === 'user') {
+        if ($user && $user->role === 'customer') {
             return $next($request);
         }
 

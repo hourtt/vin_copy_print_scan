@@ -17,7 +17,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::with('category', 'brand', 'voucher')->latest()->get();
+        $products = Product::with('category', 'brand', 'voucher')->latest()->paginate(20);
         $category = Category::orderBy('sort_order')->get();
         $featured = Product::with('category', 'brand')
             ->where('is_featured', true)
@@ -65,7 +65,7 @@ class ProductController extends Controller
         }
 
         $products = $query->paginate(12)->withQueryString();
-        $categories = Category::all();
+        $categories = cache()->remember('categories.all', 3600, fn() => Category::all());
 
         return view('products-catalog.index', compact('products', 'categories'));
     }
@@ -81,8 +81,8 @@ class ProductController extends Controller
 
     public function admin_index()
     {
-        $products = Product::with('category', 'voucher')->get();
-        $category = Category::all();
+        $products = Product::with('category', 'voucher')->paginate(20);
+        $category = cache()->remember('categories.all', 3600, fn() => Category::all());
 
         $now = Carbon::now();
 
@@ -165,7 +165,7 @@ class ProductController extends Controller
                 break;
         }
 
-        $products = $query->get();
+        $products = $query->paginate(20);
 
         // Only brands that have products in the Printers category
         $brands = Brand::whereHas(
@@ -176,7 +176,7 @@ class ProductController extends Controller
 
         if ($request->ajax() || $request->wantsJson()) {
             return response()->json([
-                'html' => view('components.collections._grid', [
+                'html' => view('components.products._grid', [
                     'products' => $products,
                     'groupBy' => 'brand_id',
                     'headingRelation' => 'brand',
@@ -191,7 +191,7 @@ class ProductController extends Controller
             ]);
         }
 
-        return view('collections.printers.index', compact('products', 'brands'));
+        return view('products.printers.index', compact('products', 'brands'));
     }
 
     public function toners_index(Request $request)
@@ -225,7 +225,7 @@ class ProductController extends Controller
                 break;
         }
 
-        $products = $query->get();
+        $products = $query->paginate(20);
 
         // Only brands that have products in the Toners category
         $brands = Brand::whereHas(
@@ -236,7 +236,7 @@ class ProductController extends Controller
 
         if ($request->ajax() || $request->wantsJson()) {
             return response()->json([
-                'html' => view('components.collections._grid', [
+                'html' => view('components.products._grid', [
                     'products' => $products,
                     'groupBy' => 'brand_id',
                     'headingRelation' => 'brand',
@@ -251,7 +251,7 @@ class ProductController extends Controller
             ]);
         }
 
-        return view('collections.toners.index', compact('products', 'brands'));
+        return view('products.toners.index', compact('products', 'brands'));
     }
 
     public function inks_index(Request $request)
@@ -284,7 +284,7 @@ class ProductController extends Controller
                 break;
         }
 
-        $products = $query->get();
+        $products = $query->paginate(20);
 
         // Brands that have ink-cartridge products
         $brands = Brand::whereHas(
@@ -295,7 +295,7 @@ class ProductController extends Controller
 
         if ($request->ajax() || $request->wantsJson()) {
             return response()->json([
-                'html' => view('components.collections._grid', [
+                'html' => view('components.products._grid', [
                     'products' => $products,
                     'groupBy' => 'brand_id',
                     'headingRelation' => 'brand',
@@ -310,7 +310,7 @@ class ProductController extends Controller
             ]);
         }
 
-        return view('collections.inks.index', compact('products', 'brands'));
+        return view('products.inks.index', compact('products', 'brands'));
     }
 
     public function papers_index(Request $request)
@@ -346,7 +346,7 @@ class ProductController extends Controller
                 break;
         }
 
-        $products = $query->get();
+        $products = $query->paginate(20);
 
         // Brands that have paper products
         $brands = Brand::whereHas(
@@ -357,7 +357,7 @@ class ProductController extends Controller
 
         if ($request->ajax() || $request->wantsJson()) {
             return response()->json([
-                'html' => view('components.collections._grid', [
+                'html' => view('components.products._grid', [
                     'products' => $products,
                     'groupBy' => 'category_id',
                     'headingRelation' => 'category',
@@ -372,7 +372,7 @@ class ProductController extends Controller
             ]);
         }
 
-        return view('collections.papers.index', compact('products', 'brands'));
+        return view('products.papers.index', compact('products', 'brands'));
     }
 
 }

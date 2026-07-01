@@ -1,4 +1,7 @@
-<nav x-data="{ mobileMenuOpen: false }" class="sticky top-0 z-50 w-full bg-[#F5F5F3] border-b border-[#E5E5E2]">
+@php
+    $initialCartCount = Auth::check() ? app(\App\Services\CartService::class)->getCartItems()->sum('quantity') : 0;
+@endphp
+<nav x-data="{ mobileMenuOpen: false, cartCount: {{ $initialCartCount }} }" @cart-updated.window="cartCount = $event.detail.count" class="sticky top-0 z-50 w-full bg-[#F5F5F3] border-b border-[#E5E5E2]">
     <div class="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-16">
         <div class="relative flex items-center h-16 lg:h-[68px]">
 
@@ -40,19 +43,19 @@
                         x-transition:leave-end="opacity-0 translate-y-1" x-cloak
                         class="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-48 rounded-xl overflow-hidden bg-white border border-[#E5E5E2] shadow-[0_8px_24px_rgba(0,0,0,0.07)]">
                         <div class="py-1.5">
-                            <a href="{{ route('collections.printers.index') }}"
+                            <a href="{{ route('products.printers.index') }}"
                                 class="flex items-center gap-2 px-4 py-2.5 text-sm transition-colors duration-150 font-['DM_Sans',sans-serif] text-[#4A4A48] hover:bg-[#F5F5F3] hover:text-[#0D0D0B]">
                                 Printers
                             </a>
-                            <a href="{{ route('collections.toners.index') }}"
+                            <a href="{{ route('products.toners.index') }}"
                                 class="flex items-center gap-2 px-4 py-2.5 text-sm transition-colors duration-150 font-['DM_Sans',sans-serif] text-[#4A4A48] hover:bg-[#F5F5F3] hover:text-[#0D0D0B]">
                                 Toners
                             </a>
-                            <a href="{{ route('collections.inks.index') }}"
+                            <a href="{{ route('products.inks.index') }}"
                                 class="flex items-center gap-2 px-4 py-2.5 text-sm transition-colors duration-150 font-['DM_Sans',sans-serif] text-[#4A4A48] hover:bg-[#F5F5F3] hover:text-[#0D0D0B]">
                                 Ink Cartridges
                             </a>
-                            <a href="{{ route('collections.papers.index') }}"
+                            <a href="{{ route('products.papers.index') }}"
                                 class="flex items-center gap-2 px-4 py-2.5 text-sm transition-colors duration-150 font-['DM_Sans',sans-serif] text-[#4A4A48] hover:bg-[#F5F5F3] hover:text-[#0D0D0B]">
                                 Papers
                             </a>
@@ -70,7 +73,19 @@
 
                 @auth
                     {{-- Orders / Cart icon --}}
-                    @if(Auth::user()->role === 'user')
+                    @if(Auth::user()->role === 'customer')
+                    <a href="{{ route('cart.index') }}"
+                        class="relative hidden lg:flex items-center justify-center w-8 h-8 rounded-full transition-colors duration-150 text-[#6B6B6B] hover:text-[#0D0D0B]" aria-label="My Cart">
+                        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75"
+                            stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                            <circle cx="9" cy="21" r="1"></circle>
+                            <circle cx="20" cy="21" r="1"></circle>
+                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                        </svg>
+                        <span x-show="cartCount > 0" x-text="cartCount" x-cloak class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full flex items-center justify-center min-w-[16px] h-[16px]">
+                        </span>
+                    </a>
+
                     <a href="{{ route('orders.index') }}"
                         class="hidden lg:flex items-center justify-center w-8 h-8 rounded-full transition-colors duration-150 text-[#6B6B6B] hover:text-[#0D0D0B]" aria-label="My Orders">
                         <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75"
@@ -178,13 +193,13 @@
                     </svg>
                 </button>
                 <div x-show="mOpen" x-cloak class="pl-5 pt-1 space-y-0.5">
-                    <a href="{{ route('collections.printers.index') }}"
+                    <a href="{{ route('products.printers.index') }}"
                         class="block px-3 py-2 rounded-lg text-sm transition-colors font-['DM_Sans',sans-serif] text-[#6B6B6B] hover:bg-[#ECEAE6] hover:text-[#0D0D0B]">Printers</a>
-                    <a href="{{ route('collections.toners.index') }}"
+                    <a href="{{ route('products.toners.index') }}"
                         class="block px-3 py-2 rounded-lg text-sm transition-colors font-['DM_Sans',sans-serif] text-[#6B6B6B] hover:bg-[#ECEAE6] hover:text-[#0D0D0B]">Toners</a>
-                    <a href="{{ route('collections.inks.index') }}"
+                    <a href="{{ route('products.inks.index') }}"
                         class="block px-3 py-2 rounded-lg text-sm transition-colors font-['DM_Sans',sans-serif] text-[#6B6B6B] hover:bg-[#ECEAE6] hover:text-[#0D0D0B]">Ink Cartridges</a>
-                    <a href="{{ route('collections.papers.index') }}"
+                    <a href="{{ route('products.papers.index') }}"
                         class="block px-3 py-2 rounded-lg text-sm transition-colors font-['DM_Sans',sans-serif] text-[#6B6B6B] hover:bg-[#ECEAE6] hover:text-[#0D0D0B]">Papers</a>
                 </div>
             </div>
@@ -203,7 +218,7 @@
         <div class="max-w-[1280px] mx-auto px-6 pb-5 pt-3 border-t border-[#E5E5E2]">
             @auth
                 <div class="flex items-center gap-3 mb-3 pt-3">
-                    <div class="w-8 h-8 rounded-full flex items-center justify-center bg-[#2D7A6A]">
+                    <div class="w-8 h-8 rounded-full flex items-center justify-center bg-[#305CDE]">
                         <span
                             class="text-xs font-bold text-white">{{ strtoupper(substr(Auth::user()->first_name, 0, 1)) }}</span>
                     </div>
@@ -216,6 +231,12 @@
                     </div>
                 </div>
                 <div class="space-y-0.5">
+                    @if(Auth::user()->role === 'customer')
+                        <a href="{{ route('cart.index') }}" class="flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-semibold transition-colors font-['DM_Sans',sans-serif] text-[#6B6B6B] hover:bg-[#ECEAE6] hover:text-[#0D0D0B]">
+                            My Cart
+                            <span x-show="cartCount > 0" x-text="cartCount" x-cloak class="bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full"></span>
+                        </a>
+                    @endif
                     @if(Auth::user()->role === 'admin')
                         <a href="{{ route('admin.dashboard') }}" class="block px-3 py-2.5 rounded-lg text-sm font-semibold transition-colors font-['DM_Sans',sans-serif] text-indigo-600 hover:bg-[#ECEAE6] hover:text-indigo-800">Admin Dashboard</a>
                     @endif
@@ -234,7 +255,7 @@
                         Sign In
                     </a>
                     <a href="{{ route('register') }}"
-                        class="flex-1 text-center px-4 py-2.5 rounded-lg text-sm font-semibold text-white transition-all hover:brightness-90 bg-[#2D7A6A] font-['DM_Sans',sans-serif]">
+                        class="flex-1 text-center px-4 py-2.5 rounded-lg text-sm font-semibold text-white transition-all hover:brightness-90 bg-[#305CDE] font-['DM_Sans',sans-serif]">
                         Get Started
                     </a>
                 </div>

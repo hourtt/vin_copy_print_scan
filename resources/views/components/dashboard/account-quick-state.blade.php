@@ -52,7 +52,7 @@
                     <p class="text-[#1a1a2e]/55 text-sm">No orders placed yet. Start shopping to see your history.</p>
                 </div>
                 <div class="mt-6">
-                    <a href="{{ route('collections.printers.index') }}"
+                    <a href="{{ route('products.printers.index') }}"
                         class="text-blue-600 font-semibold text-sm hover:text-blue-800 transition-colors">
                         Browse Products &rarr;
                     </a>

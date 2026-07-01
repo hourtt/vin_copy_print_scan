@@ -92,7 +92,7 @@
 
             {{-- Product Groups --}}
             <div id="product-groups" class="transition-opacity duration-150 relative z-0">
-                @include('components.collections._grid', [
+                @include('components.products._grid', [
                     'products'         => $products,
                     'groupBy'          => 'brand_id',
                     'headingRelation'  => 'brand',

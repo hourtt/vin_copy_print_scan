@@ -5,13 +5,14 @@
             {{-- LEFT COLUMN: Text block  --}}
             <div class="flex flex-col justify-center py-16 md:py-0 order-2 md:order-1">
 
-                {{-- Display headline — Fraunces serif, stacked --}}
-                <h1
-                    class="mb-6 leading-[1.08] tracking-[-0.03em] font-['Fraunces',serif] text-[clamp(2.6rem,5.5vw,4.25rem)] font-bold text-[#0D0D0B]">
-                    Order<br>
-                    Prints<br>
-                    <em class="italic font-normal">Repeat</em>
-                </h1>
+                {{-- Khmer Display headline --}}
+                <h4
+                    class="mt-6 mb-6 leading-[1.08] tracking-[-0.03em] font-['Kantumruy_Pro',serif] text-[clamp(2.6rem,5.5vw,4.25rem)] font-semibold text-[#0D0D0B]">
+                    ស្វាគមន៏មកកាន់ហាង<br>
+                    <em class="italic font-normal text-[clamp(1.8rem,4vw,3rem)]">
+                        Vin Copy Print Scan
+                    </em>
+                </h4>
 
                 {{-- Khmer subtitle --}}
                 <p
@@ -27,7 +28,7 @@
                 {{-- CTA row --}}
                 <div class="flex flex-wrap items-center gap-4">
                     <a href="{{ route('services') }}"
-                        class="inline-flex items-center gap-1 text-sm font-medium transition-colors duration-200 text-[#0D0D0B] font-['DM_Sans',sans-serif] hover:text-[#2D7A6A]">
+                        class="inline-flex items-center gap-1 text-sm font-medium transition-colors duration-200 text-[#0D0D0B] font-['DM_Sans',sans-serif] hover:text-[#305CDE]">
                         Our Services
                         <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true">

@@ -19,7 +19,7 @@
                 Discover things<br>you'll <em>love.</em>
             </h1>
             <p class="fade-up fade-up-3">
-                Explore our curated collections. Sign in to add items to your cart and start purchasing.
+                Explore our curated products. Sign in to add items to your cart and start purchasing.
             </p>
             <div class="hero-cta fade-up fade-up-4">
                 <a href="#products" id="explore-btn" class="btn btn-primary btn-explore">Explore products</a>

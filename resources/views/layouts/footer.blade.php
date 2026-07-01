@@ -1,5 +1,5 @@
 <footer class="bg-white border-t border-[var(--ink)]/10">
-    <div class="max-w-6xl mx-auto px-6 py-12 grid grid-cols-1 sm:grid-cols-3 gap-10">
+    <div class="max-w-6xl mx-auto px-6 py-12 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-10">
 
         {{-- Brand --}}
         <div>
@@ -14,17 +14,6 @@
             </p>
         </div>
 
-        {{-- Quick Links --}}
-        <div>
-            <h4 class="font-semibold text-sm text-[var(--ink)] mb-5">Quick Links</h4>
-            <ul class="space-y-3 text-sm text-[var(--ink-muted)]">
-                <li><a href="#" class="hover:text-[var(--ink)] transition-colors">Privacy Policy</a></li>
-                <li><a href="#" class="hover:text-[var(--ink)] transition-colors">Terms of Service</a></li>
-                <li><a href="#" class="hover:text-[var(--ink)] transition-colors">Shipping Info</a></li>
-                <li><a href="#" class="hover:text-[var(--ink)] transition-colors">FAQ</a></li>
-            </ul>
-        </div>
-
         {{-- Contact --}}
         <div class="sm:text-right">
             <h4 class="font-semibold text-sm text-[var(--ink)] mb-5">Contact</h4>
@@ -37,7 +26,7 @@
                             <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
                             <polyline points="22,6 12,13 2,6" />
                         </svg>
-                       vincopy168@gmail.com
+                        vincopy168@gmail.com
                     </a>
                 </li>
                 <li>
