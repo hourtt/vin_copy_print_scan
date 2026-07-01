@@ -27,22 +27,32 @@
         <div class="form-grid">
             <div class="form-group full-width">
                 <label class="form-label">Full Name</label>
-                <input type="text" class="form-control" name="customer_name" x-model="customer.name" placeholder="Enter your full name">
+                <input type="text" class="form-control @error('customer_name') is-invalid @enderror" name="customer_name" x-model="customer.name" placeholder="Enter your full name">
+                @error('customer_name')<span class="text-red-500 text-sm">{{ $message }}</span>@enderror
+            </div>
+
+            <div class="form-group full-width">
+                <label class="form-label">Phone Number</label>
+                <input type="text" class="form-control @error('customer_phone') is-invalid @enderror" name="customer_phone" x-model="customer.phone" placeholder="Enter your phone number">
+                @error('customer_phone')<span class="text-red-500 text-sm">{{ $message }}</span>@enderror
             </div>
 
             <div class="form-group full-width">
                 <label class="form-label">Street Address</label>
-                <input type="text" class="form-control" name="customer_address" x-model="customer.address" placeholder="123 Industrial Parkway, Suite 400">
+                <input type="text" class="form-control @error('customer_address') is-invalid @enderror" name="customer_address" x-model="customer.address" placeholder="123 Industrial Parkway, Suite 400">
+                @error('customer_address')<span class="text-red-500 text-sm">{{ $message }}</span>@enderror
             </div>
 
             <div class="form-group">
                 <label class="form-label">City</label>
-                <input type="text" class="form-control" name="customer_city" x-model="customer.city" placeholder="Techville">
+                <input type="text" class="form-control @error('customer_city') is-invalid @enderror" name="customer_city" x-model="customer.city" placeholder="Techville">
+                @error('customer_city')<span class="text-red-500 text-sm">{{ $message }}</span>@enderror
             </div>
 
             <div class="form-group">
                 <label class="form-label">ZIP / Postal Code</label>
-                <input type="text" class="form-control" name="customer_zip" x-model="customer.zip" placeholder="90210">
+                <input type="text" class="form-control @error('customer_zip') is-invalid @enderror" name="customer_zip" x-model="customer.zip" placeholder="90210">
+                @error('customer_zip')<span class="text-red-500 text-sm">{{ $message }}</span>@enderror
             </div>
         </div>
     </div>

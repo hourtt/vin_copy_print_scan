@@ -23,7 +23,7 @@
 
         <div style="background: var(--surface-warm); border-radius: 8px; padding: 1.5rem; margin-bottom: 2.5rem; text-align: left;">
             <p style="font-size: 0.9rem; color: var(--ink-muted); margin-bottom: 0.5rem;">Order Reference:</p>
-            <p style="font-family: monospace; font-size: 1.25rem; font-weight: 700; color: var(--ink); letter-spacing: 2px;">VCP-{{ strtoupper(Str::random(8)) }}</p>
+            <p style="font-family: monospace; font-size: 1.25rem; font-weight: 700; color: var(--ink); letter-spacing: 2px;">VCP-{{ str_pad($order->id, 8, '0', STR_PAD_LEFT) }}</p>
         </div>
 
         <a href="{{ url('/') }}" class="btn-primary" style="padding: 1rem 3rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;">

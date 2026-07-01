@@ -2,16 +2,37 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
+use App\Models\OrderItem;
+use App\Services\CartService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CheckoutController extends Controller
 {
+    protected $cartService;
+
+    public function __construct(CartService $cartService)
+    {
+        $this->cartService = $cartService;
+    }
+
     /**
      * Display the checkout page.
      */
     public function index()
     {
-        return view('checkout.index');
+        $cartItems = $this->cartService->getCartItems();
+        if ($cartItems->isEmpty()) {
+            return redirect()->route('cart.index')->with('error', 'Your cart is empty.');
+        }
+
+        $subtotal = $this->cartService->getSubtotal();
+        // Calculate total (add shipping if needed, apply voucher, etc.)
+        $shippingFee = 0; // default for now
+        $total = $subtotal + $shippingFee;
+
+        return view('checkout.index', compact('cartItems', 'subtotal', 'shippingFee', 'total'));
     }
 
     /**
@@ -19,23 +40,97 @@ class CheckoutController extends Controller
      */
     public function store(Request $request)
     {
-        // Validation could be added here later
-        // $request->validate([
-        //     'delivery_method' => 'required|in:pickup,delivery',
-        //     ...
-        // ]);
+        $cartItems = $this->cartService->getCartItems();
+        if ($cartItems->isEmpty()) {
+            return redirect()->route('cart.index')->with('error', 'Your cart is empty.');
+        }
 
-        // Process order...
-        
-        // Redirect to success page
-        return redirect()->route('checkout.success')->with('success', 'Order placed successfully.');
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'phone' => 'required|string|max:20',
+            'shipping_address' => 'required|string',
+            'payment_method' => 'required|in:cod,stripe,aba',
+        ]);
+
+        $subtotal = $this->cartService->getSubtotal();
+        $shippingFee = 0; // Default or calculate based on form
+        $total = $subtotal + $shippingFee;
+
+        // In a real app we might validate voucher code here and deduct discount
+
+        DB::beginTransaction();
+
+        try {
+            $order = Order::create([
+                'user_id' => $request->user()->id,
+                'order_date' => now(),
+                'subtotal' => $subtotal,
+                'shipping_fee' => $shippingFee,
+                'shipping_address' => "Name: {$request->name}\nPhone: {$request->phone}\nAddress: {$request->shipping_address}",
+                'total' => $total,
+                'status' => 'pending', // Pending payment
+            ]);
+
+            foreach ($cartItems as $item) {
+                OrderItem::create([
+                    'order_id' => $order->id,
+                    'product_id' => $item->product_id,
+                    'quantity' => $item->quantity,
+                    'unit_price' => $item->product->price,
+                    'subtotal' => $item->quantity * $item->product->price,
+                ]);
+            }
+
+            // Clear the cart
+            $this->cartService->clear();
+
+            DB::commit();
+
+            // Handle payment method
+            if ($request->payment_method === 'cod') {
+                // Stock decrement happens here for COD
+                foreach ($order->items as $orderItem) {
+                    $orderItem->product->decrement('stock', $orderItem->quantity);
+                }
+
+                $order->update(['status' => 'processing']);
+                return redirect()->route('checkout.success', ['order' => $order->id])->with('success', 'Order placed successfully.');
+            } elseif ($request->payment_method === 'stripe') {
+                // Redirect to Stripe Checkout Controller
+                return redirect()->route('checkout.stripe', ['order' => $order->id]);
+            } elseif ($request->payment_method === 'aba') {
+                // Redirect to ABA PayWay Checkout Controller
+                return redirect()->route('checkout.aba', ['order' => $order->id]);
+            }
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', 'An error occurred while creating your order. Please try again.');
+        }
     }
 
     /**
      * Display the success page.
      */
-    public function success()
+    public function success(Request $request)
     {
-        return view('checkout.success');
+        $order = Order::where('user_id', $request->user()->id)
+            ->where('id', $request->query('order'))
+            ->with('items.product')
+            ->firstOrFail();
+
+        return view('checkout.success', compact('order'));
+    }
+
+    /**
+     * Display the cancel page.
+     */
+    public function cancel(Request $request)
+    {
+        $order = Order::where('user_id', $request->user()->id)
+            ->where('id', $request->query('order'))
+            ->firstOrFail();
+
+        return view('checkout.cancel', compact('order'));
     }
 }

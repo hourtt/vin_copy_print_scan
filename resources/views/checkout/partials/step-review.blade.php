@@ -32,21 +32,21 @@
             <!-- Payment Info Summary -->
             <div>
                 <h4 style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-faint); margin-bottom: 0.75rem;">Payment Method</h4>
-                <template x-if="paymentMethod === 'card'">
+                <template x-if="paymentMethod === 'stripe'">
                     <div>
                         <p style="font-weight: 600; color: var(--ink); margin-bottom: 0.25rem;">Credit / Debit Card</p>
-                        <p style="font-size: 0.9rem; color: var(--ink-muted);">Card ending in <span x-text="card.number.slice(-4)"></span></p>
+                        <p style="font-size: 0.9rem; color: var(--ink-muted);">Processed via Stripe</p>
                     </div>
                 </template>
-                <template x-if="paymentMethod === 'cash'">
+                <template x-if="paymentMethod === 'cod'">
                     <div>
                         <p style="font-weight: 600; color: var(--ink); margin-bottom: 0.25rem;">Cash on Pickup</p>
                         <p style="font-size: 0.9rem; color: var(--ink-muted);">Pay at the store</p>
                     </div>
                 </template>
-                <template x-if="paymentMethod === 'invoice'">
+                <template x-if="paymentMethod === 'aba'">
                     <div>
-                        <p style="font-weight: 600; color: var(--ink); margin-bottom: 0.25rem;">Invoice (Net 30)</p>
+                        <p style="font-weight: 600; color: var(--ink); margin-bottom: 0.25rem;">ABA PayWay</p>
                     </div>
                 </template>
                 <button type="button" @click="step = 2" style="background: none; border: none; color: var(--brand); font-size: 0.85rem; font-weight: 500; cursor: pointer; padding: 0; margin-top: 0.5rem; text-decoration: underline;">Edit</button>

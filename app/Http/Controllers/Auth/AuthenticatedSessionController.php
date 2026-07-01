@@ -26,6 +26,8 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
 
+        app(\App\Services\CartService::class)->mergeSessionToDb();
+
         $request->session()->regenerate();
 
         return redirect()->intended($request->user()->getRedirectRoute());

@@ -13,7 +13,7 @@ class OrdersController extends Controller
     public function index(Request $request)
     {
         //* Get all orders that belong to the authenticated user and display them. */
-        $orders = Order::whereBelongTo($request->user())->get();
+        $orders = Order::whereBelongsTo($request->user())->paginate(10);
         return view('orders.index', compact('orders'));
     }
 

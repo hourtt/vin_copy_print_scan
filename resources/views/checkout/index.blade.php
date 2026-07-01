@@ -8,7 +8,7 @@
     <link href="https://fonts.bunny.net/css?family=fraunces:400,500,600,700,900i&family=dm-sans:300,400,500,600" rel="stylesheet" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="checkout-page" x-data="checkoutForm()">
+<body class="checkout-page" x-data="checkoutForm({ subtotal: {{ $subtotal }}, shippingCost: {{ $shippingFee }} })">
     <!-- Header -->
     <header class="checkout-header">
         <div class="container">

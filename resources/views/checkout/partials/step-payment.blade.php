@@ -5,7 +5,7 @@
     </div>
 
     <!-- Card Payment -->
-    <label class="selectable-panel" :class="{ 'selected': paymentMethod === 'card' }" @click="paymentMethod = 'card'">
+    <label class="selectable-panel" :class="{ 'selected': paymentMethod === 'stripe' }" @click="paymentMethod = 'stripe'">
         <div class="panel-content">
             <div class="panel-radio"></div>
             <div class="panel-title">Credit / Debit Card</div>
@@ -13,7 +13,7 @@
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--ink-muted);"><rect x="2" y="5" width="20" height="14" rx="2" ry="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>
     </label>
 
-    <div x-show="paymentMethod === 'card'" x-transition class="payment-details">
+    <div x-show="paymentMethod === 'stripe'" x-transition class="payment-details">
         <div class="form-grid">
             <div class="form-group full-width">
                 <label class="form-label">Card Number</label>
@@ -36,7 +36,7 @@
     </div>
 
     <!-- Cash Payment (Only for Pickup) -->
-    <label class="selectable-panel" :class="{ 'selected': paymentMethod === 'cash' }" @click="paymentMethod = 'cash'" x-show="deliveryMethod === 'pickup'" style="margin-top: 1rem;">
+    <label class="selectable-panel" :class="{ 'selected': paymentMethod === 'cod' }" @click="paymentMethod = 'cod'" x-show="deliveryMethod === 'pickup'" style="margin-top: 1rem;">
         <div class="panel-content">
             <div class="panel-radio"></div>
             <div class="panel-title">Cash on Pickup</div>
@@ -44,15 +44,15 @@
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--ink-muted);"><rect x="2" y="6" width="20" height="12" rx="2"></rect><circle cx="12" cy="12" r="2"></circle><path d="M6 12h.01M18 12h.01"></path></svg>
     </label>
     
-    <div x-show="paymentMethod === 'cash'" class="payment-details">
+    <div x-show="paymentMethod === 'cod'" class="payment-details">
         <p style="font-size: 0.9rem; color: var(--ink-muted);">You will pay in cash when you arrive at our store to pick up your order.</p>
     </div>
 
-    <!-- Invoice / Net 30 -->
-    <label class="selectable-panel" :class="{ 'selected': paymentMethod === 'invoice' }" @click="paymentMethod = 'invoice'" style="margin-top: 1rem;">
+    <!-- ABA PayWay -->
+    <label class="selectable-panel" :class="{ 'selected': paymentMethod === 'aba' }" @click="paymentMethod = 'aba'" style="margin-top: 1rem;">
         <div class="panel-content">
             <div class="panel-radio"></div>
-            <div class="panel-title">Invoice / Purchase Order (Net 30)</div>
+            <div class="panel-title">ABA PayWay</div>
         </div>
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--ink-muted);"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
     </label>

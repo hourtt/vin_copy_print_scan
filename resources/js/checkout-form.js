@@ -1,28 +1,32 @@
 document.addEventListener('alpine:init', () => {
-    Alpine.data('checkoutForm', () => ({
+    Alpine.data('checkoutForm', (initialData = {}) => ({
         step: 1,
         deliveryMethod: 'delivery', // pickup | delivery
-        paymentMethod: 'card',    // cash | card
+        paymentMethod: 'stripe',    // cod | stripe | aba
         customer: {
-            name: 'Jane Doe',
-            address: '123 Industrial Parkway, Suite 400',
-            city: 'Techville',
-            zip: '90210'
+            name: '',
+            phone: '',
+            address: '',
+            city: '',
+            zip: ''
         },
-        card: {
+        card: { // Kept for UI visual purposes if they type, but Stripe will handle real input
             number: '',
             expiry: '',
             cvv: ''
         },
         
+        baseSubtotal: initialData.subtotal || 0,
+        baseShippingCost: initialData.shippingCost || 15.00,
+
         get shippingCost() {
-            return this.deliveryMethod === 'delivery' ? 15.00 : 0.00;
+            return this.deliveryMethod === 'delivery' ? this.baseShippingCost : 0.00;
         },
         get subtotal() {
-            return 325.00; // Mock subtotal
+            return this.baseSubtotal;
         },
         get tax() {
-            return (this.subtotal + this.shippingCost) * 0.08; // 8% mock tax
+            return 0; // Or calculate if needed
         },
         get total() {
             return this.subtotal + this.shippingCost + this.tax;
@@ -32,20 +36,15 @@ document.addEventListener('alpine:init', () => {
             // Simple Validation before proceeding
             if (this.step === 1) {
                 if (this.deliveryMethod === 'delivery') {
-                    if (!this.customer.name || !this.customer.address || !this.customer.city) {
+                    if (!this.customer.name || !this.customer.phone || !this.customer.address || !this.customer.city) {
                         alert("Please fill in all delivery details.");
                         return;
                     }
-                    // Force card payment for delivery
-                    this.paymentMethod = 'card';
+                    // Force stripe/aba payment for delivery, COD is only for pickup if desired
+                    // this.paymentMethod = 'stripe';
                 }
             } else if (this.step === 2) {
-                if (this.paymentMethod === 'card') {
-                    if (!this.card.number || !this.card.expiry || !this.card.cvv) {
-                        alert("Please enter your card details.");
-                        return;
-                    }
-                }
+                // We won't validate card here as Stripe Checkout handles it server-side via redirect
             }
 
             if (this.step < 3) this.step++;

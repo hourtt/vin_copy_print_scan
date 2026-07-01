@@ -3,29 +3,24 @@
         <h3>Order Summary</h3>
     </div>
 
-    <!-- Static Mock Items based on reference image -->
+    <!-- Dynamic Cart Items -->
     <div class="summary-items">
+        @foreach($cartItems as $item)
         <div class="summary-item">
             <div class="summary-item-img">
-                <img src="{{ asset('storage/images/hero/hero1.jpg') }}" alt="ProX Toner" onerror="this.src='https://via.placeholder.com/60x60?text=Item'">
+                @if($item->product->image)
+                    <img src="{{ Storage::url($item->product->image) }}" alt="{{ $item->product->name }}" onerror="this.src='https://via.placeholder.com/60x60?text=Item'">
+                @else
+                    <div class="w-full h-full bg-gray-100 flex items-center justify-center text-gray-400 text-xs">No Image</div>
+                @endif
             </div>
             <div class="summary-item-details">
-                <h4 class="summary-item-title">ProX High-Yield Toner Cartridge (Black)</h4>
-                <div class="summary-item-qty">Qty: 2</div>
+                <h4 class="summary-item-title">{{ $item->product->name }}</h4>
+                <div class="summary-item-qty">Qty: {{ $item->quantity }}</div>
             </div>
-            <div class="summary-item-price">$240.00</div>
+            <div class="summary-item-price">${{ number_format($item->product->price * $item->quantity, 2) }}</div>
         </div>
-
-        <div class="summary-item">
-            <div class="summary-item-img">
-                <img src="{{ asset('storage/images/hero/hero2.jpg') }}" alt="Paper" onerror="this.src='https://via.placeholder.com/60x60?text=Item'">
-            </div>
-            <div class="summary-item-details">
-                <h4 class="summary-item-title">Ultra-White Presentation Paper (500 sheets)</h4>
-                <div class="summary-item-qty">Qty: 5</div>
-            </div>
-            <div class="summary-item-price">$85.00</div>
-        </div>
+        @endforeach
     </div>
 
     <div class="summary-totals">
