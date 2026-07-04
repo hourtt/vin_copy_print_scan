@@ -1,5 +1,6 @@
 import "bootstrap";
 import Alpine from "alpinejs";
+import "@hotwired/turbo";
 
 import "./checkout-form";
 
@@ -31,7 +32,7 @@ if (exploreBtn) {
 }
 
 // * Feature strip scroll animation — dashboard only
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("turbo:load", function () {
     const animatedItems = document.querySelectorAll(".feature-animate");
     if (!animatedItems.length) return;
 
