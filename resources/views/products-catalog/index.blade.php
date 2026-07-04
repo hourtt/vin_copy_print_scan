@@ -26,7 +26,7 @@
         <aside class="hidden md:block w-full md:w-[280px] shrink-0 md:sticky md:top-8">
             <h2 class="text-2xl font-bold mb-6 text-[#212529]">Filters</h2>
 
-            <form action="{{ route('products.index') }}" method="GET" id="filter-form">
+            <form action="{{ route('product-catalog.index') }}" method="GET" id="filter-form">
 
                 <!-- Category Filter -->
                 <div class="mb-8">
@@ -39,8 +39,8 @@
                                 {{-- Allow only the authenticated user to tick the checkbox --}}
                                 @auth
                                     <label class="flex items-center gap-3 cursor-pointer text-sm text-[#212529]">
-                                        <input type="checkbox" name="categories[]" value="{{ $category->id }}"
-                                            {{ is_array(request('categories')) && in_array($category->id, request('categories')) ? 'checked' : '' }}
+                                        <input type="checkbox" name="categories[]" value="{{ $category->category_id }}"
+                                            {{ is_array(request('categories')) && in_array($category->category_id, request('categories')) ? 'checked' : '' }}
                                             onchange="document.getElementById('filter-form').submit();"
                                             class="w-4 h-4 border border-[#dee2e6] rounded text-[#0056b3] cursor-pointer focus:ring-[#0056b3]">
                                         {{ $category->name }}
@@ -232,7 +232,7 @@
 
         <!-- Sheet Content -->
         <div class="flex-1 overflow-y-auto px-6 py-6">
-            <form action="{{ route('products.index') }}" method="GET" id="mobile-filter-form">
+            <form action="{{ route('product-catalog.index') }}" method="GET" id="mobile-filter-form">
                 <!-- Category Filter -->
                 <div class="mb-8">
                     <div class="text-sm font-bold text-[#212529] mb-4">Category</div>

@@ -20,6 +20,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let abortController = null;
 
+    // * Response cache — avoids repeat network hits for the same URL
+    const responseCache = new Map();
+    const MAX_CACHE_SIZE = 30;
+
     // 2. Initial State from URL
     function getParams() {
         const params = new URLSearchParams(window.location.search);
@@ -90,17 +94,32 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 150);
 
         try {
-            const response = await fetch(url, {
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest',
-                    'Accept': 'application/json'
-                },
-                signal: abortController.signal
-            });
+            const cacheKey = url.toString();
+            let data;
 
-            if (!response.ok) throw new Error("Network response was not ok");
+            if (responseCache.has(cacheKey)) {
+                // Cache hit — serve instantly, no network needed
+                clearTimeout(skeletonTimeout);
+                data = responseCache.get(cacheKey);
+            } else {
+                const response = await fetch(url, {
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'Accept': 'application/json'
+                    },
+                    signal: abortController.signal
+                });
 
-            const data = await response.json();
+                if (!response.ok) throw new Error("Network response was not ok");
+
+                data = await response.json();
+
+                // Store in cache, evict oldest if over limit
+                if (responseCache.size >= MAX_CACHE_SIZE) {
+                    responseCache.delete(responseCache.keys().next().value);
+                }
+                responseCache.set(cacheKey, data);
+            }
             clearTimeout(skeletonTimeout);
 
             // Update DOM

@@ -130,8 +130,11 @@ class ProductController extends Controller
 
     public function printers_index(Request $request)
     {
+        // * For AJAX filter requests: minimal eager loading, skip $brands query
+        $isAjax = $request->ajax() || $request->wantsJson();
+
         // Strict category isolation — only Printers (category_id = 1)
-        $query = Product::with('category', 'brand', 'voucher')
+        $query = Product::with($isAjax ? ['brand'] : ['category', 'brand', 'voucher'])
             ->where('category_id', 1);
 
         if ($request->filled('search')) {
@@ -167,14 +170,7 @@ class ProductController extends Controller
 
         $products = $query->paginate(20);
 
-        // Only brands that have products in the Printers category
-        $brands = Brand::whereHas(
-            'products',
-            fn($q) =>
-            $q->where('category_id', 1)
-        )->orderBy('name')->get();
-
-        if ($request->ajax() || $request->wantsJson()) {
+        if ($isAjax) {
             return response()->json([
                 'html' => view('components.products._grid', [
                     'products' => $products,
@@ -187,17 +183,27 @@ class ProductController extends Controller
                     'emptyMessage' => 'No printers found.',
                     'badgeCase' => 'uppercase',
                 ])->render(),
-                'count' => $products->count(),
+                'count' => $products->total(), // total() avoids an extra COUNT query
             ]);
         }
+
+        // Only run the brands query for full page loads (not AJAX)
+        $brands = Brand::whereHas(
+            'products',
+            fn($q) =>
+            $q->where('category_id', 1)
+        )->orderBy('name')->get();
 
         return view('products.printers.index', compact('products', 'brands'));
     }
 
     public function toners_index(Request $request)
     {
+        // * For AJAX filter requests: minimal eager loading, skip $brands query
+        $isAjax = $request->ajax() || $request->wantsJson();
+
         // Strict category isolation — only Toners (category_id = 2)
-        $query = Product::with('category', 'brand', 'voucher')
+        $query = Product::with($isAjax ? ['brand'] : ['category', 'brand', 'voucher'])
             ->where('category_id', 2);
 
         if ($request->filled('search')) {
@@ -227,14 +233,7 @@ class ProductController extends Controller
 
         $products = $query->paginate(20);
 
-        // Only brands that have products in the Toners category
-        $brands = Brand::whereHas(
-            'products',
-            fn($q) =>
-            $q->where('category_id', 2)
-        )->orderBy('name')->get();
-
-        if ($request->ajax() || $request->wantsJson()) {
+        if ($isAjax) {
             return response()->json([
                 'html' => view('components.products._grid', [
                     'products' => $products,
@@ -247,16 +246,26 @@ class ProductController extends Controller
                     'emptyMessage' => 'No toners found.',
                     'badgeCase' => 'uppercase',
                 ])->render(),
-                'count' => $products->count(),
+                'count' => $products->total(), // total() avoids an extra COUNT query
             ]);
         }
+
+        // Only run the brands query for full page loads (not AJAX)
+        $brands = Brand::whereHas(
+            'products',
+            fn($q) =>
+            $q->where('category_id', 2)
+        )->orderBy('name')->get();
 
         return view('products.toners.index', compact('products', 'brands'));
     }
 
     public function inks_index(Request $request)
     {
-        $query = Product::with('category', 'brand', 'voucher')
+        // * For AJAX filter requests: minimal eager loading, skip $brands query
+        $isAjax = $request->ajax() || $request->wantsJson();
+
+        $query = Product::with($isAjax ? ['brand'] : ['category', 'brand', 'voucher'])
             ->whereHas('category', fn($q) => $q->where('slug', 'ink-cartridges'));
 
         if ($request->filled('search')) {
@@ -286,14 +295,7 @@ class ProductController extends Controller
 
         $products = $query->paginate(20);
 
-        // Brands that have ink-cartridge products
-        $brands = Brand::whereHas(
-            'products',
-            fn($q) =>
-            $q->whereHas('category', fn($q2) => $q2->where('slug', 'ink-cartridges'))
-        )->orderBy('name')->get();
-
-        if ($request->ajax() || $request->wantsJson()) {
+        if ($isAjax) {
             return response()->json([
                 'html' => view('components.products._grid', [
                     'products' => $products,
@@ -306,16 +308,27 @@ class ProductController extends Controller
                     'emptyMessage' => 'No ink cartridges found.',
                     'badgeCase' => 'capitalize',
                 ])->render(),
-                'count' => $products->count(),
+                'count' => $products->total(), // total() avoids an extra COUNT query
             ]);
         }
+
+        // Only run the brands query for full page loads (not AJAX)
+        $brands = Brand::whereHas(
+            'products',
+            fn($q) =>
+            $q->whereHas('category', fn($q2) => $q2->where('slug', 'ink-cartridges'))
+        )->orderBy('name')->get();
 
         return view('products.inks.index', compact('products', 'brands'));
     }
 
     public function papers_index(Request $request)
     {
-        $query = Product::with('category', 'brand', 'voucher')
+        // * For AJAX filter requests: minimal eager loading, skip $brands query
+        $isAjax = $request->ajax() || $request->wantsJson();
+
+        // Papers grid groups by category, so we need 'category' for AJAX too
+        $query = Product::with($isAjax ? ['brand', 'category'] : ['category', 'brand', 'voucher'])
             ->whereHas('category', fn($q) => $q->where('slug', 'paper'));
 
         if ($request->filled('search')) {
@@ -348,14 +361,7 @@ class ProductController extends Controller
 
         $products = $query->paginate(20);
 
-        // Brands that have paper products
-        $brands = Brand::whereHas(
-            'products',
-            fn($q) =>
-            $q->whereHas('category', fn($q2) => $q2->where('slug', 'paper'))
-        )->orderBy('name')->get();
-
-        if ($request->ajax() || $request->wantsJson()) {
+        if ($isAjax) {
             return response()->json([
                 'html' => view('components.products._grid', [
                     'products' => $products,
@@ -368,9 +374,16 @@ class ProductController extends Controller
                     'emptyMessage' => 'No paper products found.',
                     'badgeCase' => 'uppercase',
                 ])->render(),
-                'count' => $products->count(),
+                'count' => $products->total(), // total() avoids an extra COUNT query
             ]);
         }
+
+        // Only run the brands query for full page loads (not AJAX)
+        $brands = Brand::whereHas(
+            'products',
+            fn($q) =>
+            $q->whereHas('category', fn($q2) => $q2->where('slug', 'paper'))
+        )->orderBy('name')->get();
 
         return view('products.papers.index', compact('products', 'brands'));
     }

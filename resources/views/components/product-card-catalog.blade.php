@@ -31,7 +31,7 @@
                 </button>
             @else
                 <a href="{{ route('login') }}" class="w-full min-h-[40px] px-3 bg-white text-gray-700 border border-gray-200 rounded-lg text-xs font-semibold flex items-center justify-center transition-colors hover:bg-gray-50">
-                    Sign In
+                    {{ $stock <= 0 ? 'Out of Stock' : 'Sign In' }}
                 </a>
             @endauth
         </div>
