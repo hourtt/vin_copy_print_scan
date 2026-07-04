@@ -75,47 +75,41 @@
                 <p class="text-sm text-[#1a1a2e]/60 leading-relaxed mb-6">ក្រុមការងាររបស់យើងរីករាយក្នុងការជួយ -
                     មិនថាអ្នកត្រូវការការប្រឹក្សាពីផលិតផល ការប៉ាន់ស្មានតម្លៃសម្រាប់ការថតចម្លង
                     ឬគ្រាន់តែចង់ឆែកមើលស្តុកទំនិញ។</p>
+                @php
+                    $contacts = [
+                        [
+                            'url' => 'tel:+855 15 693 334',
+                            'icon' => '<path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />',
+                            'title' => '+855 15 693 334',
+                            'subtitle' => 'ច័ន្ទ - សៅរ៍, ៨:០០ ព្រឹក - ៦:០០ ល្ងាច'
+                        ],
+                        [
+                            'url' => 'mailto:vincopy168@gmail.com',
+                            'icon' => '<path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />',
+                            'title' => 'vincopy168@gmail.com',
+                            'subtitle' => 'យើងនឹងឆ្លើយតបក្នុងរយៈពេល ៤ ម៉ោង'
+                        ],
+                        [
+                            'url' => '#visit',
+                            'icon' => '<path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />',
+                            'title' => 'មកកាន់បន្ទប់តាំងរបស់យើងខ្ញុំ',
+                            'subtitle' => 'ក្រុងព្រះសីហនុ, ខេត្តព្រះសីហនុ,​ កម្ពុជា'
+                        ]
+                    ];
+                @endphp
                 <div class="flex flex-col gap-4">
-                    <a href="tel:+855 15 693 334"
-                        class="flex items-center gap-3 p-3 rounded-xl border border-[#e8ede9] hover:border-[#305CDE] hover:bg-[#f0faf4] transition-all duration-200">
-                        <svg class="w-5 h-5 flex-shrink-0 stroke-[#305CDE] stroke-[1.8]"
-                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                            aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                        </svg>
-                        <div>
-                            <span class="block text-sm font-semibold text-[#1a1a2e]">+855 15 693 334</span>
-                            <small class="text-xs text-[#1a1a2e]/50">ច័ន្ទ - សៅរ៍, ៨:០០ ព្រឹក - ៦:០០ ល្ងាច</small>
-                        </div>
-                    </a>
-                    <a href="mailto:vincopy168@gmail.com"
-                        class="flex items-center gap-3 p-3 rounded-xl border border-[#e8ede9] hover:border-[#305CDE] hover:bg-[#f0faf4] transition-all duration-200">
-                        <svg class="w-5 h-5 flex-shrink-0 stroke-[#305CDE] stroke-[1.8]"
-                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                            aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                        </svg>
-                        <div>
-                            <span class="block text-sm font-semibold text-[#1a1a2e]">vincopy168@gmail.com</span>
-                            <small class="text-xs text-[#1a1a2e]/50">យើងនឹងឆ្លើយតបក្នុងរយៈពេល ៤ ម៉ោង</small>
-                        </div>
-                    </a>
-                    <a href="#visit"
-                        class="flex items-center gap-3 p-3 rounded-xl border border-[#e8ede9] hover:border-[#305CDE] hover:bg-[#f0faf4] transition-all duration-200">
-                        <svg class="w-5 h-5 flex-shrink-0 stroke-[#305CDE] stroke-[1.8]"
-                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                            aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                        </svg>
-                        <div>
-                            <span class="block text-sm font-semibold text-[#1a1a2e]">មកកាន់បន្ទប់តាំងរបស់យើងខ្ញុំ</span>
-                            <small class="text-xs text-[#1a1a2e]/50">ក្រុងព្រះសីហនុ, ខេត្តព្រះសីហនុ,​ កម្ពុជា</small>
-                        </div>
-                    </a>
+                    @foreach ($contacts as $contact)
+                        <a href="{{ $contact['url'] }}"
+                            class="flex items-center gap-3 p-3 rounded-xl border border-[#e8ede9] hover:border-[#305CDE] hover:bg-[#f0faf4] transition-all duration-200">
+                            <svg class="w-5 h-5 flex-shrink-0 stroke-[#305CDE] stroke-[1.8]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                {!! $contact['icon'] !!}
+                            </svg>
+                            <div>
+                                <span class="block text-sm font-semibold text-[#1a1a2e]">{{ $contact['title'] }}</span>
+                                <small class="text-xs text-[#1a1a2e]/50">{{ $contact['subtitle'] }}</small>
+                            </div>
+                        </a>
+                    @endforeach
                 </div>
                 <a href="{{ route('login') }}"
                     class="mt-6 w-full inline-flex items-center justify-center px-6 py-3 bg-[#1a1a2e] text-white text-sm font-semibold rounded-xl hover:bg-[#2d2d4e] transition-colors duration-200">

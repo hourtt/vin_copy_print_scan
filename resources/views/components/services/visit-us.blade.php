@@ -18,12 +18,7 @@
                 <div class="flex gap-4 items-start bg-[#f8f9fa] rounded-xl p-5">
                     <div
                         class="w-10 h-10 rounded-lg bg-[#e6f4ec] flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <svg class="w-5 h-5 stroke-[#1a6b4a] stroke-[1.8]" xmlns="http://www.w3.org/2000/svg"
-                            fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                        </svg>
+                        <x-icons.map-pin class="stroke-[#1a6b4a]" />
                     </div>
                     <div>
                         <h4 class="font-semibold text-[#1a1a2e] text-sm mb-1">អាស័យដ្ឋាន</h4>
@@ -40,11 +35,7 @@
                 <div class="flex gap-4 items-start bg-[#f8f9fa] rounded-xl p-5">
                     <div
                         class="w-10 h-10 rounded-lg bg-[#e6f4ec] flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <svg class="w-5 h-5 stroke-[#1a6b4a] stroke-[1.8]" xmlns="http://www.w3.org/2000/svg"
-                            fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
+                        <x-icons.clock class="stroke-[#1a6b4a]" />
                     </div>
                     <div class="flex-1">
                         <h4 class="font-semibold text-[#1a1a2e] text-sm mb-3">ម៉ោងបើកដំណើរការអាជីវកម្ម</h4>
