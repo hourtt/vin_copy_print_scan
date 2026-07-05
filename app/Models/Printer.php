@@ -5,9 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PrinterModel extends Model
+class Printer extends Model
 {
     use HasFactory;
+
+    /**
+     * The actual database table (migration created 'printer_models', not 'printers').
+     */
+    protected $table = 'printer_models';
 
     protected $fillable = [
         'brand_id',

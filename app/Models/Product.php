@@ -62,7 +62,7 @@ class Product extends Model
     public function compatibleModels()
     {
         return $this->belongsToMany(
-            PrinterModel::class,
+            Printer::class,
             'product_compatible_models',
             'product_id',
             'printer_model_id'
