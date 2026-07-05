@@ -12,7 +12,7 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
 </head>
 
-<body class="antialiased bg-white text-[#27272a] overflow-x-hidden">
+<body class="antialiased bg-white text-[#27272a] overflow-x-hidden" data-turbo="false">
 
     @include('layouts.navigation')
 

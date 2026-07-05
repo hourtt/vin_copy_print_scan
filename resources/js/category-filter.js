@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return {
             cat: params.get("cat") || "all",
             search: params.get("search") || "",
-            sort: params.get("sort") || "default"
+            sort: params.get("sort") || "default",
         };
     }
 
@@ -45,34 +45,54 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (catPills.length > 0) {
             catPills.forEach((p) => {
-                p.classList.remove("active", "border-transparent", "bg-[#27272a]", "text-white");
-                p.classList.add("border-[#e4e4e7]", "bg-white", "text-[#71717a]", "hover:border-[#3f3f46]", "hover:text-[#3f3f46]");
+                p.classList.remove(
+                    "active",
+                    "border-transparent",
+                    "bg-[#27272a]",
+                    "text-white",
+                );
+                p.classList.add(
+                    "border-[#e4e4e7]",
+                    "bg-white",
+                    "text-[#71717a]",
+                    "hover:border-[#3f3f46]",
+                    "hover:text-[#3f3f46]",
+                );
 
                 if (p.dataset.cat === params.cat) {
-                    p.classList.add("active", "border-transparent", "bg-[#27272a]", "text-white");
-                    p.classList.remove("border-[#e4e4e7]", "bg-white", "text-[#71717a]", "hover:border-[#3f3f46]", "hover:text-[#3f3f46]");
+                    p.classList.add(
+                        "active",
+                        "border-transparent",
+                        "bg-[#27272a]",
+                        "text-white",
+                    );
+                    p.classList.remove(
+                        "border-[#e4e4e7]",
+                        "bg-white",
+                        "text-[#71717a]",
+                        "hover:border-[#3f3f46]",
+                        "hover:text-[#3f3f46]",
+                    );
                 }
             });
         }
     }
 
     // 3. Fetch Update
-    async function updateView(pushState = true) {
-        const params = getParams();
-
-        // Build URL
-        const url = new URL(window.location.href);
-        Object.keys(params).forEach(key => {
-            if (params[key] && params[key] !== "all" && params[key] !== "default") {
+    async function updateView(params, pushState = true) {
+        // Build the target URL from the explicit params object, NOT from the
+        // current window.location (which hasn't been updated yet).
+        const url = new URL(window.location.pathname, window.location.origin);
+        Object.keys(params).forEach((key) => {
+            if (
+                params[key] &&
+                params[key] !== "all" &&
+                params[key] !== "default" &&
+                params[key] !== ""
+            ) {
                 url.searchParams.set(key, params[key]);
-            } else {
-                url.searchParams.delete(key);
             }
         });
-
-        if (pushState) {
-            window.history.pushState(params, "", url);
-        }
 
         // Cancel previous request if any
         if (abortController) {
@@ -80,17 +100,20 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         abortController = new AbortController();
 
+        // Optimistically update the pill/sort UI immediately
+        syncUI(params);
+
         // Start animations
-        let showSkeleton = false;
         if (productGroups) {
-            productGroups.style.opacity = '0';
+            productGroups.style.opacity = "0";
         }
 
         // Show skeleton if request takes > 150ms
+        let showSkeleton = false;
         const skeletonTimeout = setTimeout(() => {
             showSkeleton = true;
-            if (productGroups) productGroups.style.display = 'none';
-            if (skeletonGrid) skeletonGrid.style.display = 'block';
+            if (productGroups) productGroups.style.display = "none";
+            if (skeletonGrid) skeletonGrid.style.display = "block";
         }, 150);
 
         try {
@@ -104,13 +127,16 @@ document.addEventListener("DOMContentLoaded", () => {
             } else {
                 const response = await fetch(url, {
                     headers: {
-                        'X-Requested-With': 'XMLHttpRequest',
-                        'Accept': 'application/json'
+                        "X-Requested-With": "XMLHttpRequest",
+                        Accept: "application/json",
                     },
-                    signal: abortController.signal
+                    signal: abortController.signal,
                 });
 
-                if (!response.ok) throw new Error("Network response was not ok");
+                if (!response.ok)
+                    throw new Error(
+                        `Network response was not ok: ${response.status}`,
+                    );
 
                 data = await response.json();
 
@@ -121,6 +147,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 responseCache.set(cacheKey, data);
             }
             clearTimeout(skeletonTimeout);
+
+            // URL update happens HERE, after confirmed success
+            if (pushState) {
+                window.history.pushState(params, "", url);
+            } else {
+                window.history.replaceState(params, "", url);
+            }
 
             // Update DOM
             if (productGroups) {
@@ -135,58 +168,54 @@ document.addEventListener("DOMContentLoaded", () => {
                 emptyState.style.display = data.count === 0 ? "flex" : "none";
             }
             if (productGroups && data.count === 0) {
-                productGroups.style.display = 'none';
+                productGroups.style.display = "none";
             } else if (productGroups) {
-                productGroups.style.display = 'block';
+                productGroups.style.display = "block";
             }
 
             // Restore from skeleton
             if (skeletonGrid) {
-                skeletonGrid.style.display = 'none';
+                skeletonGrid.style.display = "none";
             }
 
             // Fade in new content
             if (productGroups && data.count > 0) {
-                productGroups.style.transform = 'translateY(10px)';
-                productGroups.style.opacity = '0';
+                productGroups.style.transform = "translateY(10px)";
+                productGroups.style.opacity = "0";
 
                 requestAnimationFrame(() => {
-                    productGroups.style.transition = 'opacity 200ms ease, transform 200ms ease';
-                    productGroups.style.transform = 'translateY(0)';
-                    productGroups.style.opacity = '1';
+                    productGroups.style.transition =
+                        "opacity 200ms ease, transform 200ms ease";
+                    productGroups.style.transform = "translateY(0)";
+                    productGroups.style.opacity = "1";
                 });
             }
 
             announcer.textContent = `List updated. Showing ${data.count} items.`;
-
         } catch (error) {
-            if (error.name === 'AbortError') return;
+            if (error.name === "AbortError") return;
             console.error("Fetch error:", error);
             clearTimeout(skeletonTimeout);
 
-            if (skeletonGrid) skeletonGrid.style.display = 'none';
+            if (skeletonGrid) skeletonGrid.style.display = "none";
             if (productGroups) {
-                productGroups.style.opacity = '1';
-                productGroups.style.display = 'block';
+                productGroups.style.opacity = "1";
+                productGroups.style.display = "block";
             }
             // Show error state
             if (emptyState) {
                 emptyState.style.display = "flex";
                 emptyState.innerHTML = `<p class="text-lg text-red-500">Failed to load products. Please try again.</p>`;
-                if (productGroups) productGroups.style.display = 'none';
+                if (productGroups) productGroups.style.display = "none";
             }
         }
     }
 
-    function setParamAndUpdate(key, value) {
-        const url = new URL(window.location.href);
-        if (value && value !== "all" && value !== "default") {
-            url.searchParams.set(key, value);
-        } else {
-            url.searchParams.delete(key);
-        }
-        window.history.replaceState(null, "", url);
-        updateView(true);
+    // Helper: build a params object from the current URL, override one key, then fetch.
+    function setParamAndUpdate(key, value, pushState = true) {
+        const params = getParams();
+        params[key] = value;
+        updateView(params, pushState);
     }
 
     // 4. Event Listeners
@@ -204,7 +233,6 @@ document.addEventListener("DOMContentLoaded", () => {
         catPills.forEach((pill) => {
             pill.addEventListener("click", (e) => {
                 const target = e.currentTarget;
-                syncUI({ ...getParams(), cat: target.dataset.cat });
                 setParamAndUpdate("cat", target.dataset.cat);
             });
         });
@@ -216,9 +244,11 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    window.addEventListener("popstate", () => {
-        syncUI(getParams());
-        updateView(false);
+    window.addEventListener("popstate", (e) => {
+        // Restore params from the history state if available, else re-read from URL
+        const params = e.state || getParams();
+        syncUI(params);
+        updateView(params, false);
     });
 
     // Initialize UI on load based on URL params
@@ -226,7 +256,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Ensure productGroups has transition applied
     if (productGroups) {
-        productGroups.style.transition = 'opacity 150ms ease';
+        productGroups.style.transition = "opacity 150ms ease";
     }
 
     // Hide skeleton immediately on page load since the server rendered it
