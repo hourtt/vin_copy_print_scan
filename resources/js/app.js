@@ -3,6 +3,7 @@ import Alpine from "alpinejs";
 import "@hotwired/turbo";
 
 import "./checkout-form";
+import "./checkout";
 
 window.Alpine = Alpine;
 Alpine.start();
