@@ -39,4 +39,13 @@
     --text-muted: #6c757d;
     --accent-color: #0056b3;
     --border-color: #ffffff;
+
+    /* Settings Dashboard specific */
+    --nav-bg: #1a1a2e;
+    --nav-text: rgba(255,255,255,0.6);
+    --nav-active: rgba(255,255,255,1);
+    --settings-sidebar-bg: #fafafa;
+    --brand-light: rgba(0, 86, 179, 0.08);
+    --ink-soft: #4a4a48;
+    --ink-faint: #9a9a96;
 }

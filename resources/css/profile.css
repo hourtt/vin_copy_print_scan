@@ -1,288 +1,331 @@
-/* ─ Page Wrapper ─ */
-.profile-page {
-    min-height: calc(100vh - 70px);
-    background: var(--surface-warm);
+/* ═══════════════════════════════════════════════════════════
+   SETTINGS DASHBOARD LAYOUT (Three-Panel)
+═══════════════════════════════════════════════════════════ */
+
+/* ─ Main Layout Container ─ */
+.settings-layout {
+    display: flex;
+    min-height: calc(100vh - 68px); /* Account for top navbar */
+    background: var(--surface);
+    position: relative;
+    overflow: hidden;
+}
+
+/* ─ Panel 1: Far-Left Global Nav ─ */
+.settings-global-nav {
+    width: 64px;
+    background: var(--nav-bg);
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 3rem 1.5rem 4rem;
+    padding: 1.5rem 0;
+    flex-shrink: 0;
+    z-index: 20;
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-/* ─ Hero / Avatar Section ─ */
-.profile-hero {
+.global-nav-top {
+    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 1rem;
-    margin-bottom: 2.5rem;
+    width: 100%;
 }
 
-.profile-avatar-ring {
+.global-nav-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.global-nav-item {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    color: var(--nav-text);
+    transition: all 0.2s ease;
+    cursor: pointer;
     position: relative;
-    width: 110px;
-    height: 110px;
+    border: none;
+    background: transparent;
+    text-decoration: none;
 }
 
-.profile-avatar-ring::before {
-    content: "";
+.global-nav-item:hover {
+    color: var(--nav-active);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.global-nav-item.active {
+    color: var(--nav-active);
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.global-nav-item svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Tooltip on hover (desktop only) */
+.global-nav-item::after {
+    content: attr(aria-label);
     position: absolute;
-    inset: -4px;
-    border-radius: 50%;
-    background: conic-gradient(
-        from 0deg,
-        var(--brand) 0%,
-        var(--brand-mid) 40%,
-        var(--gold) 70%,
-        var(--brand) 100%
-    );
-    animation: ring-spin 4s linear infinite;
-    z-index: 0;
+    left: calc(100% + 12px);
+    top: 50%;
+    transform: translateY(-50%) translateX(-5px);
+    background: var(--ink);
+    color: var(--surface);
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.4rem 0.6rem;
+    border-radius: 4px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.2s ease;
+    z-index: 100;
 }
 
-@keyframes ring-spin {
-    to {
-        transform: rotate(360deg);
-    }
+.global-nav-item:hover::after {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
 }
 
-.profile-avatar-inner {
-    position: absolute;
-    inset: 4px;
+/* ─ Panel 2: Inner-Left Settings Sidebar ─ */
+.settings-sidebar {
+    width: 240px;
+    background: var(--settings-sidebar-bg);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    z-index: 10;
+}
+
+.settings-sidebar-header {
+    padding: 1.5rem 1.5rem 1rem;
+}
+
+.settings-sidebar-title {
+    font-family: "DM Sans", sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0;
+    letter-spacing: -0.02em;
+}
+
+.settings-sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    padding: 0 0.75rem;
+    gap: 0.25rem;
+}
+
+.settings-tab {
+    display: flex;
+    align-items: center;
+    padding: 0.6rem 0.75rem;
+    border-radius: 6px;
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--ink-muted);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    width: 100%;
+    text-align: left;
+}
+
+.settings-tab:hover {
+    color: var(--ink);
+    background: rgba(0, 0, 0, 0.04);
+}
+
+.settings-tab.active {
+    color: var(--brand-dark);
+    background: var(--brand-light);
+    font-weight: 600;
+}
+
+/* ─ Panel 3: Main Content Area ─ */
+.settings-content-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: var(--surface);
+    overflow-y: auto;
+    /* Optional smooth scroll behavior */
+    scroll-behavior: smooth;
+}
+
+.settings-content {
+    width: 100%;
+    max-width: 800px;
+    padding: 2.5rem 3rem 4rem;
+}
+
+/* ─ Header / Avatar Section ─ */
+.settings-header-section {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.settings-avatar-wrap {
+    position: relative;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     background: var(--ink);
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1;
     overflow: hidden;
+    flex-shrink: 0;
 }
 
-.profile-avatar-initials {
-    font-family: "Noto Sans Khmer", sans-serif;
-    font-size: 2.2rem;
+.settings-avatar-initials {
+    font-family: "DM Sans", sans-serif;
+    font-size: 1.75rem;
     font-weight: 700;
     color: var(--surface);
     text-transform: uppercase;
-    letter-spacing: 0.02em;
-    line-height: 1;
-    user-select: none;
 }
 
-.profile-user-name {
-    font-family: "Noto Sans Khmer", sans-serif;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--ink);
-    letter-spacing: -0.02em;
-    text-align: center;
-    margin: 0;
-}
-
-.profile-user-email {
-    font-family: "Noto Sans Khmer", sans-serif;
-    font-size: 0.9rem;
-    color: var(--ink-muted);
-    text-align: center;
-    margin: 0;
-}
-
-/* ─ Edit Profile Info Button ─ */
-.profile-edit-info-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    padding: 0.45rem 1.1rem;
-    border-radius: 999px;
-    border: 1.5px solid var(--border);
-    background: var(--surface);
-    color: var(--ink-soft);
-    font-family: "Noto Sans Khmer", sans-serif;
-    font-size: 0.82rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition:
-        background 0.2s,
-        border-color 0.2s,
-        color 0.2s;
-    text-decoration: none;
-}
-
-.profile-edit-info-btn:hover {
-    background: var(--brand-light);
-    border-color: var(--brand);
-    color: var(--brand-dark);
-}
-
-.profile-edit-info-btn svg {
-    width: 14px;
-    height: 14px;
-}
-
-/* ─ Menu Cards Container ─ */
-.profile-menu {
-    width: 100%;
-    max-width: 480px;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-}
-
-/* ─ Individual Menu Card ─ */
-.profile-menu-card {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 1.1rem 1.25rem;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--r);
-    text-decoration: none;
-    color: var(--ink);
-    cursor: pointer;
-    transition:
-        background 0.22s var(--ease-apple),
-        border-color 0.22s var(--ease-apple),
-        box-shadow 0.22s var(--ease-apple),
-        transform 0.18s var(--ease-apple);
-}
-
-.profile-menu-card:hover {
-    background: var(--surface-warm);
-    border-color: var(--brand);
-    box-shadow: 0 4px 20px rgba(29, 158, 117, 0.1);
-    transform: translateY(-1px);
-    color: var(--ink);
-}
-
-.profile-menu-card:active {
-    transform: translateY(0);
-}
-
-/* ─ Card Icon Bubble ─ */
-.profile-menu-icon {
-    width: 42px;
-    height: 42px;
-    min-width: 42px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.22s;
-}
-
-.profile-menu-icon svg {
-    width: 20px;
-    height: 20px;
-}
-
-/* Icon color variants */
-.profile-menu-icon--security {
-    background: rgba(29, 158, 117, 0.12);
-    color: var(--brand);
-}
-
-.profile-menu-icon--payment {
-    background: rgba(212, 165, 116, 0.15);
-    color: var(--gold);
-}
-
-.profile-menu-icon--orders {
-    background: rgba(29, 158, 117, 0.12);
-    color: var(--brand-dark);
-}
-
-.profile-menu-icon--address {
-    background: rgba(193, 68, 14, 0.1);
-    color: var(--coral);
-}
-
-/* ─ Card Text ─ */
-.profile-menu-text {
+.settings-header-info {
     flex: 1;
 }
 
-.profile-menu-title {
-    text-align: left;
-    font-family: "Noto Sans Khmer", sans-serif;
-    font-size: 0.97rem;
+.settings-header-name {
+    font-family: "DM Sans", sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0 0 0.5rem;
+    letter-spacing: -0.02em;
+}
+
+.settings-avatar-actions {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.btn-outline-sm {
+    padding: 0.4rem 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--surface);
+    color: var(--ink);
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-outline-sm:hover {
+    background: var(--surface-warm);
+    border-color: #c9c9cb; /* slightly darker border */
+}
+
+/* ─ Data Rows (Read-Only) ─ */
+.settings-section-title {
+    font-family: "DM Sans", sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0 0 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.settings-row-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2.5rem;
+}
+
+.settings-row {
+    display: flex;
+    align-items: flex-start;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--border-soft);
+}
+
+.settings-row:last-child {
+    border-bottom: none;
+}
+
+.settings-row-label {
+    width: 180px;
+    flex-shrink: 0;
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.875rem;
     font-weight: 600;
     color: var(--ink);
-    margin: 0 0 0.15rem;
-    line-height: 1.3;
+    padding-top: 0.25rem;
 }
 
-.profile-menu-sub {
-    text-align: left;
-    font-family: "Noto Sans Khmer", sans-serif;
-    font-size: 0.78rem;
-    color: var(--ink-muted);
-    margin: 0;
-    line-height: 1.4;
+.settings-row-value {
+    flex: 1;
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    padding-top: 0.25rem;
+    line-height: 1.5;
 }
 
-/* ─ Chevron Arrow ─ */
-.profile-menu-chevron {
-    color: var(--ink-faint);
-    transition:
-        transform 0.2s var(--ease-apple),
-        color 0.2s;
+.settings-row-action {
+    margin-left: 1rem;
 }
 
-.profile-menu-card:hover .profile-menu-chevron {
-    transform: translateX(3px);
-    color: var(--brand);
-}
-
-/* ─ Section Divider Label ─ */
-.profile-section-label {
-    font-family: "Noto Sans Khmer", sans-serif;
-    font-size: 0.72rem;
-    font-weight: 600;
-    color: var(--ink-faint);
-    text-transform: uppercase;
-    letter-spacing: 0.09em;
-    padding: 0.25rem 0.25rem 0;
-    margin-top: 0.5rem;
-}
-
-/* ─ Log Out Button ─ */
-.profile-logout-btn {
-    width: 100%;
-    max-width: 480px;
-    margin-top: 1.75rem;
-    padding: 0.9rem 1.25rem;
+.btn-edit-link {
     background: transparent;
-    border: 1.5px solid rgba(216, 90, 48, 0.3);
-    border-radius: var(--r);
-    color: var(--coral);
-    font-family: "Noto Sans Khmer", sans-serif;
-    font-size: 0.95rem;
+    border: none;
+    color: var(--brand);
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.875rem;
     font-weight: 600;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    transition:
-        background 0.22s var(--ease-apple),
-        border-color 0.22s var(--ease-apple),
-        color 0.22s var(--ease-apple),
-        box-shadow 0.22s var(--ease-apple);
-    text-decoration: none;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    transition: background 0.2s ease;
 }
 
-.profile-logout-btn:hover {
-    background: rgba(216, 90, 48, 0.07);
-    border-color: var(--coral);
-    box-shadow: 0 4px 20px rgba(216, 90, 48, 0.12);
+.btn-edit-link:hover {
+    background: var(--brand-light);
 }
 
-.profile-logout-btn svg {
-    width: 18px;
-    height: 18px;
+/* Status Badges */
+.status-badge {
+    display: inline-block;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-left: 0.5rem;
+    vertical-align: middle;
 }
 
-/* ─ Modal / Slide-over overlay for sub-sections ─ */
+.status-badge.soon {
+    background: var(--surface-mid);
+    color: var(--ink-muted);
+}
+
+/* ─ Modals (Preserved from original) ─ */
 .profile-modal-overlay {
     position: fixed;
     inset: 0;
@@ -329,7 +372,7 @@
 }
 
 .profile-modal-title {
-    font-family: "Noto Sans Khmer", sans-serif;
+    font-family: "DM Sans", sans-serif;
     font-size: 1.05rem;
     font-weight: 700;
     color: var(--ink);
@@ -362,22 +405,6 @@
     padding: 1.5rem;
 }
 
-/* ─ Form elements inside modal ─ */
-.profile-form-group {
-    margin-bottom: 1.25rem;
-}
-
-.profile-form-label {
-    display: block;
-    font-family: "Noto Sans Khmer", sans-serif;
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--ink-muted);
-    margin-bottom: 0.4rem;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-}
-
 .profile-form-actions {
     display: flex;
     gap: 0.75rem;
@@ -391,7 +418,7 @@
     color: white;
     border: none;
     border-radius: var(--r-sm);
-    font-family: "Noto Sans Khmer", sans-serif;
+    font-family: "DM Sans", sans-serif;
     font-size: 0.9rem;
     font-weight: 600;
     cursor: pointer;
@@ -409,7 +436,7 @@
     color: var(--ink-soft);
     border: none;
     border-radius: var(--r-sm);
-    font-family: "Noto Sans Khmer", sans-serif;
+    font-family: "DM Sans", sans-serif;
     font-size: 0.9rem;
     font-weight: 600;
     cursor: pointer;
@@ -420,7 +447,7 @@
     background: var(--border);
 }
 
-/* ─ Success / Info badges ─ */
+/* Success Alert inside modal */
 .profile-success-toast {
     display: flex;
     align-items: center;
@@ -430,41 +457,171 @@
     border: 1px solid rgba(29, 158, 117, 0.25);
     border-radius: var(--r-sm);
     color: var(--brand-dark);
-    font-family: "Noto Sans Khmer", sans-serif;
+    font-family: "DM Sans", sans-serif;
     font-size: 0.85rem;
     font-weight: 500;
     margin-bottom: 1rem;
 }
 
-/* ─ Coming Soon Badge ─ */
-.profile-badge-coming {
-    font-family: "Noto Sans Khmer", sans-serif;
-    font-size: 0.68rem;
+/* ─ Responsive Breakpoints ─ */
+@media (max-width: 991px) {
+    .settings-content {
+        padding: 2rem 2rem 4rem;
+    }
+    
+    .settings-row-label {
+        width: 140px;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Global Nav collapses slightly */
+    .settings-global-nav {
+        width: 56px;
+    }
+    
+    .settings-sidebar {
+        width: 200px;
+    }
+    
+    .settings-row {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .settings-row-label {
+        width: 100%;
+        padding-top: 0;
+    }
+    
+    .settings-row-action {
+        margin-left: 0;
+        margin-top: 0.5rem;
+    }
+}
+
+@media (max-width: 640px) {
+    /* Stack everything on mobile */
+    .settings-layout {
+        flex-direction: column;
+    }
+    
+    /* Global nav becomes a bottom bar? Or hidden in mobile menu? Let's hide it and rely on the main top nav mobile menu */
+    .settings-global-nav {
+        display: none;
+    }
+    
+    /* Sidebar becomes horizontal scrolling tabs */
+    .settings-sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+    }
+    
+    .settings-sidebar-header {
+        display: none; /* Hide 'Settings' title on mobile */
+    }
+    
+    .settings-sidebar-nav {
+        flex-direction: row;
+        padding: 0.75rem;
+        overflow-x: auto;
+        gap: 0.5rem;
+        /* Hide scrollbar */
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+    
+    .settings-sidebar-nav::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .settings-tab {
+        white-space: nowrap;
+        padding: 0.5rem 1rem;
+        width: auto;
+    }
+    
+    .settings-content {
+        padding: 1.5rem 1rem 3rem;
+    }
+    
+    .settings-header-section {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+}
+
+/* ─ Logout Modal Specific ─ */
+.logout-modal-panel {
+    max-width: 400px; /* Desktop fixed max width */
+    width: 90%; /* Mobile ~90% */
+}
+
+.logout-modal-content {
+    padding: 2rem;
+    text-align: center;
+}
+
+.logout-modal-title {
+    font-family: "DM Sans", sans-serif;
+    font-size: 1.35rem; /* ~22px */
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0 0 0.75rem;
+}
+
+.logout-modal-text {
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.95rem; /* ~15px */
+    color: var(--ink-muted);
+    margin: 0 0 2rem;
+    line-height: 1.5;
+}
+
+.logout-modal-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+}
+
+.logout-btn-cancel {
+    padding: 0.75rem 1.25rem;
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--border);
+    border-radius: var(--r-sm);
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.95rem;
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.07em;
-    background: var(--brand-light);
-    color: var(--brand-dark);
-    padding: 0.2rem 0.55rem;
-    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.2s;
+    flex: 1;
+    min-height: 44px;
 }
 
-/* ─ Responsive ─ */
-@media (max-width: 600px) {
-    .profile-page {
-        padding: 2rem 1rem 3rem;
-    }
-
-    .profile-avatar-ring {
-        width: 90px;
-        height: 90px;
-    }
-
-    .profile-avatar-initials {
-        font-size: 1.8rem;
-    }
-
-    .profile-user-name {
-        font-size: 1.25rem;
-    }
+.logout-btn-cancel:hover {
+    background: var(--surface-mid);
 }
+
+.logout-btn-confirm {
+    padding: 0.75rem 1.25rem;
+    background: #ef4444; /* soft red */
+    color: white;
+    border: none;
+    border-radius: var(--r-sm);
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    flex: 1;
+    min-height: 44px;
+}
+
+.logout-btn-confirm:hover {
+    background: #dc2626; /* darker red */
+}
+
+
