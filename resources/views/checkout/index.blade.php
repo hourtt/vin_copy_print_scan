@@ -1,87 +1,85 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Checkout | {{ config('app.name', 'Vin Copy Print Scan') }}</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=fraunces:400,500,600,700,900i&family=dm-sans:300,400,500,600" rel="stylesheet" />
+    <link href="https://fonts.bunny.net/css?family=DM_Sans:400,500,600,700,900i&family=dm-sans:300,400,500,600"
+        rel="stylesheet" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="checkout-page" x-data="checkoutForm({ subtotal: {{ $subtotal }}, shippingCost: {{ $shippingFee }} })">
+
+<body class="bg-zinc-50 text-[#27272a] font-['DM_Sans',sans-serif] min-h-screen flex flex-col"
+    x-data="checkout({{ $subtotal }}, {{ $shippingMethods->toJson() }})">
+
     <!-- Header -->
-    <header class="checkout-header">
-        <div class="container">
-            <a href="{{ url('/') }}" class="flex items-center gap-2 no-underline">
-                <img src="{{asset('storage/images/logo-icon-only.webp')}}" alt="Logo" width="40" class="rounded-lg">
-                <span class="font-['Fraunces',serif] font-bold text-xl text-[var(--brand)]">Vin Copy Print Scan</span>
+    <header class="bg-white border-b border-[#e4e4e7] py-4">
+        <div class="container mx-auto px-4 lg:px-8 flex justify-between items-center">
+            <a href="{{ url('/') }}" class="flex items-center gap-3 no-underline">
+                <img src="{{ asset('storage/images/logo-icon-only.webp') }}" alt="Logo" width="40"
+                    class="rounded-lg">
             </a>
-            <div class="checkout-secure">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            <div class="flex items-center gap-2 text-sm text-[#71717a] font-medium">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
                 Secure Checkout
             </div>
         </div>
     </header>
 
-    <!-- Step Indicator -->
-    <div class="step-indicator">
-        <div class="step-indicator-progress" :style="`width: ${(step - 1) * 50}%`"></div>
-        
-        <div class="step-item" :class="{ 'active': step === 1, 'completed': step > 1 }">
-            <div class="step-circle" x-text="step > 1 ? '✓' : '1'"></div>
-            <div class="step-label">Delivery</div>
-        </div>
-        
-        <div class="step-item" :class="{ 'active': step === 2, 'completed': step > 2 }">
-            <div class="step-circle" x-text="step > 2 ? '✓' : '2'"></div>
-            <div class="step-label">Payment</div>
-        </div>
-        
-        <div class="step-item" :class="{ 'active': step === 3 }">
-            <div class="step-circle">3</div>
-            <div class="step-label">Review</div>
-        </div>
-    </div>
+    <!-- Main Content -->
+    <main class="flex-grow container mx-auto px-4 lg:px-8 py-8 lg:py-12">
+        <div class="flex flex-col lg:flex-row gap-10">
 
-    <!-- Main Container -->
-    <main class="checkout-container">
-        <form id="checkout-form" method="POST" action="{{ route('checkout.store') }}" class="contents">
-            @csrf
-            
-            <input type="hidden" name="delivery_method" :value="deliveryMethod">
-            <input type="hidden" name="payment_method" :value="paymentMethod">
+            <div class="lg:w-7/12 flex flex-col">
+                <x-breadcrumb.checkout-breadcrumb current="shipping" />
 
-            <div class="col-start-1">
-                <!-- Steps Content -->
-                <div x-show="step === 1" x-transition.opacity>
-                    @include('checkout.partials.step-delivery')
-                </div>
+                <h1 class="font-['DM_Sans',sans-serif] text-3xl font-bold mb-6">Shipping Address</h1>
 
-                <div x-show="step === 2" x-transition.opacity x-cloak>
-                    @include('checkout.partials.step-payment')
-                </div>
+                @if ($errors->any())
+                    <div class="bg-red-50 text-red-600 p-4 rounded-lg mb-6 text-sm">
+                        <ul class="list-disc pl-5">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
 
-                <div x-show="step === 3" x-transition.opacity x-cloak>
-                    @include('checkout.partials.step-review')
-                </div>
+                <form id="checkout-form" action="{{ route('checkout.store') }}" method="POST">
+                    @csrf
+
+                    <!-- Required for validation, updated via Alpine -->
+                    <input type="hidden" name="shipping_method_id" :value="selectedMethodId">
+                    <!-- Default payment method for now -->
+                    <input type="hidden" name="payment_method" value="cod">
+
+                    <x-checkout.address-form :user="auth()->user()" />
+
+                    <h2 class="font-['DM_Sans',sans-serif] text-2xl font-bold mb-4">Shipping Method</h2>
+
+                    <x-checkout.shipping-methods />
+
+                    <button type="submit"
+                        class="w-full bg-[#27272a] text-white py-4 rounded-xl font-bold text-lg hover:bg-black transition-colors shadow-lg">
+                        Continue to Payment
+                    </button>
+                </form>
             </div>
 
-            <!-- Sidebar Summary -->
-            <aside class="col-start-2">
-                @include('checkout.partials.order-summary')
-            </aside>
-        </form>
+            <!-- RIGHT COLUMN: Cart Summary -->
+            <div class="lg:w-5/12">
+                <x-checkout.cart-summary :cartItems="$cartItems" />
+            </div>
+
+        </div>
     </main>
 
-    <footer class="text-center p-8 text-[var(--ink-muted)] text-sm border-t border-[var(--border)] bg-[var(--surface-warm)]">
-        <p>© {{ date('Y') }} Vin Copy Print Scan. Professional Grade Precision.</p>
-        <div class="mt-2 flex gap-4 justify-center">
-            <a href="#" class="text-inherit no-underline">Terms of Service</a>
-            <a href="#" class="text-inherit no-underline">Privacy Policy</a>
-            <a href="#" class="text-inherit no-underline">Contact Support</a>
-        </div>
-    </footer>
-
-
 </body>
+
 </html>

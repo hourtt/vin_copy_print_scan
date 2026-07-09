@@ -7,6 +7,7 @@ use App\Models\OrderItem;
 use App\Services\CartService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\ShippingMethod;
 
 class CheckoutController extends Controller
 {
@@ -28,11 +29,13 @@ class CheckoutController extends Controller
         }
 
         $subtotal = $this->cartService->getSubtotal();
-        // Calculate total (add shipping if needed, apply voucher, etc.)
-        $shippingFee = 0; // default for now
+        // Get all active shipping methods
+        $shippingMethods = ShippingMethod::where('is_active', true)->get();
+        // default to first shipping method fee if exists
+        $shippingFee = $shippingMethods->first() ? $shippingMethods->first()->fee : 0;
         $total = $subtotal + $shippingFee;
 
-        return view('checkout.index', compact('cartItems', 'subtotal', 'shippingFee', 'total'));
+        return view('checkout.index', compact('cartItems', 'subtotal', 'shippingMethods', 'shippingFee', 'total'));
     }
 
     /**
@@ -49,11 +52,13 @@ class CheckoutController extends Controller
             'name' => 'required|string|max:255',
             'phone' => 'required|string|max:20',
             'shipping_address' => 'required|string',
+            'shipping_method_id' => 'required|exists:shipping_methods,id',
             'payment_method' => 'required|in:cod,stripe,aba',
         ]);
 
         $subtotal = $this->cartService->getSubtotal();
-        $shippingFee = 0; // Default or calculate based on form
+        $shippingMethod = ShippingMethod::find($request->shipping_method_id);
+        $shippingFee = $shippingMethod ? $shippingMethod->fee : 0;
         $total = $subtotal + $shippingFee;
 
         // In a real app we might validate voucher code here and deduct discount
@@ -65,6 +70,7 @@ class CheckoutController extends Controller
                 'user_id' => $request->user()->id,
                 'order_date' => now(),
                 'subtotal' => $subtotal,
+                'shipping_method_id' => $request->shipping_method_id,
                 'shipping_fee' => $shippingFee,
                 'shipping_address' => "Name: {$request->name}\nPhone: {$request->phone}\nAddress: {$request->shipping_address}",
                 'total' => $total,
