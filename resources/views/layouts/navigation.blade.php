@@ -130,13 +130,10 @@
                                     class="flex items-center px-4 py-2.5 text-sm transition-colors duration-150 font-['DM_Sans',sans-serif] text-[#4A4A48] hover:bg-[#F5F5F3] hover:text-[#0D0D0B]">
                                     Profile
                                 </a>
-                                <form method="POST" action="{{ route('logout') }}" data-turbo="false">
-                                    @csrf
-                                    <button type="submit"
-                                        class="w-full flex items-center px-4 py-2.5 text-sm transition-colors duration-150 font-['DM_Sans',sans-serif] text-[#C0392B] hover:bg-[#FFF5F5]">
-                                        Log Out
-                                    </button>
-                                </form>
+                                <button type="button" onclick="event.preventDefault(); openLogoutModal();"
+                                    class="w-full flex items-center px-4 py-2.5 text-sm transition-colors duration-150 font-['DM_Sans',sans-serif] text-[#C0392B] hover:bg-[#FFF5F5]">
+                                    Log Out
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -241,12 +238,9 @@
                         <a href="{{ route('admin.dashboard') }}" class="block px-3 py-2.5 rounded-lg text-sm font-semibold transition-colors font-['DM_Sans',sans-serif] text-indigo-600 hover:bg-[#ECEAE6] hover:text-indigo-800">Admin Dashboard</a>
                     @endif
                     <a href="{{ route('profile.edit') }}" class="block px-3 py-2.5 rounded-lg text-sm transition-colors font-['DM_Sans',sans-serif] text-[#6B6B6B] hover:bg-[#ECEAE6] hover:text-[#0D0D0B]">Profile</a>
-                    <form method="POST" action="{{ route('logout') }}" data-turbo="false">
-                        @csrf
-                        <button type="submit" class="w-full text-left px-3 py-2.5 rounded-lg text-sm transition-colors font-['DM_Sans',sans-serif] text-[#C0392B] hover:bg-[#FFF5F5]">
-                            Log Out
-                        </button>
-                    </form>
+                    <button type="button" onclick="event.preventDefault(); openLogoutModal();" class="w-full text-left px-3 py-2.5 rounded-lg text-sm transition-colors font-['DM_Sans',sans-serif] text-[#C0392B] hover:bg-[#FFF5F5]">
+                        Log Out
+                    </button>
                 </div>
             @else
                 <div class="flex items-center gap-3 pt-3">
@@ -264,3 +258,5 @@
     </div>
 
 </nav>
+
+@include('components.logout-modal')
