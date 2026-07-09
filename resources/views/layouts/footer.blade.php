@@ -16,7 +16,7 @@
 
         {{-- Contact --}}
         <div class="sm:text-right">
-            <h4 class="font-semibold text-sm text-[var(--ink)] mb-5">Contact</h4>
+            <h4 class="font-semibold text-sm text-[var(--ink)] mb-5">Contact Us</h4>
             <ul class="space-y-3 text-sm text-[var(--ink-muted)]">
                 <li>
                     <a href="mailto:vincopy168@gmail.com"
