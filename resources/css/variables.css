@@ -48,4 +48,21 @@
     --brand-light: rgba(0, 86, 179, 0.08);
     --ink-soft: #4a4a48;
     --ink-faint: #9a9a96;
+
+    /* ─ Inline Editing — Black & White Theme ─ */
+    --ie-input-bg:            #ffffff;
+    --ie-input-border:        #000000;
+    --ie-input-border-focus:  #000000;
+    --ie-input-ring-focus:    rgba(0, 0, 0, 0.10);
+    --ie-input-text:          #111111;
+    --ie-label-color:         #555555;
+
+    --ie-btn-save-bg:         #000000;
+    --ie-btn-save-text:       #ffffff;
+    --ie-btn-save-bg-hover:   #222222;
+
+    --ie-btn-cancel-bg:       #ffffff;
+    --ie-btn-cancel-text:     #000000;
+    --ie-btn-cancel-border:   #000000;
+    --ie-btn-cancel-bg-hover: #f5f5f5;
 }

@@ -625,3 +625,165 @@
 }
 
 
+
+/* ═══════════════════════════════════════════════════════════
+   INLINE EDITING COMPONENTS  (.ie-*)
+   Used by the Full Name and Contact Details rows in the
+   Personal Information section.
+═══════════════════════════════════════════════════════════ */
+
+/* ─ Editor container ─
+   Replaces the display slot when "Edit" is clicked.
+   Spans the value + action columns so it has room for
+   inputs and action buttons side-by-side.               */
+.ie-editor {
+    grid-column: 2 / -1;      /* span value + action cols */
+    padding: 0.875rem 0 0.5rem;
+    animation: ie-slide-in 0.18s ease;
+}
+
+@keyframes ie-slide-in {
+    from { opacity: 0; transform: translateY(-4px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─ Input group: wraps one or more inputs side-by-side ─ */
+.ie-inputs-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+/* ─ Individual input wrapper ─ */
+.ie-input-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    flex: 1;
+    min-width: 160px;
+}
+
+/* ─ Floating label above input ─ */
+.ie-label {
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ie-label-color);
+}
+
+/* ─ Text input ─ */
+.ie-input {
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.9375rem;
+    color: var(--ie-input-text);
+    background: var(--ie-input-bg);
+    border: 2px solid var(--ie-input-border);
+    border-radius: var(--r-sm);
+    padding: 0.55rem 0.875rem;
+    width: 100%;
+    outline: none;
+    transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.ie-input:focus {
+    border-color: var(--ie-input-border-focus);
+    box-shadow: 0 0 0 3px var(--ie-input-ring-focus);
+}
+
+.ie-input--error {
+    border-color: #ef4444;
+}
+
+.ie-input--error:focus {
+    border-color: #ef4444;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+}
+
+/* ─ Validation error message ─ */
+.ie-error-msg {
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.8125rem;
+    color: #ef4444;
+    margin: 0;
+}
+
+/* ─ Action row: Save + Cancel ─ */
+.ie-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+}
+
+/* Save button — solid black */
+.ie-btn-save {
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--ie-btn-save-text);
+    background: var(--ie-btn-save-bg);
+    border: 2px solid var(--ie-btn-save-bg);
+    border-radius: var(--r-sm);
+    padding: 0.5rem 1.125rem;
+    cursor: pointer;
+    transition: background 0.18s ease, transform 0.12s ease;
+}
+
+.ie-btn-save:hover {
+    background: var(--ie-btn-save-bg-hover);
+    border-color: var(--ie-btn-save-bg-hover);
+    transform: translateY(-1px);
+}
+
+.ie-btn-save:active {
+    transform: translateY(0);
+}
+
+/* Cancel button — white with black border */
+.ie-btn-cancel {
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--ie-btn-cancel-text);
+    background: var(--ie-btn-cancel-bg);
+    border: 2px solid var(--ie-btn-cancel-border);
+    border-radius: var(--r-sm);
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: background 0.18s ease, color 0.18s ease;
+}
+
+.ie-btn-cancel:hover {
+    background: var(--ie-btn-cancel-bg-hover);
+    color: var(--ie-btn-cancel-text);
+}
+
+/* ─ Success toast — floats bottom-right, auto-dismisses ─ */
+.ie-success-toast {
+    position: fixed;
+    bottom: 1.75rem;
+    right: 1.75rem;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    background: #166534;          /* deep green */
+    color: #dcfce7;
+    border-radius: var(--r-sm);
+    padding: 0.75rem 1.25rem;
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
+}
+
+.ie-success-toast--visible {
+    opacity: 1;
+    transform: translateY(0);
+}

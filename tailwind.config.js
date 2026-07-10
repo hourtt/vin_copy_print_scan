@@ -17,7 +17,6 @@ export default {
                     "Roboto",
                     ...defaultTheme.fontFamily.sans,
                 ],
-                
             },
             // Ticker Bar Animation
             keyframes: {
