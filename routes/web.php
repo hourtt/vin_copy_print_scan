@@ -33,6 +33,7 @@ Route::post('/webhooks/aba', [AbaController::class, 'webhook'])->name('webhooks.
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::patch('/profile/field/{field}', [ProfileController::class, 'updateField'])->name('profile.updateField');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
