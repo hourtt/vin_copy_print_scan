@@ -3,8 +3,6 @@
 use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CheckoutController;
-use App\Http\Controllers\StripeController;
-use App\Http\Controllers\AbaController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -12,21 +10,15 @@ Route::middleware(['auth', 'user'])->group(function () {
     Route::get('/orders', [OrdersController::class, 'index'])->name('orders.index');
     Route::post('/orders', [OrdersController::class, 'store'])->name('orders.store');
 
-    // Checkout routes
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
     Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
 
-    Route::get('/checkout/stripe/{order}', [StripeController::class, 'checkout'])->name('checkout.stripe');
-    Route::get('/checkout/aba/{order}', [AbaController::class, 'checkout'])->name('checkout.aba');
+    Route::get('orders/{id}', [OrdersController::class, 'show'])->name('orders.show');
 
     Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
 
     Route::get('/checkout/cancel', [CheckoutController::class, 'cancel'])->name('checkout.cancel');
 });
-
-// Webhooks
-Route::post('/webhooks/stripe', [StripeController::class, 'webhook'])->name('webhooks.stripe');
-Route::post('/webhooks/aba', [AbaController::class, 'webhook'])->name('webhooks.aba');
 
 
 

@@ -65,7 +65,7 @@ class ProductController extends Controller
         }
 
         $products = $query->paginate(12)->withQueryString();
-        $categories = cache()->remember('categories.all', 3600, fn() => Category::all());
+        $categories = Category::select('id', 'name')->orderBy('name')->get();
 
         return view('products-catalog.index', compact('products', 'categories'));
     }

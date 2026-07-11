@@ -8,6 +8,7 @@ use App\Services\CartService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\ShippingMethod;
+use App\Http\Requests\StoreCheckoutRequest;
 
 class CheckoutController extends Controller
 {
@@ -41,20 +42,14 @@ class CheckoutController extends Controller
     /**
      * Handle the checkout submission.
      */
-    public function store(Request $request)
+    public function store(StoreCheckoutRequest $request)
     {
+        $validated = $request->validated();
+        
         $cartItems = $this->cartService->getCartItems();
         if ($cartItems->isEmpty()) {
             return redirect()->route('cart.index')->with('error', 'Your cart is empty.');
         }
-
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'phone' => 'required|string|max:20',
-            'shipping_address' => 'required|string',
-            'shipping_method_id' => 'required|exists:shipping_methods,id',
-            'payment_method' => 'required|in:cod,stripe,aba',
-        ]);
 
         $subtotal = $this->cartService->getSubtotal();
         $shippingMethod = ShippingMethod::find($request->shipping_method_id);

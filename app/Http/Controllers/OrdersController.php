@@ -39,7 +39,16 @@ class OrdersController extends Controller
     public function show(string $id, Request $request)
     {
         //* Find the order that belongs to the authenticated user and display it. If the order does not belong to the user, it will throw a 404 error. */
-        $order = Order::query()->whereBelongsTo($request->user())->findOrFail($id);
+        $order = Order::whereBelongsTo($request->user())
+            ->where('order_number', $id)
+            ->with([
+                'items.product.colors',
+                'items.product.paperSizes',
+                'shippingMethod',
+                'payments',
+            ])
+            ->findOrFail($id);
+
         return view('orders.show', compact('order'));
     }
 
