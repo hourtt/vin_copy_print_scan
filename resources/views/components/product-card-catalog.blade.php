@@ -4,7 +4,7 @@
     $stockLabel = $stock <= 0 ? 'OUT OF STOCK' : ($stock <= 5 ? "LOW STOCK" : 'IN STOCK');
 @endphp
 
-<article class="bg-white border border-gray-100 rounded-lg overflow-hidden flex flex-col h-full hover:shadow-md transition-all duration-300">
+<article class="bg-white border border-black-200 rounded-lg overflow-hidden flex flex-col h-full hover:shadow-md transition-all duration-300">
     <div class="relative bg-[#f8f9fa] aspect-[4/3] flex items-center justify-center p-3 sm:p-4">
         <span class="absolute top-2 left-2 sm:top-3 sm:left-3 text-[10px] font-bold px-2 py-1 rounded shadow-sm {{ $stockClass }}">{{ $stockLabel }}</span>
         @if ($product->image)

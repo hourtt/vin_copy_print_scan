@@ -4,9 +4,18 @@
     'selected' => null,
     'label'    => 'Sort',
     'icon'     => 'list-filter',
+    'formId'   => null,
 ])
 
 @php
+    // Default fallback options when none are provided
+    $options = count($options) > 0 ? $options : [
+        'recommended' => 'Recommended',
+        'newest'      => 'Newest',
+        'price-asc'   => 'Price: Low → High',
+        'price-desc'  => 'Price: High → Low',
+    ];
+
     $selected ??= array_key_first($options);
 @endphp
 
@@ -15,6 +24,7 @@
         open: false, 
         selected: '{{ $selected }}',
         options: {{ json_encode($options) }},
+        formId: @js($formId),
         selectOption(val) {
             this.selected = val;
             this.open = false;
@@ -22,6 +32,21 @@
             if (el) {
                 el.value = val;
                 el.dispatchEvent(new Event('change', { bubbles: true }));
+            }
+            // If a formId is set, also update the hidden sort input and submit the form (GET mode)
+            if (this.formId) {
+                const form = document.getElementById(this.formId);
+                if (form) {
+                    let hiddenSort = form.querySelector('input[name=sort]');
+                    if (!hiddenSort) {
+                        hiddenSort = document.createElement('input');
+                        hiddenSort.type  = 'hidden';
+                        hiddenSort.name  = 'sort';
+                        form.appendChild(hiddenSort);
+                    }
+                    hiddenSort.value = val;
+                    form.submit();
+                }
             }
         },
         focusNext() {
@@ -48,7 +73,7 @@
      @keydown.escape.prevent.stop="open = false; $refs.trigger.focus()"
      @popstate.window="setTimeout(() => { const el = document.getElementById('{{ $id }}'); if (el) selected = el.value; }, 50)">
 
-    {{-- Hidden Select for native forms and external JS --}}
+    {{-- Hidden Select for native forms and external JS (AJAX change event) --}}
     <select id="{{ $id }}" class="hidden" aria-label="{{ $label }}" {{ $attributes }}>
         @foreach ($options as $value => $display)
             <option value="{{ $value }}" @selected($value === $selected)>
@@ -116,5 +141,8 @@
                 </svg>
             </button>
         </template>
+        
+        {{-- Named slot for injecting extra items (category-specific options, badges, etc.) --}}
+        {{ $extra ?? '' }}
     </div>
 </div>

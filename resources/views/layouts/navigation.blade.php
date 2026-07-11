@@ -144,7 +144,7 @@
                             Sign In
                         </a>
                         <a href="{{ route('register') }}"
-                            class="inline-flex items-center px-4 py-2 rounded-lg text-sm font-semibold text-white transition-all duration-200 hover:brightness-90 bg-[#305CDE] font-['DM_Sans',sans-serif]">
+                            class="inline-flex items-center px-4 py-2 rounded-lg text-sm font-normal text-white transition-all duration-200 hover:brightness-90 bg-[#305CDE] font-['DM_Sans',sans-serif]">
                             Get Started
                         </a>
                     </div>

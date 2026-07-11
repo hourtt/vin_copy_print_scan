@@ -39,8 +39,8 @@
                                 {{-- Allow only the authenticated user to tick the checkbox --}}
                                 @auth
                                     <label class="flex items-center gap-3 cursor-pointer text-sm text-[#212529]">
-                                        <input type="checkbox" name="categories[]" value="{{ $category->category_id }}"
-                                            {{ is_array(request('categories')) && in_array($category->category_id, request('categories')) ? 'checked' : '' }}
+                                        <input type="checkbox" name="categories[]" value="{{ $category->id }}"
+                                            {{ is_array(request('categories')) && in_array($category->id, request('categories')) ? 'checked' : '' }}
                                             onchange="document.getElementById('filter-form').submit();"
                                             class="w-4 h-4 border border-[#dee2e6] rounded text-[#0056b3] cursor-pointer focus:ring-[#0056b3]">
                                         {{ $category->name }}
@@ -111,58 +111,18 @@
                     {{ $products->total() }} products
                 </div>
 
-                <div class="flex flex-col sm:flex-row sm:items-center gap-2 text-sm text-gray-900 w-full sm:w-auto"
-                    x-data="{ open: false, sortOption: '{{ request('sort', 'recommended') }}' }">
-                    <label class="font-medium shrink-0">Sort by:</label>
-                    <div class="relative w-full sm:w-auto">
-                        <input type="hidden" name="sort" form="filter-form" x-model="sortOption">
-
-                        <button type="button" @click="open = !open" @click.away="open = false"
-                            class="relative w-full sm:w-auto py-2 pl-3 pr-10 border border-gray-300 rounded-md text-sm bg-white text-gray-900 cursor-pointer focus:border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none transition-colors shadow-sm text-left">
-                            <span
-                                x-text="sortOption === 'recommended' ? 'Recommended' : (sortOption === 'newest' ? 'Newest' : (sortOption === 'price_asc' ? 'Price Low to High' : 'Price High to Low'))"></span>
-                            <div
-                                class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500">
-                                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M19 9l-7 7-7-7"></path>
-                                </svg>
-                            </div>
-                        </button>
-
-                        <div x-show="open" style="display: none;"
-                            class="absolute left-0 mt-1 w-full max-w-[calc(100vw-2rem)] z-50 sm:left-auto sm:right-0 sm:w-56 sm:max-w-none bg-white border border-gray-200 rounded-md shadow-lg overflow-hidden">
-                            <ul class="py-1">
-                                <li>
-                                    <button type="button"
-                                        @click="sortOption = 'recommended'; open = false; document.getElementById('filter-form').submit();"
-                                        class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 whitespace-normal break-words"
-                                        :class="{ 'bg-gray-50 font-medium': sortOption === 'recommended' }">Recommended</button>
-                                </li>
-                                <li>
-                                    <button type="button"
-                                        @click="sortOption = 'newest'; open = false; document.getElementById('filter-form').submit();"
-                                        class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 whitespace-normal break-words"
-                                        :class="{ 'bg-gray-50 font-medium': sortOption === 'newest' }">Newest</button>
-                                </li>
-                                <li>
-                                    <button type="button"
-                                        @click="sortOption = 'price_asc'; open = false; document.getElementById('filter-form').submit();"
-                                        class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 whitespace-normal break-words"
-                                        :class="{ 'bg-gray-50 font-medium': sortOption === 'price_asc' }">Price Low to
-                                        High</button>
-                                </li>
-                                <li>
-                                    <button type="button"
-                                        @click="sortOption = 'price_desc'; open = false; document.getElementById('filter-form').submit();"
-                                        class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 whitespace-normal break-words"
-                                        :class="{ 'bg-gray-50 font-medium': sortOption === 'price_desc' }">Price High
-                                        to Low</button>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                <x-sort-dropdown
+                    id="catalog-sort-select"
+                    :options="[
+                        'recommended' => 'Recommended',
+                        'newest'      => 'Newest',
+                        'price_asc'   => 'Price: Low → High',
+                        'price_desc'  => 'Price: High → Low',
+                    ]"
+                    :selected="request('sort', 'recommended')"
+                    label="Sort catalog products"
+                    formId="filter-form"
+                />
             </div>
 
             <!-- Product Grid Grouped by Category -->
@@ -183,16 +143,13 @@
                 @endforelse
             </div>
 
-            <!-- Pagination -->
-            @if ($products->hasPages())
-                <div class="mt-12 flex justify-center">
-                    {{ $products->links('vendor.pagination.catalog-pagination') }}
-                </div>
-            @endif
         </main>
     </div>
 
-    <!-- Mobile Filter Trigger -->
+    <!-- PAGINATION -->
+    <div class="w-full flex items-center justify-center my-12 px-4">
+        <x-pagination :paginator="$products" />
+    </div>
     <div class="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-40">
         <button type="button"
             onclick="document.getElementById('mobile-filter-sheet').classList.remove('translate-y-full'); document.getElementById('mobile-filter-overlay').classList.remove('opacity-0', 'pointer-events-none'); document.body.style.overflow = 'hidden';"
