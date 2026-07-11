@@ -6,18 +6,29 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\PrinterController;
+use App\Http\Controllers\StripeController;
+use App\Http\Controllers\AbaController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
 // Categories
-Route::get('/categories', [CategoryController::class, 'index'])->name('api.categories.index');
-Route::get('/categories/{category}', [CategoryController::class, 'show'])->name('api.categories.show');
+Route::apiResource('/categories', CategoryController::class)->only(['index', 'show']);
 
 // Products (filterable via ?category_id, ?category, ?brand_id, ?search, ?sort, ?per_page)
-Route::get('/products', [ProductController::class, 'index'])->name('api.products.index');
+Route::apiResource('/products', ProductController::class)->only(['index']);
 
 // Printer model reference / compatibility lookup
-Route::get('/printers', [PrinterController::class, 'index'])->name('api.printers.index');
-Route::get('/printers/{printer}', [PrinterController::class, 'show'])->name('api.printers.show');
+Route::apiResource('/printers', PrinterController::class)->only(['index', 'show']);
+
+// Convenience aliases — same ProductController, pre-filtered by category slug
+Route::get('/toners', [ProductController::class, 'index'])->defaults('category', 'toners')->name('api.toners.index');
+Route::get('/papers', [ProductController::class, 'index'])->defaults('category', 'papers')->name('api.papers.index');
+Route::get('/inks', [ProductController::class, 'index'])->defaults('category', 'ink')->name('api.ink.index');
+
+// Webhooks
+Route::get('/checkout/stripe/{order}', [StripeController::class, 'checkout'])->name('checkout.stripe');
+Route::get('/checkout/aba/{order}', [AbaController::class, 'checkout'])->name('checkout.aba');
+Route::post('/webhooks/stripe', [StripeController::class, 'webhook'])->name('api.webhooks.stripe');
+Route::post('/webhooks/aba', [AbaController::class, 'webhook'])->name('api.webhooks.aba');

@@ -17,6 +17,11 @@ class Category extends Model
         'sort_order',
     ];
 
+    public function resolveRouteBinding($value, $field = null)
+    {
+        // it check 2 conditions on the url : id & slug
+        return $this->where('id', $value)->orWhere('slug', $value)->firstOrFail();
+    }
     /**
      * One category has many products.
      */

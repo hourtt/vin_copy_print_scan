@@ -22,13 +22,10 @@ class CategoryController extends Controller
      * Return a single category by ID or slug,
      * with its products paginated.
      */
-    public function show(string $id)
+    public function show(Category $category)
     {
-        // Accept both ID and slug
-        $category = is_numeric($id)
-            ? Category::withCount('products')->findOrFail($id)
-            : Category::withCount('products')->where('slug', $id)->firstOrFail();
-
+        // Category model handles ID/slug resolution via resolveRouteBinding
+        $category->loadCount('products');
         return new CategoryResource($category);
     }
 
