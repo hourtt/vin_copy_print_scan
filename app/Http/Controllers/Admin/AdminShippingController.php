@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\ShippingMethod;
 use Illuminate\Http\Request;
+use App\Http\Requests\Admin\SaveShippingMethodRequest;
 
 class AdminShippingController extends Controller
 {
@@ -21,15 +22,9 @@ class AdminShippingController extends Controller
         return view('admin.settings.shipping.create');
     }
 
-    public function store(Request $request)
+    public function store(SaveShippingMethodRequest $request)
     {
-        $data = $request->validate([
-            'name'           => ['required', 'string', 'max:255'],
-            'description'    => ['nullable', 'string'],
-            'fee'            => ['required', 'numeric', 'min:0'],
-            'estimated_days' => ['required', 'integer', 'min:1'],
-            'is_active'      => ['boolean'],
-        ]);
+        $data = $request->validated();
 
         $data['is_active'] = $request->boolean('is_active', true);
 
@@ -44,15 +39,9 @@ class AdminShippingController extends Controller
         return view('admin.settings.shipping.edit', compact('shippingMethod'));
     }
 
-    public function update(Request $request, ShippingMethod $shippingMethod)
+    public function update(SaveShippingMethodRequest $request, ShippingMethod $shippingMethod)
     {
-        $data = $request->validate([
-            'name'           => ['required', 'string', 'max:255'],
-            'description'    => ['nullable', 'string'],
-            'fee'            => ['required', 'numeric', 'min:0'],
-            'estimated_days' => ['required', 'integer', 'min:1'],
-            'is_active'      => ['boolean'],
-        ]);
+        $data = $request->validated();
 
         $data['is_active'] = $request->boolean('is_active', $shippingMethod->is_active);
 
@@ -62,6 +51,11 @@ class AdminShippingController extends Controller
             ->with('success', 'Shipping method updated.');
     }
 
+    public function toggle(ShippingMethod $shippingMethod)
+    {
+        $shippingMethod->update(['is_active' => !$shippingMethod->is_active]);
+        return response()->json(['is_active' => $shippingMethod->is_active]);
+    }
     /**
      * Soft-delete — preserves historical order data.
      */
@@ -71,14 +65,5 @@ class AdminShippingController extends Controller
 
         return redirect()->route('admin.settings.index')
             ->with('success', "Shipping method \"{$shippingMethod->name}\" removed.");
-    }
-
-    /**
-     * Toggle is_active via AJAX.
-     */
-    public function toggle(ShippingMethod $shippingMethod)
-    {
-        $shippingMethod->update(['is_active' => !$shippingMethod->is_active]);
-        return response()->json(['is_active' => $shippingMethod->is_active]);
     }
 }

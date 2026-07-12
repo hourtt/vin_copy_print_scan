@@ -7,6 +7,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use App\Http\Requests\Admin\SaveCategoryRequest;
 
 class AdminCategoryController extends Controller
 {
@@ -24,15 +25,9 @@ class AdminCategoryController extends Controller
         return view('admin.categories.create');
     }
 
-    public function store(Request $request)
+    public function store(SaveCategoryRequest $request)
     {
-        $data = $request->validate([
-            'name'        => ['required', 'string', 'max:100'],
-            'slug'        => ['nullable', 'string', 'max:100', Rule::unique('categories', 'slug')],
-            'description' => ['nullable', 'string'],
-            'icon'        => ['nullable', 'string', 'max:100'],
-            'sort_order'  => ['nullable', 'integer', 'min:0'],
-        ]);
+        $data = $request->validated();
 
         $data['slug']       = $data['slug'] ?? Str::slug($data['name']);
         $data['sort_order'] = $data['sort_order'] ?? 0;
@@ -48,16 +43,9 @@ class AdminCategoryController extends Controller
         return view('admin.categories.edit', compact('category'));
     }
 
-    public function update(Request $request, Category $category)
+    public function update(SaveCategoryRequest $request, Category $category)
     {
-        $data = $request->validate([
-            'name'        => ['required', 'string', 'max:100'],
-            'slug'        => ['nullable', 'string', 'max:100', Rule::unique('categories', 'slug')->ignore($category->id)],
-            'description' => ['nullable', 'string'],
-            'icon'        => ['nullable', 'string', 'max:100'],
-            'sort_order'  => ['nullable', 'integer', 'min:0'],
-        ]);
-
+        $data = $request->validated();
         $data['slug']       = $data['slug'] ?? Str::slug($data['name']);
         $data['sort_order'] = $data['sort_order'] ?? $category->sort_order;
 
