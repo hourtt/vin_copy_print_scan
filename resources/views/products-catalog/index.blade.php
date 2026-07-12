@@ -16,8 +16,8 @@
 <body class="bg-[#f8f9fa] text-[#212529] antialiased min-h-screen flex flex-col">
     @include('layouts.navigation')
     <div class="px-4 md:px-6 flex flex-col md:flex-row justify-center items-center w-full my-6">
-        <h3 class="font-bold font-sans text-[#212529] text-center text-2xl">
-            Category
+        <h3 class="font-bold font-sans text-[#212529] text-center text-3xl">
+            Categories of Products
         </h3>
     </div>
     <div
