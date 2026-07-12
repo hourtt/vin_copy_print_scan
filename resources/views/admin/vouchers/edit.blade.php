@@ -3,13 +3,15 @@
 
     <div class="max-w-3xl">
         <form method="POST" action="{{ route('admin.vouchers.update', $voucher) }}" class="space-y-6"
-              x-data="{ scope: '{{ old('scope', $voucher->scope) }}' }">
+            x-data="{ scope: '{{ old('scope', $voucher->scope) }}' }">
             @csrf @method('PUT')
 
             @if ($errors->any())
-                <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
-                    <ul class="list-disc list-inside space-y-0.5">
-                        @foreach ($errors->all() as $error) <li>{{ $error }}</li> @endforeach
+                <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm list-none">
+                    <ul class="list-none list-inside space-y-0.5">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
                     </ul>
                 </div>
             @endif
@@ -20,13 +22,15 @@
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Voucher Code <span class="text-red-500">*</span></label>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Voucher Code <span
+                                class="text-red-500">*</span></label>
                         <input type="text" name="code" value="{{ old('code', $voucher->code) }}" required
-                               class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm font-mono uppercase focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm font-mono uppercase focus:outline-none focus:ring-2 focus:ring-indigo-500">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Status</label>
-                        <select name="is_active" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <select name="is_active"
+                            class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
                             <option value="1" @selected(old('is_active', $voucher->is_active) == '1')>Active</option>
                             <option value="0" @selected(old('is_active', $voucher->is_active) == '0')>Inactive</option>
                         </select>
@@ -35,16 +39,21 @@
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Discount Type <span class="text-red-500">*</span></label>
-                        <select name="discount_type" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Discount Type <span
+                                class="text-red-500">*</span></label>
+                        <select name="discount_type"
+                            class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
                             <option value="percentage" @selected(old('discount_type', $voucher->discount_type) == 'percentage')>Percentage (%)</option>
                             <option value="fixed" @selected(old('discount_type', $voucher->discount_type) == 'fixed')>Fixed Amount ($)</option>
                         </select>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Discount Value <span class="text-red-500">*</span></label>
-                        <input type="number" name="discount_value" value="{{ old('discount_value', $voucher->discount_value) }}" step="0.01" min="0" required
-                               class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Discount Value <span
+                                class="text-red-500">*</span></label>
+                        <input type="number" name="discount_value"
+                            value="{{ old('discount_value', $voucher->discount_value) }}" step="0.01" min="0"
+                            required
+                            class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
                     </div>
                 </div>
             </div>
@@ -56,21 +65,24 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Usage Limit</label>
-                        <input type="number" name="usage_limit" value="{{ old('usage_limit', $voucher->usage_limit) }}" min="1"
-                               class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                               placeholder="Unlimited">
+                        <input type="number" name="usage_limit" value="{{ old('usage_limit', $voucher->usage_limit) }}"
+                            min="1"
+                            class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            placeholder="Unlimited">
                         <p class="text-xs text-gray-400 mt-1">Currently used: {{ $voucher->used_count }} times</p>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Expiry Date</label>
-                        <input type="datetime-local" name="expires_at" value="{{ old('expires_at', $voucher->expires_at?->format('Y-m-d\TH:i')) }}"
-                               class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <input type="datetime-local" name="expires_at"
+                            value="{{ old('expires_at', $voucher->expires_at?->format('Y-m-d\TH:i')) }}"
+                            class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
                     </div>
                 </div>
 
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Apply To</label>
-                    <select name="scope" x-model="scope" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <select name="scope" x-model="scope"
+                        class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
                         <option value="site_wide">Site-wide (All products)</option>
                         <option value="categories">Specific Categories</option>
                         <option value="products">Specific Products</option>
@@ -78,12 +90,15 @@
                 </div>
 
                 <div x-show="scope === 'categories'" x-cloak class="p-4 bg-gray-50 border border-gray-200 rounded-lg">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Select Categories <span class="text-red-500">*</span></label>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Select Categories <span
+                            class="text-red-500">*</span></label>
                     <div class="max-h-48 overflow-y-auto space-y-2">
                         @foreach ($categories as $cat)
                             <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">
-                                <input type="checkbox" name="category_ids[]" value="{{ $cat->id }}" class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                    @checked(is_array(old('category_ids', $selectedCategoryIds)) && in_array($cat->id, old('category_ids', $selectedCategoryIds)))>
+                                <input type="checkbox" name="category_ids[]" value="{{ $cat->id }}"
+                                    class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                    @checked(is_array(old('category_ids', $selectedCategoryIds)) &&
+                                            in_array($cat->id, old('category_ids', $selectedCategoryIds)))>
                                 {{ $cat->name }}
                             </label>
                         @endforeach
@@ -91,11 +106,13 @@
                 </div>
 
                 <div x-show="scope === 'products'" x-cloak class="p-4 bg-gray-50 border border-gray-200 rounded-lg">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Select Products <span class="text-red-500">*</span></label>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Select Products <span
+                            class="text-red-500">*</span></label>
                     <div class="max-h-48 overflow-y-auto space-y-2">
                         @foreach ($products as $prod)
                             <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">
-                                <input type="checkbox" name="product_ids[]" value="{{ $prod->id }}" class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                <input type="checkbox" name="product_ids[]" value="{{ $prod->id }}"
+                                    class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                                     @checked(is_array(old('product_ids', $selectedProductIds)) && in_array($prod->id, old('product_ids', $selectedProductIds)))>
                                 {{ $prod->name }}
                             </label>
@@ -106,10 +123,12 @@
             </div>
 
             <div class="flex gap-2">
-                <button type="submit" class="px-6 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors">
+                <button type="submit"
+                    class="px-6 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors">
                     Save Changes
                 </button>
-                <a href="{{ route('admin.vouchers.index') }}" class="px-6 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                <a href="{{ route('admin.vouchers.index') }}"
+                    class="px-6 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
                     Cancel
                 </a>
             </div>

@@ -21,9 +21,9 @@
 
         {{-- Validation Errors --}}
         @if ($errors->any())
-            <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
+            <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm list-none">
                 <p class="font-medium mb-1">Please fix the following errors:</p>
-                <ul class="list-disc list-inside space-y-0.5">
+                <ul class="list-none list-inside space-y-0.5">
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
                     @endforeach
