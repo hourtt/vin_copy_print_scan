@@ -32,6 +32,7 @@ class ProfileController extends Controller
      * A hidden <input name="inline_field"> in each inline form tells us
      * which editor was used, so we can show the right success feedback.
      */
+    
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
         $request->user()->fill($request->validated());

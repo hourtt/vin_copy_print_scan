@@ -32,21 +32,19 @@ class ProductController extends Controller
     {
         $query = Product::with('category');
 
-        // Apply Category Filters
-        if ($request->has('categories') && !empty($request->categories)) {
-            $query->whereIn('category_id', $request->categories);
+        if ($request->has('categories') && !empty($request->query('categories'))) {
+            $query->whereIn('category_id', $request->query('categories'));
         }
 
-        // Apply Price Filters
-        if ($request->has('min_price') && is_numeric($request->min_price)) {
-            $query->where('price', '>=', $request->min_price);
+        if ($request->has('min_price') && is_numeric($request->query('min_price'))) {
+            $query->where('price', '>=', $request->query('min_price'));
         }
-        if ($request->has('max_price') && is_numeric($request->max_price)) {
-            $query->where('price', '<=', $request->max_price);
+        if ($request->has('max_price') && is_numeric($request->query('max_price'))) {
+            $query->where('price', '<=', $request->query('max_price'));
         }
 
         // Apply Sort
-        $sort = $request->get('sort', 'recommended');
+        $sort = $request->query('sort', 'recommended');
         switch ($sort) {
             case 'newest':
                 $query->orderBy('created_at', 'desc');
@@ -59,7 +57,6 @@ class ProductController extends Controller
                 break;
             case 'recommended':
             default:
-                // If there's a recommended column, use it. Otherwise fallback to id/created_at
                 $query->orderBy('id', 'desc');
                 break;
         }
@@ -72,10 +69,14 @@ class ProductController extends Controller
 
     private function calculatePercentageChange($current, $previous)
     {
-        if ($previous == 0 && $current > 0)
+        if ($previous == 0 && $current > 0) {
             return 100;
-        if ($previous == 0 && $current == 0)
+        }
+
+        if ($previous == 0 && $current == 0) {
             return 0;
+        }
+
         return (($current - $previous) / $previous) * 100;
     }
 
@@ -137,16 +138,16 @@ class ProductController extends Controller
         $query = Product::with($isAjax ? ['brand'] : ['category', 'brand', 'voucher'])
             ->where('category_id', 1);
 
-        if ($request->filled('search')) {
-            $query->where('name', 'like', '%' . $request->search . '%');
+        if ($request->query('search')) {
+            $query->where('name', 'like', '%' . $request->query('search') . '%');
         }
 
         // Pills are brand pills — filter by brand_id within this category
-        if ($request->filled('cat') && $request->cat !== 'all') {
-            $query->where('brand_id', $request->cat);
+        if ($request->query('cat') && $request->query('cat') !== 'all') {
+            $query->where('brand_id', $request->query('cat'));
         }
 
-        $sort = $request->get('sort', 'default');
+        $sort = $request->query('sort', 'default');
         switch ($sort) {
             case 'price-asc':
                 $query->orderBy('price', 'asc');
@@ -206,16 +207,16 @@ class ProductController extends Controller
         $query = Product::with($isAjax ? ['brand'] : ['category', 'brand', 'voucher'])
             ->where('category_id', 2);
 
-        if ($request->filled('search')) {
-            $query->where('name', 'like', '%' . $request->search . '%');
+        if ($request->query('search')) {
+            $query->where('name', 'like', '%' . $request->query('search') . '%');
         }
 
         // Pills are brand pills — filter by brand_id within this category
-        if ($request->filled('cat') && $request->cat !== 'all') {
-            $query->where('brand_id', $request->cat);
+        if ($request->query('cat') && $request->query('cat') !== 'all') {
+            $query->where('brand_id', $request->query('cat'));
         }
 
-        $sort = $request->get('sort', 'default');
+        $sort = $request->query('sort', 'default');
         switch ($sort) {
             case 'price-asc':
                 $query->orderBy('price', 'asc');
@@ -268,16 +269,16 @@ class ProductController extends Controller
         $query = Product::with($isAjax ? ['brand'] : ['category', 'brand', 'voucher'])
             ->whereHas('category', fn($q) => $q->where('slug', 'ink-cartridges'));
 
-        if ($request->filled('search')) {
-            $query->where('name', 'like', '%' . $request->search . '%');
+        if ($request->query('search')) {
+            $query->where('name', 'like', '%' . $request->query('search') . '%');
         }
 
         // Pills filter by brand_id
-        if ($request->filled('cat') && $request->cat !== 'all') {
-            $query->where('brand_id', $request->cat);
+        if ($request->query('cat') && $request->query('cat') !== 'all') {
+            $query->where('brand_id', $request->query('cat'));
         }
 
-        $sort = $request->get('sort', 'default');
+        $sort = $request->query('sort', 'default');
         switch ($sort) {
             case 'price-asc':
                 $query->orderBy('price', 'asc');
@@ -331,16 +332,16 @@ class ProductController extends Controller
         $query = Product::with($isAjax ? ['brand', 'category'] : ['category', 'brand', 'voucher'])
             ->whereHas('category', fn($q) => $q->where('slug', 'paper'));
 
-        if ($request->filled('search')) {
-            $query->where('name', 'like', '%' . $request->search . '%');
+        if ($request->query('search')) {
+            $query->where('name', 'like', '%' . $request->query('search') . '%');
         }
 
         // Pills are now brand pills — filter by brand_id
-        if ($request->filled('cat') && $request->cat !== 'all') {
-            $query->where('brand_id', $request->cat);
+        if ($request->query('cat') && $request->query('cat') !== 'all') {
+            $query->where('brand_id', $request->query('cat'));
         }
 
-        $sort = $request->get('sort', 'default');
+        $sort = $request->query('sort', 'default');
         switch ($sort) {
             case 'price-asc':
                 $query->orderBy('price', 'asc');

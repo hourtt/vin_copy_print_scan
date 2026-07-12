@@ -30,7 +30,7 @@ class CartController extends Controller
         ]);
 
         $quantity = $request->input('quantity', 1);
-        $this->cartService->add($product->id, $quantity);
+        $this->cartService->add($product->getKey(), $quantity);
 
         if ($request->expectsJson()) {
             $cartCount = $this->cartService->getCartItems()->sum('quantity');
@@ -50,14 +50,14 @@ class CartController extends Controller
             'quantity' => 'required|integer|min:0',
         ]);
 
-        $this->cartService->update($product->id, $request->input('quantity'));
+        $this->cartService->update($product->getKey(), $request->input('quantity'));
 
         return redirect()->route('cart.index')->with('success', 'Cart updated successfully.');
     }
 
     public function remove(Product $product)
     {
-        $this->cartService->remove($product->id);
+        $this->cartService->remove($product->getKey());
 
         return redirect()->route('cart.index')->with('success', 'Product removed from cart.');
     }

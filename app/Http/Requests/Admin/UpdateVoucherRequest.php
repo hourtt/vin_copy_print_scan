@@ -15,13 +15,14 @@ class UpdateVoucherRequest extends FormRequest
     public function rules(): array
     {
         $voucherId = $this->route('voucher')?->id ?? $this->route('voucher');
-
+        $discountType = $this->input('discount_type', 'percentage');
         return [
             'code'          => ['required', 'string', 'max:50', Rule::unique('vouchers', 'code')->ignore($voucherId)],
             'scope'         => ['required', Rule::in(['site_wide', 'products', 'categories'])],
             'discount_type' => ['required', Rule::in(['percentage', 'fixed'])],
             'discount_value'=> ['required', 'numeric', 'min:0.01',
-                                Rule::when($this->discount_type === 'percentage', ['max:100'])],
+                Rule::when($discountType === 'percentage', ['max:100'])
+            ],
             'usage_limit'   => ['nullable', 'integer', 'min:1'],
             'expires_at'    => ['nullable', 'date'],
             'is_active'     => ['boolean'],

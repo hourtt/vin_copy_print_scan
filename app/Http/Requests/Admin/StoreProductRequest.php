@@ -23,8 +23,7 @@ class StoreProductRequest extends FormRequest
             'price'            => ['required', 'numeric', 'min:0'],
             'stock'            => ['required', 'integer', 'min:0'],
             'is_featured'      => ['boolean'],
-            'specifications'   => ['nullable', 'array'],
-            // Gallery images
+            'specifications' => ['nullable', 'array'],
             'images'           => ['nullable', 'array'],
             'images.*'         => ['image', 'max:5120'], // 5MB per image
         ];

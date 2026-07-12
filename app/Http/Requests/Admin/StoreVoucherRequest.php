@@ -14,12 +14,14 @@ class StoreVoucherRequest extends FormRequest
 
     public function rules(): array
     {
+        $discountType = $this->input('discount_type', 'percentage');
         return [
             'code'          => ['required', 'string', 'max:50', Rule::unique('vouchers', 'code')],
             'scope'         => ['required', Rule::in(['site_wide', 'products', 'categories'])],
             'discount_type' => ['required', Rule::in(['percentage', 'fixed'])],
             'discount_value'=> ['required', 'numeric', 'min:0.01',
-                                Rule::when($this->discount_type === 'percentage', ['max:100'])],
+                Rule::when($discountType === 'percentage', ['max:100'])
+            ],
             'usage_limit'   => ['nullable', 'integer', 'min:1'],
             'expires_at'    => ['nullable', 'date', 'after:now'],
             'is_active'     => ['boolean'],
