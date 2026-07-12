@@ -1,7 +1,7 @@
 @php
     $initialCartCount = Auth::check() ? app(\App\Services\CartService::class)->getCartItems()->sum('quantity') : 0;
 @endphp
-<nav x-data="{ mobileMenuOpen: false, cartCount: {{ $initialCartCount }} }" @cart-updated.window="cartCount = $event.detail.count" class="sticky top-0 z-50 w-full bg-[#F5F5F3] border-b border-[#E5E5E2]">
+<nav x-data="{ mobileMenuOpen: false, cartCount: {{ $initialCartCount }} }" @cart-updated.window="cartCount = $event.detail.count" class="sticky top-0 z-50 w-full bg-white border-b border-[#E5E5E2]">
     <div class="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-16">
         <div class="relative flex items-center h-16 lg:h-[68px]">
 
@@ -44,19 +44,19 @@
                         class="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-48 rounded-xl overflow-hidden bg-white border border-[#E5E5E2] shadow-[0_8px_24px_rgba(0,0,0,0.07)]">
                         <div class="py-1.5">
                             <a href="{{ route('products.printers.index') }}"
-                                class="flex items-center gap-2 px-4 py-2.5 text-sm transition-colors duration-150 font-['DM_Sans',sans-serif] text-[#4A4A48] hover:bg-[#F5F5F3] hover:text-[#0D0D0B]">
+                                class="flex items-center gap-2 px-4 py-2.5 text-sm transition-colors duration-150 font-['DM_Sans',sans-serif] text-[#4A4A48] hover:bg-[#D3D3D3] hover:text-[#0D0D0B]">
                                 Printers
                             </a>
                             <a href="{{ route('products.toners.index') }}"
-                                class="flex items-center gap-2 px-4 py-2.5 text-sm transition-colors duration-150 font-['DM_Sans',sans-serif] text-[#4A4A48] hover:bg-[#F5F5F3] hover:text-[#0D0D0B]">
+                                class="flex items-center gap-2 px-4 py-2.5 text-sm transition-colors duration-150 font-['DM_Sans',sans-serif] text-[#4A4A48] hover:bg-[#D3D3D3] hover:text-[#0D0D0B]">
                                 Toners
                             </a>
                             <a href="{{ route('products.inks.index') }}"
-                                class="flex items-center gap-2 px-4 py-2.5 text-sm transition-colors duration-150 font-['DM_Sans',sans-serif] text-[#4A4A48] hover:bg-[#F5F5F3] hover:text-[#0D0D0B]">
+                                class="flex items-center gap-2 px-4 py-2.5 text-sm transition-colors duration-150 font-['DM_Sans',sans-serif] text-[#4A4A48] hover:bg-[#D3D3D3] hover:text-[#0D0D0B]">
                                 Ink Cartridges
                             </a>
                             <a href="{{ route('products.papers.index') }}"
-                                class="flex items-center gap-2 px-4 py-2.5 text-sm transition-colors duration-150 font-['DM_Sans',sans-serif] text-[#4A4A48] hover:bg-[#F5F5F3] hover:text-[#0D0D0B]">
+                                class="flex items-center gap-2 px-4 py-2.5 text-sm transition-colors duration-150 font-['DM_Sans',sans-serif] text-[#4A4A48] hover:bg-[#D3D3D3] hover:text-[#0D0D0B]">
                                 Papers
                             </a>
                         </div>
@@ -127,7 +127,7 @@
                             </div>
                             <div class="py-1.5">
                                 <a href="{{ route('profile.edit') }}"
-                                    class="flex items-center px-4 py-2.5 text-sm transition-colors duration-150 font-['DM_Sans',sans-serif] text-[#4A4A48] hover:bg-[#F5F5F3] hover:text-[#0D0D0B]">
+                                    class="flex items-center px-4 py-2.5 text-sm transition-colors duration-150 font-['DM_Sans',sans-serif] text-[#4A4A48] hover:bg-[#D3D3D3] hover:text-[#0D0D0B]">
                                     Profile
                                 </a>
                                 <button type="button" onclick="event.preventDefault(); openLogoutModal();"
@@ -171,7 +171,7 @@
     <div x-show="mobileMenuOpen" x-transition:enter="transition ease-out duration-200"
         x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0"
         x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0"
-        x-transition:leave-end="opacity-0 -translate-y-2" x-cloak class="lg:hidden bg-[#F5F5F3] border-t border-[#E5E5E2]">
+        x-transition:leave-end="opacity-0 -translate-y-2" x-cloak class="lg:hidden bg-[#D3D3D3] border-t border-[#E5E5E2]">
         <div class="max-w-[1280px] mx-auto px-6 py-4 space-y-1">
 
             <a href="{{ Auth::check() ? Auth::user()->getRedirectRoute() : route('dashboard') }}"

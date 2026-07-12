@@ -1,4 +1,4 @@
-<section class="w-full overflow-hidden bg-[#F5F5F3]">
+<section class="w-full overflow-hidden bg-white">
     <div class="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-16">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-12 lg:gap-20 items-center min-h-[82vh] md:min-h-[78vh]">
 
@@ -27,14 +27,15 @@
 
                 {{-- CTA row --}}
                 <div class="flex flex-wrap items-center gap-4">
+                    <!-- Primary Action -->
                     <a href="{{ route('services') }}"
-                        class="inline-flex items-center gap-1 text-sm font-medium transition-colors duration-200 text-[#0D0D0B] font-['DM_Sans',sans-serif] hover:text-[#305CDE]">
+                        class="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-white border border-slate-200 text-slate-700 font-medium hover:bg-slate-50 transition-colors">
                         Our Services
-                        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"
-                            stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true">
-                            <path d="M5 12h14" />
-                            <polyline points="12 5 19 12 12 19" />
-                        </svg>
+                    </a>
+                    <!-- Secondary Action -->
+                    <a href="{{ route('product-catalog.index') }}"
+                        class="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition-colors shadow-sm">
+                        Shop Supplies
                     </a>
                 </div>
 

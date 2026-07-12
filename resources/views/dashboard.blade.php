@@ -13,7 +13,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="antialiased overflow-x-hidden w-full relative bg-[#F5F5F3]">
+<body class="antialiased overflow-x-hidden w-full relative bg-white">
     {{-- NAVIGATION --}}
     @include('layouts.navigation')
 

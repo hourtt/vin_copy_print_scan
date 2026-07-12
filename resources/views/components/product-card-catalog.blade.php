@@ -1,39 +1,47 @@
 @php
     $stock = (int) $product->stock;
-    $stockClass = $stock <= 0 ? 'bg-red-50 text-red-600 border border-red-200' : ($stock <= 5 ? 'bg-amber-50 text-amber-600 border border-amber-200' : 'bg-emerald-50 text-emerald-600 border border-emerald-200');
-    $stockLabel = $stock <= 0 ? 'OUT OF STOCK' : ($stock <= 5 ? "LOW STOCK" : 'IN STOCK');
+    $stockClass =
+        $stock <= 0
+            ? 'bg-red-50 text-red-600 border border-red-200'
+            : ($stock <= 5
+                ? 'bg-amber-50 text-amber-600 border border-amber-200'
+                : 'bg-emerald-50 text-emerald-600 border border-emerald-200');
+    $stockLabel = $stock <= 0 ? 'OUT OF STOCK' : ($stock <= 5 ? 'LOW STOCK' : 'IN STOCK');
 @endphp
 
-<article class="bg-white border border-black-200 rounded-lg overflow-hidden flex flex-col h-full hover:shadow-md transition-all duration-300">
-    <div class="relative bg-[#f8f9fa] aspect-[4/3] flex items-center justify-center p-3 sm:p-4">
-        <span class="absolute top-2 left-2 sm:top-3 sm:left-3 text-[10px] font-bold px-2 py-1 rounded shadow-sm {{ $stockClass }}">{{ $stockLabel }}</span>
+<article
+    class="group relative flex flex-col h-full bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 ease-in-out p-3">
+
+    <!-- Simplified Image Container -->
+    <div
+        class="relative w-full aspect-[4/3] bg-slate-50 rounded-lg overflow-hidden flex items-center justify-center mb-4">
+        <!-- Stock Badge (Keep your existing PHP logic for $stockClass and $stockLabel) -->
+        <span class="absolute top-2 left-2 text-[10px] font-bold px-2 py-1 rounded-md z-10 {{ $stockClass }}">
+            {{ $stockLabel }}
+        </span>
+
         @if ($product->image)
-            <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" loading="lazy" class="max-w-full max-h-full object-contain mix-blend-multiply">
+            <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" loading="lazy"
+                class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-500">
         @else
-            <span class="text-[#6c757d] text-xs uppercase">No image</span>
+            <span class="text-slate-400 text-xs font-medium uppercase tracking-wider">No Image</span>
         @endif
     </div>
 
-    <div class="p-3 sm:p-4 flex flex-col flex-1">
-        <div class="text-[10px] text-gray-500 mb-1 font-semibold capitalize tracking-wider">{{ $product->category->name ?? 'Category' }}</div>
-        <h3 class="text-sm font-bold text-gray-900 m-0 mb-3 leading-snug line-clamp-2">{{ $product->name }}</h3>
-        
-        <div class="mt-auto">
-            <div class="text-base font-bold text-gray-900 mb-3">${{ number_format($product->price, 2) }}</div>
-            
-            @auth
-                <button class="w-full min-h-[40px] px-3 bg-gray-900 text-white border-none rounded-lg text-xs font-semibold flex items-center justify-center gap-2 cursor-pointer transition-colors hover:bg-black disabled:bg-gray-200 disabled:text-gray-500 disabled:cursor-not-allowed" @if ($stock <= 0) disabled @endif>
-                    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path d="M9 20a1 1 0 100-2 1 1 0 000 2zM20 20a1 1 0 100-2 1 1 0 000 2z"></path>
-                        <path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"></path>
-                    </svg>
-                    {{ $stock <= 0 ? 'Out of Stock' : 'Add to Cart' }}
-                </button>
-            @else
-                <a href="{{ route('login') }}" class="w-full min-h-[40px] px-3 bg-white text-gray-700 border border-gray-200 rounded-lg text-xs font-semibold flex items-center justify-center transition-colors hover:bg-gray-50">
-                    {{ $stock <= 0 ? 'Out of Stock' : 'Sign In' }}
-                </a>
-            @endauth
+    <!-- Card Body -->
+    <div class="flex flex-col flex-1">
+        <span class="text-[11px] font-semibold text-blue-600 uppercase tracking-wider mb-1">
+            {{ $product->category->name ?? 'Category' }}
+        </span>
+        <h3 class="text-sm font-medium text-slate-900 leading-tight mb-3 line-clamp-2">
+            {{ $product->name }}
+        </h3>
+
+        <div class="mt-auto flex items-end justify-between">
+            <span class="text-lg font-bold text-slate-900">
+                ${{ number_format($product->price, 2) }}
+            </span>
+            <!-- Keep your existing Add to Cart button logic here -->
         </div>
     </div>
 </article>

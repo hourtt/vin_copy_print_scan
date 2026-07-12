@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Printers — {{ config('app.name') }}</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=fraunces:400,500,600,700,900i&family=dm-sans:300,400,500"
-        rel="stylesheet" />
+    <link href="https://fonts.bunny.net/css?family=fraunces:400,500,600,700,900i|dm-sans:300,400,500,600" rel="stylesheet" />
     @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/category-filter.js'])
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
 </head>
