@@ -72,6 +72,13 @@ class ProfileController extends Controller
                     Rule::unique('users')->ignore($user->id),
                 ],
             ],
+            'address' => [
+                'phone_number'   => ['nullable', 'string', 'max:20'],
+                'address'        => ['required', 'string', 'max:500'],
+                'city'           => ['required', 'string', 'max:255'],
+                'state'          => ['nullable', 'string', 'max:255'],
+                'zip_code'       => ['nullable', 'string', 'max:20'],
+            ],
             default => abort(422, 'Unknown field group.'),
         };
 

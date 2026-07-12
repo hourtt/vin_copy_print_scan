@@ -1,9 +1,9 @@
 <x-app-layout>
     <div class="settings-layout">
 
-        {{-- ═══════════════════════════════════════
+        {{-- 
              PANEL 1: FAR-LEFT GLOBAL NAV
-        ═══════════════════════════════════════ --}}
+         --}}
         <aside class="settings-global-nav">
             <div class="global-nav-top">
                 {{-- Customer Account Dropdown Trigger / Avatar --}}
@@ -86,9 +86,7 @@
             </div>
         </aside>
 
-        {{-- ═══════════════════════════════════════
-             PANEL 2: INNER-LEFT SETTINGS MENU
-        ═══════════════════════════════════════ --}}
+        {{--  PANEL 2: INNER-LEFT SETTINGS MENU--}}
         <nav class="settings-sidebar">
             <div class="settings-sidebar-header">
                 <h1 class="settings-sidebar-title">Settings</h1>
@@ -105,9 +103,9 @@
             </div>
         </nav>
 
-        {{-- ═══════════════════════════════════════
+        {{-- 
              PANEL 3: MAIN CONTENT AREA
-        ═══════════════════════════════════════ --}}
+         --}}
         <main class="settings-content-wrapper">
             <div class="settings-content">
 
@@ -134,7 +132,7 @@
                 <div class="settings-row-group">
                     <h3 class="settings-section-title">Personal Information</h3>
 
-                    {{-- ─── Row 1: Full Name (inline edit) ─── --}}
+                    {{--  Row 1: Full Name (inline edit)  --}}
                     <div class="settings-row" data-inline-field="name">
 
                         <div class="settings-row-label">Full Name</div>
@@ -187,7 +185,7 @@
 
                     </div>
 
-                    {{-- ─── Row 2: Contact Details (inline edit) ─── --}}
+                    {{--  Row 2: Contact Details (inline edit)  --}}
                     <div class="settings-row" data-inline-field="email">
 
                         <div class="settings-row-label">Contact Details</div>
@@ -239,12 +237,16 @@
                     <div class="settings-row">
                         <div class="settings-row-label">Default Address</div>
                         <div class="settings-row-value">
-                            123 Paper Street<br>
-                            New York, NY 10001
+                            @if (Auth::user()->address)
+                                {{ Auth::user()->address }}<br>
+                                {{ Auth::user()->city }}{{ Auth::user()->state ? ', ' . Auth::user()->state : '' }} {{ Auth::user()->zip_code }}
+                            @else
+                                <span class="text-slate-400 italic">No address saved</span>
+                            @endif
                         </div>
                         <div class="settings-row-action">
                             <button type="button" class="btn-edit-link"
-                                onclick="openModal('modal-address')">Edit</button>
+                                onclick="openModal('modal-address')">{{ Auth::user()->address ? 'Edit' : 'Add' }}</button>
                         </div>
                     </div>
 
@@ -438,35 +440,11 @@
         </div>
     </x-profiles.modal>
 
-    {{-- 
-         MODAL — Address (Coming Soon)
-     --}}
-    <x-profiles.modal id="modal-address" title="Delivery Address">
-        <div class="text-center py-10 px-6">
-            <div
-                class="w-14 h-14 rounded-2xl bg-[rgba(216,90,48,0.1)] flex items-center justify-center mx-auto mb-5 text-[var(--coral)]">
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
-                    fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
-                    stroke-linejoin="round">
-                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                    <circle cx="12" cy="10" r="3" />
-                </svg>
-            </div>
-            <h3 class="font-['DM_Sans',sans-serif] text-[1.1rem] font-bold text-[var(--ink)] m-0 mb-[0.5rem]">
-                Coming Soon</h3>
-            <p
-                class="font-['DM_Sans',sans-serif] text-[0.875rem] text-[var(--ink-muted)] m-0 mb-[1.5rem] leading-[1.6]">
-                Address management is currently under development. You'll be able to save and manage multiple
-                delivery addresses here.</p>
-            <button type="button" class="profile-btn-primary max-w-[180px] mx-auto block"
-                onclick="closeModal('modal-address')">Got it</button>
-        </div>
-    </x-profiles.modal>
+    {{-- MODAL — Address Management (Full CRUD) --}}
+    <x-address.address-modal />
 
 
-    {{-- 
-         INLINE EDITING + MODAL JAVASCRIPT
-     --}}
+    {{--  INLINE EDITING + MODAL JAVASCRIPT --}}
     @push('scripts')
         @vite(['resources/js/profile.js'])
 
@@ -480,8 +458,11 @@
             @if (session('status') === 'password-updated')
                 document.addEventListener('DOMContentLoaded', () => openModal('modal-password'));
             @endif
+
+            // Auto-open address modal after address save
+            @if (session('inline_field') === 'address')
+                document.addEventListener('DOMContentLoaded', () => openModal('modal-address'));
+            @endif
         </script>
     @endpush
-
-
 </x-app-layout>
