@@ -53,7 +53,7 @@ class AdminProductController extends Controller
         }
 
         // Sort
-        $sort = $request->get('sort', 'newest');
+        $sort = $request->query('sort', 'newest');
         match ($sort) {
             'price_asc'  => $query->orderBy('price', 'asc'),
             'price_desc' => $query->orderBy('price', 'desc'),
@@ -154,10 +154,13 @@ class AdminProductController extends Controller
                     ->where('product_id', $product->id)
                     ->get();
 
+                // 1. Loop ONLY to remove physical files from disk
                 foreach ($toDelete as $image) {
                     Storage::disk('public')->delete($image->image_path);
-                    $image->delete();
                 }
+
+                // 2. Delete all database records in 1 single SQL query!
+                ProductImage::whereIn('id', $toDelete->pluck('id'))->delete();
             }
 
             // Append new gallery images
