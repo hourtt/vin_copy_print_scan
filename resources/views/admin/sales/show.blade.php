@@ -96,7 +96,7 @@
                                         <div class="flex items-center gap-3">
                                             @php $thumb = $item->product?->images->firstWhere('is_primary', true) ?? $item->product?->images->first(); @endphp
                                             @if ($thumb)
-                                                <img src="{{ Storage::url($thumb->image_path) }}" class="w-10 h-10 rounded-lg object-cover border border-gray-100 shrink-0">
+                                                <img src="{{ Storage::url($thumb->image_path) }}" class="w-10 h-10 rounded-lg object-cover border border-gray-100 shrink-0" loading="lazy">
                                             @else
                                                 <div class="w-10 h-10 rounded-lg bg-gray-100 shrink-0"></div>
                                             @endif

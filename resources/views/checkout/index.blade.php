@@ -19,7 +19,7 @@
         <div class="container mx-auto px-4 lg:px-8 flex justify-between items-center">
             <a href="{{ url('/') }}" class="flex items-center gap-3 no-underline">
                 <img src="{{ asset('storage/images/logo-icon-only.webp') }}" alt="Logo" width="40"
-                    class="rounded-lg">
+                    class="rounded-lg" loading="lazy">
             </a>
             <div class="flex items-center gap-2 text-sm text-[#71717a] font-medium">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"

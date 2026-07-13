@@ -32,7 +32,7 @@
                                 <li class="p-6 flex items-center space-x-6">
                                     <div class="flex-shrink-0 w-24 h-24 border border-gray-200 rounded-md overflow-hidden">
                                         @if($item->product->image)
-                                            <img src="{{ Storage::url($item->product->image) }}" alt="{{ $item->product->name }}" class="w-full h-full object-center object-cover">
+                                            <img src="{{ Storage::url($item->product->image) }}" alt="{{ $item->product->name }}" class="w-full h-full object-center object-cover" loading="lazy">
                                         @else
                                             <div class="w-full h-full bg-gray-100 flex items-center justify-center text-gray-400">No Image</div>
                                         @endif

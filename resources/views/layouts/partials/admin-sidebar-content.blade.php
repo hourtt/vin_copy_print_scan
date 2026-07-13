@@ -2,7 +2,7 @@
 <div class="h-16 flex items-center px-6 border-b border-gray-100 shrink-0">
     <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-2">
         <!-- Logo SVG -->
-        <img class="h-10 w-auto rounded-lg" src="{{ asset('storage/images/logo-icon-only.webp') }}" alt="Logo">
+        <img class="h-10 w-auto rounded-lg" src="{{ asset('storage/images/logo-icon-only.webp') }}" alt="Logo" loading="lazy">
     </a>
 </div>
 

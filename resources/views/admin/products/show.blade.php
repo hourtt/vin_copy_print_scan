@@ -15,13 +15,13 @@
                 @if ($product->images->isNotEmpty())
                     <div class="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm"
                          x-data="{ active: '{{ Storage::url($product->images->firstWhere('is_primary', true)?->image_path ?? $product->images->first()->image_path) }}' }">
-                        <img :src="active" class="w-full h-72 object-contain bg-gray-50 p-4">
+                        <img :src="active" class="w-full h-72 object-contain bg-gray-50 p-4" loading="lazy">
                         <div class="flex gap-2 p-4 border-t border-gray-100 overflow-x-auto">
                             @foreach ($product->images->sortBy('sort_order') as $image)
                                 <button type="button" @click="active='{{ Storage::url($image->image_path) }}'"
                                         :class="active === '{{ Storage::url($image->image_path) }}' ? 'ring-2 ring-indigo-400 border-indigo-300' : 'border-gray-100 hover:border-gray-300'"
                                         class="shrink-0 border rounded-lg overflow-hidden w-14 h-14 transition-all">
-                                    <img src="{{ Storage::url($image->image_path) }}" class="w-full h-full object-cover">
+                                    <img src="{{ Storage::url($image->image_path) }}" class="w-full h-full object-cover" loading="lazy">
                                 </button>
                             @endforeach
                         </div>

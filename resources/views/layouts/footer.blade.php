@@ -5,7 +5,7 @@
         <div>
             <div class="flex items-center gap-2 mb-4 text-[var(--ink)]">
                 <img src="{{ asset('storage/images/logo-icon-only.webp') }}" alt="Logo" width="70"
-                    class="rounded-xl">
+                    class="rounded-xl" loading="lazy">
                 <span class="font-bold text-xl">Vin Copy Print Scan</span>
             </div>
             <p class="text-sm leading-relaxed text-[var(--ink-muted)] max-w-[300px]">

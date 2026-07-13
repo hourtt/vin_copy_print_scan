@@ -109,7 +109,7 @@
                                             @php $thumb = $product->images->firstWhere('is_primary', true) ?? $product->images->first(); @endphp
                                             @if ($thumb)
                                                 <img src="{{ Storage::url($thumb->image_path) }}" alt="{{ $product->name }}"
-                                                     class="w-10 h-10 rounded-lg object-cover border border-gray-100 shrink-0">
+                                                     class="w-10 h-10 rounded-lg object-cover border border-gray-100 shrink-0"  loading="lazy">
                                             @else
                                                 <div class="w-10 h-10 rounded-lg bg-gray-100 border border-gray-200 flex items-center justify-center shrink-0">
                                                     <svg class="w-5 h-5 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>

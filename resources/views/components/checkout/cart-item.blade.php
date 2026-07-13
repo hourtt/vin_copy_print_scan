@@ -6,7 +6,7 @@
             @if ($item->product->image)
                 <img src="{{ asset('storage/' . $item->product->image) }}"
                     alt="{{ $item->product->name }}"
-                    class="object-contain w-full h-full">
+                    class="object-contain w-full h-full" loading="lazy">
             @else
                 <span class="text-zinc-400">No Img</span>
             @endif

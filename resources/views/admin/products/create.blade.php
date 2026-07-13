@@ -151,7 +151,7 @@
                     <div x-show="previewImages.length > 0" class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-3">
                         <template x-for="(img, i) in previewImages" :key="i">
                             <div class="relative group">
-                                <img :src="img.url" :alt="img.name" class="w-full h-24 object-cover rounded-lg border border-gray-100">
+                                <img :src="img.url" :alt="img.name" class="w-full h-24 object-cover rounded-lg border border-gray-100" loading="lazy">
                                 <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 rounded-lg transition-colors"></div>
                                 <span x-show="i === 0" class="absolute top-1 left-1 bg-indigo-600 text-white text-xs px-1.5 py-0.5 rounded font-medium">Thumbnail</span>
                                 <button type="button" @click="previewImages.splice(i, 1)"

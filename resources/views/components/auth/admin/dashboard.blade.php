@@ -234,7 +234,7 @@
                                             @if ($order->product?->image)
                                                 <img src="{{ asset('storage/' . $order->product->image) }}"
                                                     alt="{{ $order->product->name }}"
-                                                    class="h-full w-full object-cover">
+                                                    class="h-full w-full object-cover" loading="lazy">
                                             @else
                                                 <svg class="w-6 h-6 text-gray-400" fill="none" viewBox="0 0 24 24"
                                                     stroke="currentColor">

@@ -9,7 +9,7 @@
         <div class="summary-item">
             <div class="summary-item-img">
                 @if($item->product->image)
-                    <img src="{{ Storage::url($item->product->image) }}" alt="{{ $item->product->name }}" onerror="this.src='https://via.placeholder.com/60x60?text=Item'">
+                    <img src="{{ Storage::url($item->product->image) }}" alt="{{ $item->product->name }}" onerror="this.src='https://via.placeholder.com/60x60?text=Item'" loading="lazy">
                 @else
                     <div class="w-full h-full bg-gray-100 flex items-center justify-center text-gray-400 text-xs">No Image</div>
                 @endif

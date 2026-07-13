@@ -58,7 +58,7 @@
                             <label class="block text-sm font-medium text-gray-700 mb-1">Store Logo</label>
                             <div class="flex items-center gap-3">
                                 @if(!empty($shopSettings['shop_logo']))
-                                    <img src="{{ Storage::url($shopSettings['shop_logo']) }}" class="h-10 object-contain bg-gray-50 border border-gray-200 rounded">
+                                    <img src="{{ Storage::url($shopSettings['shop_logo']) }}" class="h-10 object-contain bg-gray-50 border border-gray-200 rounded" loading="lazy">
                                 @endif
                                 <input type="file" name="shop_logo" accept="image/*" class="text-sm">
                             </div>

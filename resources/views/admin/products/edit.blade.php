@@ -151,7 +151,7 @@
                             @foreach ($product->images->sortBy('sort_order') as $image)
                                 <div class="relative group">
                                     <img src="{{ Storage::url($image->image_path) }}" alt="Product image"
-                                         class="w-full h-24 object-cover rounded-lg border {{ $image->is_primary ? 'border-indigo-400 ring-2 ring-indigo-300' : 'border-gray-100' }}">
+                                         class="w-full h-24 object-cover rounded-lg border {{ $image->is_primary ? 'border-indigo-400 ring-2 ring-indigo-300' : 'border-gray-100' }}" loading="lazy">
 
                                     @if ($image->is_primary)
                                         <span class="absolute top-1 left-1 bg-indigo-600 text-white text-xs px-1.5 py-0.5 rounded font-medium">Thumbnail</span>
@@ -191,7 +191,7 @@
                     <div x-show="newPreviews.length > 0" class="grid grid-cols-2 sm:grid-cols-4 gap-3">
                         <template x-for="(img, i) in newPreviews" :key="i">
                             <div class="relative group">
-                                <img :src="img.url" class="w-full h-24 object-cover rounded-lg border border-gray-100">
+                                <img :src="img.url" class="w-full h-24 object-cover rounded-lg border border-gray-100" loading="lazy">
                                 <button type="button" @click="newPreviews.splice(i, 1)"
                                         class="absolute top-1 right-1 bg-white/90 text-red-500 rounded-full p-0.5 opacity-0 group-hover:opacity-100 transition-opacity">
                                     <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>

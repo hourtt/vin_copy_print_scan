@@ -64,7 +64,7 @@
                 <img src="{{ asset('storage/images/modern_printer_hero.webp') }}"
                     alt="Modern Canon printer on a clean desk"
                     class="relative w-full max-w-[520px] drop-shadow-none max-h-[68vh] object-contain mix-blend-multiply rounded-md"
-                    loading="eager">
+                    loading="eager" loading="lazy">
             </div>
         </div>
     </div>

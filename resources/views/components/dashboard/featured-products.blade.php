@@ -21,7 +21,7 @@
                                         Arrival</span>
                                     @if ($product->image)
                                         <img src="{{ asset($product->image) }}" alt="{{ $product->name }}"
-                                            class="max-h-full object-contain">
+                                            class="max-h-full object-contain" loading="lazy">
                                     @else
                                         <div class="flex items-center justify-center w-full h-full text-[#1a1a2e]/50">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48"
