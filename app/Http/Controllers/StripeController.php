@@ -16,7 +16,6 @@ class StripeController extends Controller
         }
 
         Stripe::setApiKey(config('payments.stripe.secret'));
-
         $lineItems = [];
         foreach ($order->items as $item) {
             $lineItems[] = [
