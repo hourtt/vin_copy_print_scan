@@ -18,7 +18,9 @@ class Product extends Model
         'slug',
         'description',
         'price',
+        'discount_price',
         'stock',
+        'sales_count',
         'image',
         'specifications',
         'is_featured',
@@ -26,8 +28,10 @@ class Product extends Model
 
     protected $casts = [
         'specifications' => 'array',
-        'is_featured'    => 'boolean',
-        'price'          => 'decimal:2',
+        'is_featured' => 'boolean',
+        'price' => 'decimal:2',
+        'discount_price' => 'decimal:2',
+        'sales_count' => 'integer',
     ];
 
     // ─ Relationships 
@@ -103,7 +107,69 @@ class Product extends Model
         return $query->where('stock', '>', 0);
     }
 
+    /**
+     * Order by most sold (descending).
+     */
+    public function scopePopular($query)
+    {
+        return $query->orderByDesc('sales_count');
+    }
+
+    /**
+     * Only return products currently on sale.
+     */
+    public function scopeOnSale($query)
+    {
+        return $query->whereNotNull('discount_price')
+            ->whereColumn('discount_price', '<', 'price');
+    }
+
+    /**
+     * Order by newest first.
+     */
+    public function scopeNewArrivals($query)
+    {
+        return $query->latest();
+    }
+
     // ─ Accessors / Helpers ─
+
+    /**
+     * Get stock status logic formatted for UI.
+     */
+    public function getStockStatusAttribute(): array
+    {
+        $stock = (int) $this->stock;
+        $class = $stock <= 0 ? 'out-of-stock' : ($stock <= 5 ? "Low-stock" : "In-stock");
+
+        $badgeBg = match ($class) {
+            'In-stock' => 'bg-green-100 text-green-800',
+            'Low-stock' => 'bg-yellow-100 text-yellow-800',
+            default => 'bg-red-100 text-red-800',
+        };
+
+        return [
+            'count' => $stock,
+            'label' => $stock <= 0 ? 'Out of stock' : ($stock <= 5 ? "Only {$stock} left" : "In stock"),
+            'badgeBg' => $badgeBg,
+            'isAvailable' => $stock > 0,
+        ];
+    }
+    /**
+     * The price the customer actually pays (discount or regular).
+     */
+    public function getEffectivePriceAttribute(): string
+    {
+        return $this->discount_price ?? $this->price;
+    }
+
+    /**
+     * Whether this product currently has an active discount.
+     */
+    public function getIsOnSaleAttribute(): bool
+    {
+        return $this->discount_price !== null && $this->discount_price < $this->price;
+    }
 
     /**
      * Auto-generate slug from name if not set.
@@ -118,4 +184,5 @@ class Product extends Model
             }
         });
     }
+
 }
