@@ -1,90 +1,86 @@
-@forelse ($products->groupBy($groupBy) as $groupKey => $grouped)
-    @php $groupHeading = $grouped->first()->{$headingRelation}->name ?? $headingFallback; @endphp
+{{-- Reusable static product grid section --}}
+{{-- Props: $title (string), $products (Collection), $viewAllRoute (string), $columns (int, default 4) --}}
+@php $columns = $columns ?? 4; @endphp
 
-    <section class="category-section mb-12" data-cat="{{ $groupKey }}">
-
-        {{-- Group Heading --}}
-        <div class="flex items-center gap-4 mb-6">
-            <h2 class="font-['Kantumruy Pro',serif] text-2xl font-semibold text-[#27272a] whitespace-nowrap">
-                {{ $groupHeading }}
-            </h2>
-            <div class="flex-1 h-px bg-[#e4e4e7]"></div>
+<section class="py-12 px-4 md:px-8">
+    <div class="max-w-[1280px] mx-auto">
+        {{-- Section Header --}}
+        <div class="flex items-center justify-between mb-8">
+            <h2 class="font-sans text-2xl font-semibold text-[#1a1a2e]">{{ $title }}</h2>
+            <a href="{{ $viewAllRoute }}"
+                class="text-blue-600 font-semibold text-sm no-underline hover:text-blue-800 transition-colors">
+                View All &rarr;
+            </a>
         </div>
 
-        {{-- Product Grid --}}
-        <div class="product-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 lg:gap-6"
-            id="grid-{{ $groupKey }}">
-
-            @foreach ($grouped as $product)
+        {{-- Grid --}}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-{{ $columns }} gap-5 lg:gap-6">
+            @foreach ($products as $product)
                 @php
-                    $stock      = (int) $product->stock;
+                    $stock = (int) $product->stock;
                     $stockClass = $stock <= 0 ? 'out-stock' : ($stock <= 5 ? 'low-stock' : 'in-stock');
-                    $stockLabel = $stock <= 0 ? 'Out of stock' : ($stock <= 5 ? "Only {$stock} left" : 'In stock');
-                    $badgeBg    = match ($stockClass) {
-                        'in-stock'  => 'bg-green-100 text-green-800',
+                    $stockLabel =
+                        $stock <= 0 ? 'Out of stock' : ($stock <= 5 ? "Only {$stock} left" : 'In stock');
+                    $badgeBg = match ($stockClass) {
+                        'in-stock' => 'bg-green-100 text-green-800',
                         'low-stock' => 'bg-yellow-100 text-yellow-800',
-                        default     => 'bg-red-100 text-red-800',
+                        default => 'bg-red-100 text-red-800',
                     };
-                    if (str_starts_with($compatKey, 'spec:')) {
-                        $specKey      = substr($compatKey, 5);
-                        $compatValue  = $product->specifications[$specKey] ?? null;
-                    } else {
-                        $compatValue  = $product->{$compatKey} ?? null;
-                    }
-
-                    // Sub-label: brand->name or category->name with fallback
-                    $subLabel = $product->{$subLabelRelation}->name ?? $subLabelFallback;
+                    $effectivePrice = $product->discount_price ?? $product->price;
+                    $isOnSale =
+                        !is_null($product->discount_price) && $product->discount_price < $product->price;
                 @endphp
 
                 <article
-                    class="product-card group bg-white border border-[#e4e4e7] rounded-2xl overflow-hidden flex flex-col shadow-sm hover:-translate-y-1.5 hover:shadow-lg transition-all duration-300 ease-in-out"
-                    data-cat="{{ $product->category_id }}"
-                    data-brand="{{ $product->brand_id ?? '' }}"
-                    data-name="{{ strtolower($product->name) }}"
-                    data-price="{{ $product->price }}">
+                    class="group bg-white border border-[#e4e4e7] rounded-2xl overflow-hidden flex flex-col shadow-sm hover:-translate-y-1.5 hover:shadow-lg transition-all duration-300 ease-in-out">
 
                     {{-- Image --}}
-                    <div class="relative aspect-[4/3] bg-[#fafafa] flex items-center justify-center overflow-hidden border-b border-[#e4e4e7]">
+                    <div
+                        class="relative aspect-[4/3] bg-[#fafafa] flex items-center justify-center overflow-hidden border-b border-[#e4e4e7]">
                         @if ($product->image)
-                            <img src="{{ asset($product->image) }}" alt="{{ $product->name }}"
-                                loading="lazy"
+                            <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" loading="lazy"
                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                         @else
                             <span class="text-sm text-[#000000]">No image</span>
                         @endif
 
                         {{-- Stock badge --}}
-                        <span class="absolute top-3 right-3 text-[0.65rem] font-semibold capitalize tracking-wide px-2 py-1 rounded-lg {{ $badgeCase }} {{ $badgeBg }}">
+                        <span
+                            class="absolute top-3 right-3 text-[0.65rem] font-semibold capitalize tracking-wide px-2 py-1 rounded-lg {{ $badgeBg }}">
                             {{ $stockLabel }}
                         </span>
+
+                        @if ($isOnSale)
+                            <span
+                                class="absolute top-3 left-3 text-[0.65rem] font-bold uppercase tracking-wide px-2 py-1 rounded-lg bg-red-600 text-white">
+                                Sale
+                            </span>
+                        @endif
                     </div>
 
                     {{-- Card Body --}}
                     <div class="flex flex-col flex-1 p-4 sm:p-5 gap-2">
                         <div class="text-xs font-bold capitalize tracking-wide text-[#3f3f46]">
-                            {{ $subLabel }}
+                            {{ $product->brand->name ?? $product->category->name ?? 'Product' }}
                         </div>
-                        <div class="font-['Kantumruy Pro',serif] text-base sm:text-lg font-semibold text-[#27272a] leading-snug line-clamp-2"
+                        <div class="font-['Kantumruy_Pro',serif] text-base sm:text-lg font-semibold text-[#27272a] leading-snug line-clamp-2"
                             title="{{ $product->name }}">
                             {{ $product->name }}
                         </div>
 
-                        @if (!empty($compatValue))
-                            <div class="text-xs text-[#71717a] line-clamp-1">
-                                Fits: {{ $compatValue }}
-                            </div>
-                        @endif
-
                         {{-- Footer: Price + Action --}}
                         <div class="flex flex-row items-center justify-between mt-auto pt-3 border-t border-[#e4e4e7]">
-                            <span class="text-lg sm:text-xl font-bold text-[#27272a]">
-                                ${{ number_format($product->price, 2) }}
-                            </span>
+                            <div>
+                                <span
+                                    class="text-lg sm:text-xl font-bold text-[#27272a]">${{ number_format($effectivePrice, 2) }}</span>
+                                @if ($isOnSale)
+                                    <span
+                                        class="text-sm text-[#a1a1aa] line-through ml-1">${{ number_format($product->price, 2) }}</span>
+                                @endif
+                            </div>
 
                             @auth
-                                <button
-                                    x-data="{ adding: false, added: false }"
-                                    @click="
+                                <button x-data="{ adding: false, added: false }" @click="
                                         if(adding) return;
                                         adding = true;
                                         fetch('{{ route('cart.add', $product->id) }}', {
@@ -121,10 +117,5 @@
                 </article>
             @endforeach
         </div>
-    </section>
-
-@empty
-    <div class="text-center py-24 text-[#71717a] col-span-full">
-        <p class="text-lg">{{ $emptyMessage }}</p>
     </div>
-@endforelse
+</section>

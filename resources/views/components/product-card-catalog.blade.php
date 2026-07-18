@@ -1,12 +1,7 @@
+@props(['product'])
+
 @php
-    $stock = (int) $product->stock;
-    $stockClass =
-        $stock <= 0
-            ? 'bg-red-50 text-red-600 border border-red-200'
-            : ($stock <= 5
-                ? 'bg-amber-50 text-amber-600 border border-amber-200'
-                : 'bg-emerald-50 text-emerald-600 border border-emerald-200');
-    $stockLabel = $stock <= 0 ? 'OUT OF STOCK' : ($stock <= 5 ? 'LOW STOCK' : 'IN STOCK');
+    $stock = $product->stock_status;
 @endphp
 
 <article

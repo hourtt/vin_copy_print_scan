@@ -9,23 +9,42 @@ use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\User;
 use Carbon\Carbon;
-
+use Illuminate\Support\Facades\DB;
 class ProductController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display the homepage with product-first layout.
      */
     public function index()
     {
-        $products = Product::with('category', 'brand', 'voucher')->latest()->paginate(20);
-        $category = Category::orderBy('sort_order')->get();
         $featured = Product::with('category', 'brand')
             ->where('is_featured', true)
             ->inStock()
             ->latest()
+            ->take(4)
+            ->get();
+
+        $popular = Product::with('category', 'brand')
+            ->inStock()
+            ->orderByDesc('sales_count')
             ->take(8)
             ->get();
-        return view('dashboard', compact('products', 'category', 'featured'));
+
+        $newArrivals = Product::with('category', 'brand')
+            ->inStock()
+            ->latest()
+            ->take(8)
+            ->get();
+
+        $hotSale = Product::with('category', 'brand')
+            ->inStock()
+            ->whereNotNull('discount_price')
+            ->where('discount_price', '<', DB::raw('price'))
+            ->orderByDesc('sales_count')
+            ->take(8)
+            ->get();
+
+        return view('dashboard', compact('featured', 'popular', 'newArrivals', 'hotSale'));
     }
 
     public function product_catalog_index(Request $request)

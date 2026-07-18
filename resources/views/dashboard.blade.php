@@ -20,24 +20,35 @@
     {{-- Cinematic Hero --}}
     @include('components.dashboard.cinematic-hero')
 
-    @include('components.dashboard.ticker-bar')
+    {{-- POPULAR PRODUCTS --}}
+    @if(isset($popular) && $popular->count())
+        @include('components.dashboard.product-carousel', [
+            'title' => 'Popular Products',
+            'products' => $popular,
+            'viewAllRoute' => route('product-catalog.index'),
+            'badge' => 'Popular',
+        ])
+    @endif
 
+    {{-- NEW ARRIVALS --}}
+    @if(isset($newArrivals) && $newArrivals->count())
+        @include('components.dashboard.product-grid-section', [
+            'title' => 'New Arrivals',
+            'products' => $newArrivals,
+            'viewAllRoute' => route('product-catalog.index'),
+            'columns' => 4,
+        ])
+    @endif
 
-    {{-- ACCOUNT QUICK-STATS (auth users only)  --}}
-    @auth
-        @include('components.dashboard.account-quick-state')
-    @endauth
-
-
-    {{--  SERVICES SHOWCASE --}}
-    @include('components.dashboard.the-advantage')
-
-    {{-- HOW IT WORKS --}}
-    @include('components.dashboard.how-it-works')
-
-    {{-- PROMOTIONAL BANNER --}}
-    {{-- @include('components.dashboard.promotional-banner') --}}
-
+    {{-- HOT SALE --}}
+    @if(isset($hotSale) && $hotSale->count())
+        @include('components.dashboard.product-carousel', [
+            'title' => 'Hot Sale',
+            'products' => $hotSale,
+            'viewAllRoute' => route('product-catalog.index'),
+            'badge' => 'Sale',
+        ])
+    @endif
 
     {{-- FEATURED PRODUCTS --}}
     @include('components.dashboard.featured-products')
