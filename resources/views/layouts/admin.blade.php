@@ -97,13 +97,6 @@
 
             <!-- Main Canvas / Page Content -->
             <main class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
-                <!-- Mobile Page Header (visible only on small screens) -->
-                <div class="sm:hidden mb-4">
-                    <h1 class="text-xl font-semibold text-gray-800">
-                        {{ $header ?? 'Dashboard' }}
-                    </h1>
-                </div>
-
                 {{ $slot }}
             </main>
         </div>
