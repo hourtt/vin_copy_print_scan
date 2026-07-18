@@ -56,15 +56,7 @@
             </div>
 
             @auth
-                <div x-data="addToCart('{{ route('cart.add', $product->id) }}', {{ $stock['isAvailable'] ? 'true' : 'false' }})">
-                    <button @click="add()"
-                        class="inline-flex items-center justify-center min-h-[36px] px-4 py-2 bg-[#3f3f46] text-white text-xs sm:text-sm font-semibold rounded-lg hover:bg-[#18181b] active:scale-95 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
-                        :disabled="adding || !isAvailable">
-                        <span x-show="!adding && !added">{{ $stock['isAvailable'] ? 'Add to Cart' : 'Unavailable' }}</span>
-                        <span x-show="adding" x-cloak>Adding...</span>
-                        <span x-show="added" x-cloak>Added!</span>
-                    </button>
-                </div>
+                <x-add-to-cart-button :product="$product" :isAvailable="$stock['isAvailable']" />
             @else
                 <a href="{{ route('login') }}"
                     class="inline-flex items-center justify-center min-h-[36px] px-4 py-2 border border-[#e4e4e7] bg-[#ffffff] text-[#27272a] text-xs sm:text-sm font-semibold rounded-lg hover:border-[#3f3f46] hover:text-[#3f3f46] transition-all duration-200">
