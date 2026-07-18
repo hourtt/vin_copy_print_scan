@@ -34,15 +34,27 @@ class User extends Authenticatable
         'state',
         'zip_code',
         'is_banned',
+        'two_factor_secret',
+        'two_factor_recovery_codes',
+        'two_factor_confirmed_at',
+        'notify_new_device_login',
     ];
-    protected $hidden = ['password', 'remember_token'];
-
+    
+    protected $hidden = [
+        'password', 
+        'remember_token',
+        'two_factor_secret',
+        'two_factor_recovery_codes',
+    ];
 
     protected function casts(): array
     {
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'two_factor_recovery_codes' => 'array',
+            'two_factor_confirmed_at' => 'datetime',
+            'notify_new_device_login' => 'boolean',
         ];
     }
 
@@ -70,6 +82,22 @@ class User extends Authenticatable
     public function cart()
     {
         return $this->hasOne(Cart::class);
+    }
+
+    /**
+     * Connected social accounts for this user.
+     */
+    public function connectedAccounts()
+    {
+        return $this->hasMany(ConnectedAccount::class);
+    }
+
+    /**
+     * Security activity logs.
+     */
+    public function securityActivityLogs()
+    {
+        return $this->hasMany(SecurityActivityLog::class);
     }
 
 
