@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=DM_Sans:400,500,600,700,900i&family=dm-sans:300,400,500,600"
         rel="stylesheet" />
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/checkout-bundle.js'])
 </head>
 
 <body class="bg-zinc-50 text-[#27272a] font-['DM_Sans',sans-serif] min-h-screen flex flex-col"

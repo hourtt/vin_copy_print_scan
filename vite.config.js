@@ -8,6 +8,8 @@ export default defineConfig({
                 "resources/css/app.css",
                 "resources/js/app.js",
                 "resources/js/profile.js",
+                "resources/js/checkout-bundle.js",
+                "resources/js/services.js",
             ],
             refresh: true,
         }),
