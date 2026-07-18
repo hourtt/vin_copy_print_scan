@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="settings-layout">
+    <div class="settings-layout" x-data="{ activeTab: 'general' }">
 
         {{-- 
              PANEL 1: FAR-LEFT GLOBAL NAV
@@ -9,7 +9,7 @@
                 {{-- Customer Account Dropdown Trigger / Avatar --}}
                 <div class="global-nav-item" aria-label="Customer Account">
                     <div
-                        class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-white font-bold text-sm uppercase">
+                        class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-white font-bold text-sm capitalize">
                         {{ substr(Auth::user()->first_name, 0, 1) }}
                     </div>
                 </div>
@@ -93,12 +93,10 @@
             </div>
 
             <div class="settings-sidebar-nav">
-                <button class="settings-tab active" type="button">General Profile</button>
+                <button class="settings-tab" :class="{'active': activeTab === 'general'}" @click="activeTab = 'general'" type="button">General Profile</button>
                 <button class="settings-tab" type="button" onclick="openModal('modal-address')">Address Book</button>
-                <button class="settings-tab" type="button" onclick="openModal('modal-payment')">Payment
-                    Methods</button>
-                <button class="settings-tab" type="button" onclick="openModal('modal-password')">Login &amp;
-                    Security</button>
+                <button class="settings-tab" type="button" onclick="openModal('modal-payment')">Payment Methods</button>
+                <button class="settings-tab" :class="{'active': activeTab === 'security'}" @click="activeTab = 'security'" type="button">Login &amp; Security</button>
                 <button class="settings-tab" type="button">Notification Preferences</button>
             </div>
         </nav>
@@ -107,7 +105,7 @@
              PANEL 3: MAIN CONTENT AREA
          --}}
         <main class="settings-content-wrapper">
-            <div class="settings-content">
+            <div x-show="activeTab === 'general'" x-transition class="settings-content">
 
                 {{-- Header / Avatar --}}
                 <div class="settings-header-section">
@@ -332,6 +330,10 @@
                 </div>
 
             </div>
+
+            <div x-show="activeTab === 'security'" x-transition style="display: none;" class="settings-content">
+                @include('profile.security.index')
+            </div>
         </main>
     </div>
 
@@ -395,63 +397,7 @@
     </div>
 
 
-    {{-- MODAL — Password & Security --}}
-    <div class="profile-modal-overlay group" id="modal-password" role="dialog" aria-modal="true"
-        aria-labelledby="modal-password-title">
-        <div class="profile-modal-panel group-[.active]:translate-y-0 group-[.active]:scale-100">
-            <div class="profile-modal-header">
-                <h2 class="profile-modal-title" id="modal-password-title">Password &amp; Security</h2>
-                <button class="profile-modal-close" onclick="closeModal('modal-password')" aria-label="Close">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <line x1="18" y1="6" x2="6" y2="18" />
-                        <line x1="6" y1="6" x2="18" y2="18" />
-                    </svg>
-                </button>
-            </div>
-            <div class="profile-modal-body">
-                @if (session('status') === 'password-updated')
-                    <div class="profile-success-toast">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                            fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="20 6 9 17 4 12" />
-                        </svg>
-                        Password updated successfully!
-                    </div>
-                @endif
 
-                <form method="post" action="{{ route('password.update') }}" id="form-password">
-                    @csrf
-                    @method('put')
-
-                    <div class="profile-form-group">
-                        <x-floating-input id="update_password_current_password" name="current_password"
-                            type="password" label="Current Password" autocomplete="current-password" />
-                        <x-input-error :messages="$errors->updatePassword->get('current_password')" class="mt-2" />
-                    </div>
-
-                    <div class="profile-form-group">
-                        <x-floating-input id="update_password_password" name="password" type="password"
-                            label="New Password" autocomplete="new-password" />
-                        <x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2" />
-                    </div>
-
-                    <div class="profile-form-group">
-                        <x-floating-input id="update_password_password_confirmation" name="password_confirmation"
-                            type="password" label="Confirm New Password" autocomplete="new-password" />
-                        <x-input-error :messages="$errors->updatePassword->get('password_confirmation')" class="mt-2" />
-                    </div>
-
-                    <div class="profile-form-actions">
-                        <button type="button" class="profile-btn-secondary"
-                            onclick="closeModal('modal-password')">Cancel</button>
-                        <button type="submit" class="profile-btn-primary">Update Password</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
 
 
     {{-- 
