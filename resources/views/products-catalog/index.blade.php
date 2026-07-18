@@ -7,7 +7,7 @@
     <title>Products Catalog | Vin Copy Print Scan</title>
 
     <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=fraunces:400,500,600,700,900i&family=dm-sans:300,400,500"
+    <link href="https://fonts.bunny.net/css?family=fraunces:400,500,600,700,900i&family=dm-sans:300,400,500,600"
         rel="stylesheet" />
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])

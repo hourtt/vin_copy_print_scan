@@ -8,7 +8,7 @@
                 <h2 class="font-sans text-2xl font-semibold text-[#1a1a2e]">{{ $title }}</h2>
                 @if (!empty($badge))
                     <span
-                        class="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-bold uppercase tracking-wider
+                        class="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-semibold capitalize tracking-wider
                                {{ $badge === 'Sale' ? 'bg-red-100 text-red-700' : 'bg-blue-100 text-blue-700' }}">
                         {{ $badge }}
                     </span>
