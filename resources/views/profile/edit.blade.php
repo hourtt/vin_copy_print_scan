@@ -128,6 +128,44 @@
                     </div>
                 </div>
 
+                {{-- Activity Overview --}}
+                <div class="settings-row-group">
+                    <h3 class="settings-section-title">Activity Overview</h3>
+
+                    {{-- Recent Orders --}}
+                    <div class="settings-row">
+                        <div class="settings-row-label">Recent Orders</div>
+                        <div class="settings-row-value">
+                            <span class="text-xl font-semibold text-[var(--ink)]">{{ $recentOrderCount ?? 0 }}</span>
+                            <span class="text-sm text-[var(--ink-muted)] ml-2">total orders placed</span>
+                        </div>
+                        <div class="settings-row-action">
+                            <a href="{{ route('orders.index') }}" class="btn-edit-link">View Orders</a>
+                        </div>
+                    </div>
+
+                    {{-- Saved & Vouchers --}}
+                    <div class="settings-row">
+                        <div class="settings-row-label">Saved & Vouchers</div>
+                        <div class="settings-row-value">
+                            <div class="flex items-center gap-6">
+                                <div>
+                                    <span class="text-lg font-semibold text-[var(--ink)]">0</span>
+                                    <span class="text-sm text-[var(--ink-muted)] ml-1">wishlist</span>
+                                </div>
+                                <div class="w-px h-5 bg-[var(--border)]"></div>
+                                <div>
+                                    <span class="text-lg font-semibold text-[var(--ink)]">{{ $activeVoucherCount ?? 0 }}</span>
+                                    <span class="text-sm text-[var(--ink-muted)] ml-1">active vouchers</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="settings-row-action">
+                            <button type="button" class="btn-edit-link">View Details</button>
+                        </div>
+                    </div>
+                </div>
+
                 {{-- Inline-Editable Profile Rows --}}
                 <div class="settings-row-group">
                     <h3 class="settings-section-title">Personal Information</h3>

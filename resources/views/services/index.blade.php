@@ -36,6 +36,9 @@
     {{-- WHY CHOOSE US --}}
     @include('components.services.why-choose-us')
 
+    {{-- HOW IT WORKS / ORDERING PROCESS --}}
+    @include('components.services.how-it-works')
+
     {{-- FAQ --}}
     @include('components.services.faq')
 </body>

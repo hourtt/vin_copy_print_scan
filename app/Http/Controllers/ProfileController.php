@@ -17,8 +17,15 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
+        $user = $request->user();
+
+        $recentOrderCount = $user->orders()->count();
+        $activeVoucherCount = 0; // Placeholder — no user-voucher relationship yet
+
         return view('profile.edit', [
-            'user' => $request->user(),
+            'user' => $user,
+            'recentOrderCount' => $recentOrderCount,
+            'activeVoucherCount' => $activeVoucherCount,
         ]);
     }
 
