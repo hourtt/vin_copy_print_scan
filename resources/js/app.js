@@ -3,7 +3,6 @@ import Alpine from "alpinejs";
 import "@hotwired/turbo";
 
 window.Alpine = Alpine;
-Alpine.start();
 
 document.addEventListener("alpine:init", () => {
     Alpine.data("addToCart", (url, isAvailable) => ({
@@ -93,3 +92,5 @@ document.addEventListener("alpine:init", () => {
         },
     }));
 });
+
+Alpine.start();
