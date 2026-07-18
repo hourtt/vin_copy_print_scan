@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Printers — {{ config('app.name') }}</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=fraunces:400,500,600,700,900i|dm-sans:300,400,500,600" rel="stylesheet" />
+    <link href="https://fonts.bunny.net/css?family=fraunces:400,500,600,700,900i&family=dm-sans:300,400,500,600" rel="stylesheet" />
     @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/category-filter.js'])
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
 </head>
@@ -14,6 +14,14 @@
 <body class="antialiased bg-white text-[#27272a] overflow-x-hidden">
 
     @include('layouts.navigation')
+
+    <div class="max-w-[1320px] mx-auto px-6 pt-8">
+        <x-breadcrumb :items="[
+            ['label' => 'Home', 'url' => route('dashboard')],
+            ['label' => 'Products', 'url' => route('product-catalog.index')],
+            ['label' => 'Printers', 'url' => null],
+        ]" />
+    </div>
 
     {{-- Hero --}}
     <div class="pt-24 pb-12 px-8 text-center bg-transparent">
