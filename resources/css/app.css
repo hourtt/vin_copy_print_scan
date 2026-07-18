@@ -6,7 +6,6 @@
 
 /* Component Styles */
 @import "buttons.css";
-@import "hero.css";
 
 /* Auth Styles */
 @import "auth/login.css";
@@ -38,50 +37,7 @@
     border-radius: 20px;
 }
 
-/* * Animation button while hovering (Cart button) */
-.order-btn {
-    position: relative;
-    background: transparent;
-    color: #1a1a2e;
-    border: 1.5px solid rgba(26, 26, 46, 0.35);
-    border-radius: 8px;
-    padding: 8px 18px;
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    overflow: hidden;
-    transition: color 0.2s ease;
-    outline: none;
-    letter-spacing: 0.02em;
-}
 
-/* The animated border overlay */
-.order-btn::before {
-    content: "";
-    position: absolute;
-    inset: -1.5px;
-    border-radius: inherit;
-    border: 2.5px solid #1a1a2e;
-    clip-path: inset(0 100% 0 0); /* hidden by default */
-    transition: clip-path 0s;
-    pointer-events: none;
-}
-
-/* Hover: border draws in left → right */
-.order-btn:hover::before {
-    clip-path: inset(0 0% 0 0);
-    transition: clip-path 0.28s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Release: border retreats back */
-.order-btn.releasing::before {
-    clip-path: inset(0 100% 0 0);
-    transition: clip-path 0.18s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.order-btn:active {
-    transform: scale(0.97);
-}
 /* ═══════════════════════════════════════════════════════════════
    CSS Architecture - Modular Organization
    ═══════════════════════════════════════════════════════════════
