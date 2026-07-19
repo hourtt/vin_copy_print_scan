@@ -3,9 +3,151 @@
 namespace App\Http\Controllers\Security;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\ConnectedAccount;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+use Laravel\Socialite\Facades\Socialite;
 
 class SocialiteController extends Controller
 {
-    //
+    /**
+     * Redirect the user to the provider authentication page.
+     */
+    public function redirect(string $provider)
+    {
+        return Socialite::driver($provider)->redirect();
+    }
+
+    /**
+     * Obtain the user information from the provider.
+     */
+    public function callback(string $provider)
+    {
+        try {
+            /** @var \Laravel\Socialite\Two\User $socialUser */
+            $socialUser = Socialite::driver($provider)->user();
+        } catch (\Exception $e) {
+            return redirect()->route('login')->withErrors(['error' => 'Unable to authenticate with ' . ucfirst($provider) . '. Please try again.']);
+        }
+
+        // If user is already authenticated, link the account
+        if (Auth::check()) {
+            $user = Auth::user();
+
+            // Check if this provider ID is already linked to another account
+            $existingConnection = ConnectedAccount::where('provider_name', $provider)
+                ->where('provider_id', $socialUser->getId())
+                ->first();
+
+            if ($existingConnection && $existingConnection->user_id !== $user->id) {
+                return redirect()->route('profile.edit')->withErrors(['error' => 'This ' . ucfirst($provider) . ' account is already linked to another user.']);
+            }
+
+            // Update or create the connection
+            $user->connectedAccounts()->updateOrCreate(
+                [
+                    'provider_name' => $provider,
+                    'provider_id' => $socialUser->getId(),
+                ],
+                [
+                    'provider_token' => $socialUser->token,
+                    'provider_refresh_token' => $socialUser->refreshToken,
+                ]
+            );
+
+            // Log activity
+            $user->securityActivityLogs()->create([
+                'action' => 'Connected ' . ucfirst($provider) . ' account',
+                'ip_address' => request()->ip(),
+                'user_agent' => request()->userAgent(),
+                'created_at' => now(),
+            ]);
+
+            return redirect()->route('profile.edit')->with('status', 'account-connected');
+        }
+
+        // User is not authenticated, attempt to login or register
+        $connectedAccount = ConnectedAccount::where('provider_name', $provider)
+            ->where('provider_id', $socialUser->getId())
+            ->first();
+
+        if ($connectedAccount) {
+            // Log in the user
+            $user = $connectedAccount->user;
+            Auth::login($user);
+
+            // Update tokens
+            $connectedAccount->update([
+                'provider_token' => $socialUser->token,
+                'provider_refresh_token' => $socialUser->refreshToken,
+            ]);
+
+            return redirect()->intended(route('dashboard', absolute: false));
+        }
+
+        // Otherwise, see if a user with this email exists
+        $user = User::where('email', $socialUser->getEmail())->first();
+
+        if ($user) {
+            // Existing user, just link the account and log them in
+            $user->connectedAccounts()->create([
+                'provider_name' => $provider,
+                'provider_id' => $socialUser->getId(),
+                'provider_token' => $socialUser->token,
+                'provider_refresh_token' => $socialUser->refreshToken,
+            ]);
+
+            Auth::login($user);
+            return redirect()->intended(route('dashboard', absolute: false));
+        }
+
+        // Create a new user
+        $nameParts = explode(' ', $socialUser->getName() ?? 'User');
+        $firstName = $nameParts[0];
+        $lastName = count($nameParts) > 1 ? implode(' ', array_slice($nameParts, 1)) : '';
+
+        $user = User::create([
+            'first_name' => $firstName,
+            'last_name' => $lastName,
+            'email' => $socialUser->getEmail(),
+            'password' => bcrypt(Str::random(24)), // Random password for social logins
+            'email_verified_at' => now(), // We trust the provider's email verification
+        ]);
+
+        $user->connectedAccounts()->create([
+            'provider_name' => $provider,
+            'provider_id' => $socialUser->getId(),
+            'provider_token' => $socialUser->token,
+            'provider_refresh_token' => $socialUser->refreshToken,
+        ]);
+
+        Auth::login($user);
+
+        return redirect()->route('dashboard');
+    }
+
+    /**
+     * Disconnect a provider from the authenticated user.
+     */
+    public function disconnect(string $provider)
+    {
+        $user = Auth::user();
+
+        $connectedAccount = $user->connectedAccounts()->where('provider_name', $provider)->first();
+
+        if ($connectedAccount) {
+            $connectedAccount->delete();
+
+            // Log activity
+            $user->securityActivityLogs()->create([
+                'action' => 'Disconnected ' . ucfirst($provider) . ' account',
+                'ip_address' => request()->ip(),
+                'user_agent' => request()->userAgent(),
+                'created_at' => now(),
+            ]);
+        }
+
+        return redirect()->route('profile.edit')->with('status', 'account-disconnected');
+    }
 }
