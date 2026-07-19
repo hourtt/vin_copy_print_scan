@@ -25,10 +25,10 @@
 
     {{-- Hero --}}
     <div class="pt-24 pb-12 px-8 text-center bg-transparent">
-        <h1 class="font-khmer text-5xl font-medium text-[#27272a] tracking-tight leading-tight">
+        <h1 class="font-sans text-5xl font-medium text-[#27272a] tracking-tight leading-tight">
             ក្រដាស (Papers)
         </h1>
-        <p class="mt-4 text-[#71717a] text-base max-w-[500px] mx-auto">
+        <p class="mt-4 text-[#71717a] text-base max-w-[475px] mx-auto font-sans">
             ហាងរបស់យើងខ្ញុំមានលក់នូវ ក្រដាសដែលមានគុណភាពល្អ ប្រើយ៉ាងមានទំនុកចិត្ត មិនព្រួយបារម្ភអំពីការធ្វើឲ្យម៉ាស៊ីនមានបញ្ហា
         </p>
     </div>

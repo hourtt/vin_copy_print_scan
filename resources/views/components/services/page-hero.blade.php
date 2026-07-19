@@ -7,7 +7,7 @@
                 <em class="font-sans italic">សេវាកម្ម &nbsp;និង ផលិតផល</em> <br>
                 <em class="font-sans italic">&nbsp;&nbsp;របស់យើងខ្ញុំ</em>
             </h1>
-            <p class="text-lg text-[#1a1a2e]/60 leading-relaxed max-w-lg">
+            <p class="text-lg text-[#1a1a2e]/60 leading-relaxed max-w-lg font-sans">
                 មិនថាអ្នកត្រូវការទិញម៉ាស៊ីនបោះពុម្ព ទិញទឹកថ្នាំនិងក្រដាសស្តុកទុក ថតចម្លងឯកសារ
                 ឬគ្រាន់តែចង់មកមើលម៉ាស៊ីនផ្ទាល់ភ្នែកនោះទេ យើងខ្ញុំនឹងបម្រើជូនលោកអ្នកទាំងអស់។
             </p>

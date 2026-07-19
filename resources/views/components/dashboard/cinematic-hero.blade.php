@@ -7,7 +7,7 @@
 
                 {{-- Khmer Display headline --}}
                 <h4
-                    class="mt-6 mb-6 leading-[1.08] tracking-[-0.03em] font-['Kantumruy_Pro',serif] text-[clamp(2.6rem,5.5vw,4.25rem)] font-semibold text-[#0D0D0B]">
+                    class="mt-6 mb-6 leading-[1.08] tracking-[-0.03em] font-sans text-[clamp(2.6rem,5.5vw,4.25rem)] font-semibold text-[#0D0D0B]">
                     ស្វាគមន៏មកកាន់ហាង<br>
                     <em class="italic font-normal text-[clamp(1.8rem,4vw,3rem)]">
                         Vin Copy Print Scan
@@ -16,7 +16,7 @@
 
                 {{-- Khmer subtitle --}}
                 <p
-                    class="mb-10 max-w-md leading-relaxedfont-['Kantumruy_Pro',sans-serif] text-[1.0625rem] text-[#6B6B6B]">
+                    class="mb-10 max-w-md leading-relaxed font-sans text-[1.0625rem] text-[#6B6B6B]">
                     ហាងយើងខ្ញុំមានលក់និងជួលម៉ាសុីនព្រីន, ម៉ាស៊ីនកូពី, ទឹកថ្នាំ &amp; ធូន័រ​ ក្នុងតម្លៃសមរម្យ។
                 </p>
 

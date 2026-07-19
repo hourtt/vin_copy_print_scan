@@ -25,8 +25,8 @@
 
     {{-- Hero --}}
     <div class="pt-24 pb-12 px-8 text-center bg-transparent">
-        <h1 class="font-khmer text-5xl font-medium text-[#27272a] tracking-tight leading-tight">
-            (ព្រីនធ័រ)Printers
+        <h1 class="font-sans text-5xl font-medium text-[#27272a] tracking-tight leading-tight">
+            ព្រីនធ័រ (Printers)
         </h1>
         <p class="mt-4 text-[#71717a] text-lg max-w-[500px] mx-auto">
             Find the perfect printer for your home or office

@@ -13,6 +13,7 @@ export default {
         extend: {
             fontFamily: {
                 sans: [
+                    '"Kantumruy Pro"',
                     "Noto Sans Khmer",
                     "Roboto",
                     ...defaultTheme.fontFamily.sans,
