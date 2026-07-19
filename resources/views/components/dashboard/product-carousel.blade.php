@@ -36,7 +36,7 @@
 
             {{-- Track --}}
             <div x-ref="track" @scroll.passive="updateButtons()"
-                class="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-none pb-2"
+                class="flex gap-6 overflow-x-auto overflow-y-visible pt-4 scroll-smooth snap-x snap-mandatory scrollbar-none pb-2"
                 style="-ms-overflow-style: none; scrollbar-width: none;">
                 <style>
                     [x-ref="track"]::-webkit-scrollbar {
