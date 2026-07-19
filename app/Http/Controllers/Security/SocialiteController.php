@@ -33,10 +33,13 @@ class SocialiteController extends Controller
 
         // If user is already authenticated, link the account
         if (Auth::check()) {
+            /** @var User $user */
             $user = Auth::user();
 
             // Check if this provider ID is already linked to another account
-            $existingConnection = ConnectedAccount::where('provider_name', $provider)
+            /** @var ConnectedAccount|null $existingConnection */
+            $existingConnection = $user->connectedAccounts()
+                ->where('provider_name', $provider)
                 ->where('provider_id', $socialUser->getId())
                 ->first();
 
@@ -105,7 +108,7 @@ class SocialiteController extends Controller
         // Create a new user
         $nameParts = explode(' ', $socialUser->getName() ?? 'User');
         $firstName = $nameParts[0];
-        $lastName = count($nameParts) > 1 ? implode(' ', array_slice($nameParts, 1)) : '';
+        $lastName = \count($nameParts) > 1 ? implode(' ', \array_slice($nameParts, 1)) : '';
 
         $user = User::create([
             'first_name' => $firstName,

@@ -45,7 +45,6 @@ class OrdersController extends Controller
                 'items.product.colors',
                 'items.product.paperSizes',
                 'shippingMethod',
-                'payments',
             ])
             ->findOrFail($id);
 
