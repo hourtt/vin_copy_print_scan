@@ -54,7 +54,7 @@
                                 <td class="px-4 py-3">
                                     <div>
                                         <p class="font-medium text-gray-900">{{ $category->name }}</p>
-                                        <p class="text-xs text-gray-400 font-khmer">{{ $category->slug }}</p>
+                                        <p class="text-xs text-gray-400 font-sans">{{ $category->slug }}</p>
                                     </div>
                                 </td>
                                 <td class="px-4 py-3 text-gray-500 text-lg">{{ $category->icon ?? '—' }}</td>
