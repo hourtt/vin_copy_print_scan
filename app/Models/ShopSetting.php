@@ -5,6 +5,24 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int $id
+ * @property string $key
+ * @property string|null $value
+ * @property string $group
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ShopSetting newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ShopSetting newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ShopSetting query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ShopSetting whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ShopSetting whereGroup($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ShopSetting whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ShopSetting whereKey($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ShopSetting whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ShopSetting whereValue($value)
+ * @mixin \Eloquent
+ */
 class ShopSetting extends Model
 {
     use HasFactory;

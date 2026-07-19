@@ -5,6 +5,41 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int $id
+ * @property string $code
+ * @property string $scope
+ * @property string $discount_type
+ * @property numeric $discount_value
+ * @property int|null $usage_limit
+ * @property int $used_count
+ * @property \Illuminate\Support\Carbon|null $expires_at
+ * @property bool $is_active
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Category> $categories
+ * @property-read int|null $categories_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Order> $orders
+ * @property-read int|null $orders_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Product> $products
+ * @property-read int|null $products_count
+ * @method static \Database\Factories\VoucherFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Voucher newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Voucher newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Voucher query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Voucher whereCode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Voucher whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Voucher whereDiscountType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Voucher whereDiscountValue($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Voucher whereExpiresAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Voucher whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Voucher whereIsActive($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Voucher whereScope($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Voucher whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Voucher whereUsageLimit($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Voucher whereUsedCount($value)
+ * @mixin \Eloquent
+ */
 class Voucher extends Model
 {
     use HasFactory;

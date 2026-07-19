@@ -5,6 +5,27 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int $id
+ * @property int $brand_id
+ * @property string $model_name
+ * @property string $slug
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Brand $brand
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Product> $compatibleProducts
+ * @property-read int|null $compatible_products_count
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Printer newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Printer newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Printer query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Printer whereBrandId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Printer whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Printer whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Printer whereModelName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Printer whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Printer whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Printer extends Model
 {
     use HasFactory;
