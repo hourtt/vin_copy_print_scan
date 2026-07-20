@@ -83,20 +83,15 @@ class User extends Authenticatable
         'role',
         'email',
         'password',
-        'phone_number',
-        'address',
-        'city',
-        'state',
-        'zip_code',
         'is_banned',
         'two_factor_secret',
         'two_factor_recovery_codes',
         'two_factor_confirmed_at',
         'notify_new_device_login',
     ];
-    
+
     protected $hidden = [
-        'password', 
+        'password',
         'remember_token',
         'two_factor_secret',
         'two_factor_recovery_codes',
@@ -155,5 +150,8 @@ class User extends Authenticatable
         return $this->hasMany(SecurityActivityLog::class);
     }
 
-
+    public function addresses()
+    {
+        return $this->hasMany(Address::class);
+    }
 }
