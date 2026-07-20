@@ -29,11 +29,13 @@ class ProfileUpdateRequest extends FormRequest
                 'max:255',
                 Rule::unique(User::class)->ignore($this->user()->id),
             ],
-            'phone_number' => ['sometimes', 'nullable', 'string', 'max:20'],
-            'address'      => ['sometimes', 'required', 'string', 'max:500'],
-            'city'         => ['sometimes', 'required', 'string', 'max:255'],
-            'state'        => ['sometimes', 'nullable', 'string', 'max:255'],
+            'phone_number' => ['sometimes', 'nullable', 'string', 'min:8', 'max:20', 'regex:/^[0-9\+\-\s]+$/'],
+            'address'      => ['sometimes', 'nullable', 'string', 'min:5', 'max:255'],
+            'city'         => ['sometimes', 'nullable', 'string', 'min:2', 'max:100'],
+            'state'        => ['sometimes', 'nullable', 'string', 'min:2', 'max:100'],
             'zip_code'     => ['sometimes', 'nullable', 'string', 'max:20'],
+            'address_id'   => ['sometimes', 'nullable', 'integer'],
+            'delete'       => ['sometimes', 'nullable', 'boolean'],
         ];
     }
 }

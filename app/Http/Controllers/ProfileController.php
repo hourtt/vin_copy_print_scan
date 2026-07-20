@@ -40,15 +40,53 @@ class ProfileController extends Controller
      * which editor was used, so we can show the right success feedback.
      */
     
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function update(ProfileUpdateRequest $request)
     {
-        $request->user()->fill($request->validated());
+        $user = $request->user();
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        if ($request->input('inline_field') === 'address') {
+            $addressId = $request->input('address_id');
+            $isDelete = $request->input('delete');
+
+            if ($isDelete && $addressId) {
+                $user->addresses()->where('id', $addressId)->delete();
+                return response()->json(['success' => true, 'message' => 'Address deleted']);
+            }
+
+            $validatedAddress = $request->only(['phone_number', 'address', 'city', 'state', 'zip_code']);
+
+            if ($addressId) {
+                $address = $user->addresses()->findOrFail($addressId);
+                $address->update($validatedAddress);
+            } else {
+                $address = $user->addresses()->create($validatedAddress);
+                if ($user->addresses()->count() === 1) {
+                    $address->update(['is_default' => true]);
+                }
+            }
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Address updated successfully!',
+                'address' => $address,
+            ]);
         }
 
-        $request->user()->save();
+        $user->fill($request->validated());
+
+        if ($user->isDirty('email')) {
+            $user->email_verified_at = null;
+        }
+
+        $user->save();
+
+        if ($request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Profile updated successfully!',
+                'user' => $user,
+            ]);
+        }
 
         // Flash which inline field (if any) was just saved.
         // The Blade template reads session('inline_field') to decide
