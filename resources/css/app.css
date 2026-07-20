@@ -1,20 +1,3 @@
-/* Variables & Theme Tokens */
-@import "variables.css";
-
-/* Global Utilities, Resets & Animations */
-@import "utilities.css";
-
-/* Component Styles */
-@import "buttons.css";
-
-/* Auth Styles */
-@import "auth/login.css";
-@import "auth/register.css";
-
-/* Page-Specific Styles */
-@import "footer.css";
-@import "profile.css";
-
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@300;400;500;600;700&display=swap");
 
@@ -37,34 +20,13 @@
     border-radius: 20px;
 }
 
-
-/* ═══════════════════════════════════════════════════════════════
-   CSS Architecture - Modular Organization
-   ═══════════════════════════════════════════════════════════════
-
-   This file serves as the main entry point for all CSS.
-   Styles are organized into separate, maintainable modules:
-
-   1. variables.css     - CSS custom properties & theme tokens
-   2. utilities.css     - Resets, animations, and utility classes
-   3. buttons.css       - All button component styles
-   4. navigation.css    - Navigation bar and drawer styles
-   5. hero.css          - Hero section layouts
-   6. landing-page.css  - Landing page sections (services, promo, etc.)
-   7. dashboard.css     - Dashboard and account-specific styles
-   8. footer.css        - Footer component styles
-   9. shop.css          - Shop product pages and product cards
-   10. printers.css      - Printers catalog page
-
-   ═══════════════════════════════════════════════════════════════ */
-
 /* Reusable Form Input (Checkout & Others) */
 .form-input {
     width: 100%;
     border: 1px solid #e4e4e7;
     border-radius: 0.5rem;
     padding: 0.75rem 1rem;
-    font-family: 'DM Sans', sans-serif;
+    font-family: "DM Sans", sans-serif;
     transition: border-color 0.2s;
     background-color: #ffffff;
     color: #27272a;
