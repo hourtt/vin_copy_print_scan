@@ -63,7 +63,7 @@
                 {{-- The image — no card, no border, no shadow --}}
                 <img src="{{ asset('storage/images/modern_printer_hero.webp') }}"
                     alt="Modern Canon printer on a clean desk"
-                    class="relative w-full max-w-[520px] drop-shadow-none max-h-[68vh] object-contain mix-blend-multiply rounded-md"
+                    class="relative w-full max-w-[520px] drop-shadow-none max-h-[68vh] object-contain mix-blend-multiply rounded-lg"
                     loading="eager" loading="lazy">
             </div>
         </div>

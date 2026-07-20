@@ -28,26 +28,29 @@ class SocialiteController extends Controller
             /** @var \Laravel\Socialite\Two\User $socialUser */
             $socialUser = Socialite::driver($provider)->user();
         } catch (\Exception $e) {
-            return redirect()->route('login')->withErrors(['error' => 'Unable to authenticate with ' . ucfirst($provider) . '. Please try again.']);
+            return redirect()->route('login')->withErrors([
+                'error' => 'Unable to authenticate with ' . ucfirst($provider) . '. Please try again.'
+            ]);
         }
 
-        // If user is already authenticated, link the account
+        // 1. If user is already authenticated, link the account
         if (Auth::check()) {
             /** @var User $user */
             $user = Auth::user();
 
-            // Check if this provider ID is already linked to another account
+            // FIXED: Query ConnectedAccount globally to check across all users
             /** @var ConnectedAccount|null $existingConnection */
-            $existingConnection = $user->connectedAccounts()
-                ->where('provider_name', $provider)
+            $existingConnection = ConnectedAccount::where('provider_name', $provider)
                 ->where('provider_id', $socialUser->getId())
                 ->first();
 
             if ($existingConnection && $existingConnection->user_id !== $user->id) {
-                return redirect()->route('profile.edit')->withErrors(['error' => 'This ' . ucfirst($provider) . ' account is already linked to another user.']);
+                return redirect()->route('profile.edit')->withErrors([
+                    'error' => 'This ' . ucfirst($provider) . ' account is already linked to another user.'
+                ]);
             }
 
-            // Update or create the connection
+            // Update or create the connection for the logged-in user
             $user->connectedAccounts()->updateOrCreate(
                 [
                     'provider_name' => $provider,
@@ -70,17 +73,15 @@ class SocialiteController extends Controller
             return redirect()->route('profile.edit')->with('status', 'account-connected');
         }
 
-        // User is not authenticated, attempt to login or register
+        // 2. User is guest: check if this social account is already linked
         $connectedAccount = ConnectedAccount::where('provider_name', $provider)
             ->where('provider_id', $socialUser->getId())
             ->first();
 
         if ($connectedAccount) {
-            // Log in the user
             $user = $connectedAccount->user;
             Auth::login($user);
 
-            // Update tokens
             $connectedAccount->update([
                 'provider_token' => $socialUser->token,
                 'provider_refresh_token' => $socialUser->refreshToken,
@@ -89,11 +90,19 @@ class SocialiteController extends Controller
             return redirect()->intended(route('dashboard', absolute: false));
         }
 
-        // Otherwise, see if a user with this email exists
-        $user = User::where('email', $socialUser->getEmail())->first();
+        // 3. Ensure the provider supplied an email address before attempting lookup or registration
+        $email = $socialUser->getEmail();
+
+        if (!$email) {
+            return redirect()->route('login')->withErrors([
+                'error' => 'Your ' . ucfirst($provider) . ' account does not provide a public email address. Please make your email address public in your ' . ucfirst($provider) . ' settings and try again.'
+            ]);
+        }
+
+        // 4. See if a user with this email already exists
+        $user = User::where('email', $email)->first();
 
         if ($user) {
-            // Existing user, just link the account and log them in
             $user->connectedAccounts()->create([
                 'provider_name' => $provider,
                 'provider_id' => $socialUser->getId(),
@@ -105,17 +114,18 @@ class SocialiteController extends Controller
             return redirect()->intended(route('dashboard', absolute: false));
         }
 
-        // Create a new user
-        $nameParts = explode(' ', $socialUser->getName() ?? 'User');
+        // 5. Register a new user (FIXED: Fallback to nickname if name is empty)
+        $fullName = $socialUser->getName() ?? $socialUser->getNickname() ?? 'User';
+        $nameParts = explode(' ', trim($fullName));
         $firstName = $nameParts[0];
-        $lastName = \count($nameParts) > 1 ? implode(' ', \array_slice($nameParts, 1)) : '';
+        $lastName = count($nameParts) > 1 ? implode(' ', array_slice($nameParts, 1)) : '';
 
         $user = User::create([
             'first_name' => $firstName,
             'last_name' => $lastName,
-            'email' => $socialUser->getEmail(),
-            'password' => bcrypt(Str::random(24)), // Random password for social logins
-            'email_verified_at' => now(), // We trust the provider's email verification
+            'email' => $email,
+            'password' => bcrypt(Str::random(24)),
+            'email_verified_at' => now(),
         ]);
 
         $user->connectedAccounts()->create([
@@ -142,7 +152,6 @@ class SocialiteController extends Controller
         if ($connectedAccount) {
             $connectedAccount->delete();
 
-            // Log activity
             $user->securityActivityLogs()->create([
                 'action' => 'Disconnected ' . ucfirst($provider) . ' account',
                 'ip_address' => request()->ip(),

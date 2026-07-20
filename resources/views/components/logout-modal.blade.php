@@ -1,20 +1,18 @@
 {{-- ═══════════════════════════════════════════════════════════
      MODAL — Logout Confirmation
 ═══════════════════════════════════════════════════════════ --}}
-<div class="profile-modal-overlay group" id="modal-logout" role="dialog" aria-modal="true" aria-labelledby="modal-logout-title">
-    <div class="profile-modal-panel logout-modal-panel group-[.active]:translate-y-0 group-[.active]:scale-100">
-        <div class="logout-modal-content">
-            <h2 class="logout-modal-title" id="modal-logout-title">Logout</h2>
-            <p class="logout-modal-text">
-                Are you sure you want to <span class="font-semibold">log out</span>?
-            </p>
-            
-            <form method="POST" action="{{ route('logout') }}" class="logout-modal-actions">
-                @csrf
-                <button type="button" class="logout-btn-cancel" onclick="closeLogoutModal()">Cancel</button>
-                <button type="submit" class="logout-btn-confirm">Log Out</button>
-            </form>
-        </div>
+<div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm opacity-0 pointer-events-none [&.active]:opacity-100 [&.active]:pointer-events-auto transition-opacity duration-300 group" id="modal-logout" role="dialog" aria-modal="true" aria-labelledby="modal-logout-title">
+    <div class="w-full max-w-sm bg-white rounded-xl shadow-2xl p-6 scale-95 opacity-0 group-[.active]:scale-100 group-[.active]:opacity-100 transition-all duration-300">
+        <h2 class="text-lg font-semibold text-gray-900" id="modal-logout-title">Logout</h2>
+        <p class="mt-2 text-gray-600">
+            Are you sure you want to <span class="font-semibold text-gray-900">log out</span>?
+        </p>
+        
+        <form method="POST" action="{{ route('logout') }}" class="flex justify-end gap-3 mt-6">
+            @csrf
+            <button type="button" class="px-4 py-2 border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 rounded-md font-medium transition-colors" onclick="closeLogoutModal()">Cancel</button>
+            <button type="submit" class="px-4 py-2 bg-red-600 text-white hover:bg-red-700 rounded-md font-medium transition-colors">Log Out</button>
+        </form>
     </div>
 </div>
 
