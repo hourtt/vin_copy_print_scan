@@ -1,13 +1,14 @@
-<section class="py-20 bg-white font-['Kantumruy_Pro',sans-serif]" id="products">
-    <div class="max-w-[1200px] mx-auto px-4 md:px-8">
+<section class="scroll-mt-32 md:scroll-mt-36 py-12 sm:py-16 md:py-20 bg-white font-['Kantumruy_Pro',sans-serif]" id="products">
+    <div class="max-w-[1200px] mx-auto px-4 sm:px-6 md:px-8 w-full">
         {{-- Section header --}}
-        <div class="mb-16">
-            <p class="inline-block text-[#305CDE] text-md mb-4">អ្វីដែលយើងលក់</p>
+        <div class="mb-10 sm:mb-14 md:mb-16">
+            <p class="inline-block text-[#305CDE] text-[clamp(0.875rem,1.1vw,1rem)] font-medium mb-3 sm:mb-4">អ្វីដែលយើងលក់</p>
             <h2
-                class="font-sans  text-[clamp(2rem,4vw,3rem)] text-[#1a1a2e] tracking-tight leading-[1.15] max-w-[520px] mb-4">
-                ឧបករណ៍ និងសម្ភារៈប្រើប្រាស់<br>ត្រៀមរួចជាស្រេចសម្រាប់យកទៅផ្ទះ។
+                class="font-sans text-[clamp(1.5rem,3vw+0.5rem,2.75rem)] text-[#1a1a2e] tracking-normal leading-[1.65] max-w-[560px] mb-4">
+                <span class="block pb-1 sm:pb-2">ឧបករណ៍ និងសម្ភារៈប្រើប្រាស់</span>
+                <span class="block">ត្រៀមរួចជាស្រេចសម្រាប់យកទៅផ្ទះ។</span>
             </h2>
-            <p class="text-[#1a1a2e]/60 text-base leading-relaxed max-w-lg">
+            <p class="text-[#1a1a2e]/70 text-[clamp(0.875rem,1.1vw,1rem)] leading-[1.75] max-w-xl">
                 ស្វែងរកកាតាឡុកពេញលេញរបស់យើងតាមអ៊ីនធឺណិត ឬមកកាន់បន្ទប់តាំងបង្ហាញរបស់យើង
                 ដើម្បីមើលម៉ូដែលនីមួយៗដំណើរការផ្ទាល់មុនពេលអ្នកទិញ។
             </p>
@@ -99,11 +100,11 @@
             @foreach ($sections as $section)
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                     {{-- Visual --}}
-                    <div class="relative {{ $section['theme']['bg'] }} rounded-3xl p-12 flex items-center justify-center min-h-[320px] overflow-hidden {{ $section['reverse'] ? 'lg:order-2 order-1' : '' }}">
+                    <div class="relative {{ $section['theme']['bg'] }} rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-12 flex items-center justify-center min-h-[260px] sm:min-h-[320px] overflow-hidden {{ $section['reverse'] ? 'lg:order-2 order-1' : '' }}">
                         <div class="absolute w-80 h-80 rounded-full {{ $section['theme']['circle'] }} {{ $section['reverse'] ? '-bottom-16 -left-16' : '-top-20 -right-20' }}"></div>
                         <div class="relative z-10 flex flex-col items-center gap-5">
-                            <div class="w-20 h-20 rounded-2xl {{ $section['theme']['icon_bg'] }} flex items-center justify-center">
-                                <x-dynamic-component :component="'icons.' . $section['icon']" class="w-10 h-10 shrink-0 {{ $section['theme']['icon_class'] }} stroke-[1.6]" />
+                            <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl {{ $section['theme']['icon_bg'] }} flex items-center justify-center">
+                                <x-dynamic-component :component="'icons.' . $section['icon']" class="w-8 h-8 sm:w-10 sm:h-10 shrink-0 {{ $section['theme']['icon_class'] }} stroke-[1.6]" />
                             </div>
                             <span class="text-xs tracking-widest uppercase {{ $section['theme']['label_class'] }} text-center max-w-[200px]">{{ $section['icon_label'] }}</span>
                         </div>
@@ -111,13 +112,13 @@
                     
                     {{-- Content --}}
                     <div class="{{ $section['reverse'] ? 'lg:order-1 order-2' : '' }}">
-                        <span class="text-xs tracking-[0.12em] uppercase text-[#305CDE] mb-3 block">{{ $section['subtitle'] }}</span>
-                        <h2 class="font-sans text-[clamp(1.8rem,3.5vw,2.5rem)] text-[#1a1a2e] tracking-tight leading-[1.15] mb-4">{!! $section['title'] !!}</h2>
-                        <p class="text-[#1a1a2e]/60 text-base leading-relaxed mb-6">{{ $section['desc'] }}</p>
+                        <span class="text-xs tracking-[0.12em] uppercase text-[#305CDE] mb-3 block font-medium">{{ $section['subtitle'] }}</span>
+                        <h2 class="font-sans text-[clamp(1.35rem,2.5vw+0.5rem,2.25rem)] text-[#1a1a2e] tracking-normal leading-[1.65] mb-4 sm:mb-6">{!! $section['title'] !!}</h2>
+                        <p class="text-[#1a1a2e]/70 text-[clamp(0.875rem,1.1vw,1rem)] leading-[1.75] mb-6">{{ $section['desc'] }}</p>
                         <ul class="flex flex-col gap-3 mb-8">
                             @foreach ($section['items'] as $item)
-                                <li class="flex gap-3 items-start text-sm text-[#1a1a2e]/75">
-                                    <span class="mt-1.5 w-2 h-2 rounded-full bg-[#305CDE] flex-shrink-0"></span>
+                                <li class="flex gap-3 items-start text-[clamp(0.875rem,1.05vw,0.95rem)] leading-[1.7] text-[#1a1a2e]/80">
+                                    <span class="mt-2 w-2 h-2 rounded-full bg-[#305CDE] flex-shrink-0"></span>
                                     <span>{{ $item }}</span>
                                 </li>
                             @endforeach

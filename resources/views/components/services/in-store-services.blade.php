@@ -1,10 +1,10 @@
-<section class="py-20 bg-[#f8f9fa] font-['Kantumruy_Pro',sans-serif]" id="instore">
-    <div class="max-w-[1200px] mx-auto px-4 md:px-8">
-        <p class="inline-block text-[#305CDE] text-lg mb-4">អញ្ជើញមកកាន់ហាង ហើយយើងនឹងរៀបចំជូន</p>
+<section class="scroll-mt-32 md:scroll-mt-36 py-12 sm:py-16 md:py-20 bg-[#f8f9fa] font-['Kantumruy_Pro',sans-serif]" id="instore">
+    <div class="max-w-[1200px] mx-auto px-4 sm:px-6 md:px-8 w-full">
+        <p class="inline-block text-[#305CDE] text-[clamp(0.875rem,1.1vw,1rem)] font-medium mb-3 sm:mb-4">អញ្ជើញមកកាន់ហាង ហើយយើងនឹងរៀបចំជូន</p>
         <h2
-            class="font-sans text-[clamp(2rem,4vw,3rem)] text-[#1a1a2e] tracking-tight leading-[1.15] max-w-[520px] mb-4">
+            class="font-sans text-[clamp(1.5rem,3vw+0.5rem,2.75rem)] text-[#1a1a2e] tracking-normal leading-[1.65] max-w-[560px] mb-4">
             សេវាកម្មក្នុងហាង</h2>
-        <p class="text-[#1a1a2e]/60 text-base leading-relaxed max-w-lg mb-14">
+        <p class="text-[#1a1a2e]/70 text-[clamp(0.875rem,1.1vw,1rem)] leading-[1.75] max-w-xl mb-10 sm:mb-14">
             លែងព្រួយបារម្ភពីការមិនមានម៉ាស៊ីនបោះពុម្ពខ្លួនឯងនោះទៀតទៅ។ គ្រាន់តែអញ្ជើញមកកាន់ហាងយើងខ្ញុំ
             នោះយើងខ្ញុំនឹងរៀបចំជូនលោកអ្នក។
         </p>
@@ -47,20 +47,20 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             @foreach ($services as $service)
-                <div class="bg-white rounded-2xl border border-[#e8ede9] p-8 flex flex-col hover:shadow-md transition-shadow duration-200">
+                <div class="bg-white rounded-2xl border border-[#e8ede9] p-5 sm:p-6 md:p-8 flex flex-col hover:shadow-md transition-shadow duration-200">
                     <div class="mb-6">
                         <div class="w-12 h-12 rounded-xl {{ $service['icon_bg'] }} flex items-center justify-center mb-5">
                             <svg class="w-6 h-6 {{ $service['icon_stroke'] }} stroke-[1.8]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                                 {!! $service['icon'] !!}
                             </svg>
                         </div>
-                        <h3 class="font-sans text-xl font-bold text-[#1a1a2e] mb-2">{{ $service['title'] }}</h3>
-                        <p class="text-[#1a1a2e]/60 text-sm leading-relaxed">{{ $service['desc'] }}</p>
+                        <h3 class="font-sans text-[clamp(1.15rem,1.8vw+0.5rem,1.4rem)] font-bold text-[#1a1a2e] leading-[1.6] mb-3">{{ $service['title'] }}</h3>
+                        <p class="text-[#1a1a2e]/70 text-[clamp(0.875rem,1.05vw,0.95rem)] leading-[1.75]">{{ $service['desc'] }}</p>
                     </div>
                     <ul class="flex flex-col gap-3 flex-1">
                         @foreach ($service['items'] as $item)
-                            <li class="flex items-start gap-3 text-sm text-[#1a1a2e]/75">
-                                <x-icons.check class="w-4 h-4 mt-0.5 shrink-0 stroke-[#305CDE] stroke-2" />
+                            <li class="flex items-start gap-3 text-[clamp(0.875rem,1.05vw,0.95rem)] leading-[1.7] text-[#1a1a2e]/80">
+                                <x-icons.check class="w-4 h-4 mt-1 shrink-0 stroke-[#305CDE] stroke-2" />
                                 {{ $item }}
                             </li>
                         @endforeach

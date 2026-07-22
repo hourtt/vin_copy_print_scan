@@ -1,16 +1,17 @@
 {{-- WHY CHOOSE US --}}
-<section class="relative py-24 bg-[#1a1a2e] overflow-hidden font-['Kantumruy_Pro',sans-serif]" id="why">
+<section class="scroll-mt-32 md:scroll-mt-36 relative py-12 sm:py-16 md:py-24 bg-[#1a1a2e] overflow-hidden font-['Kantumruy_Pro',sans-serif]" id="why">
     {{-- Decorative blobs (kept as CSS-in-HTML since they are purely decorative) --}}
     <div class="absolute w-96 h-96 rounded-full bg-[#305CDE] opacity-10 -top-24 -left-24 blur-3xl pointer-events-none"
         aria-hidden="true"></div>
     <div class="absolute w-72 h-72 rounded-full bg-[#d85a30] opacity-5 bottom-0 right-0 blur-3xl pointer-events-none"
         aria-hidden="true"></div>
-    <div class="relative z-10 max-w-[1200px] mx-auto px-4 md:px-8">
-        <p class="inline-block text-[#305CDE] text-lg mb-4">ហេតុអ្វីជ្រើសរើស Vin Copy Print
+    <div class="relative z-10 max-w-[1200px] mx-auto px-4 sm:px-6 md:px-8 w-full">
+        <p class="inline-block text-[#305CDE] text-[clamp(0.875rem,1.1vw,1rem)] font-medium mb-3 sm:mb-4">ហេតុអ្វីជ្រើសរើស Vin Copy Print
             Scan</p>
         <h2
-            class="font-sans font-bold text-[clamp(2rem,4vw,3rem)] text-white tracking-tight leading-[1.15] max-w-[520px] mb-14">
-            ការបោះពុម្ពធ្វើបានយ៉ាងត្រឹមត្រូវ,<br>រាល់ពេលទាំងអស់។
+            class="font-sans font-bold text-[clamp(1.5rem,3vw+0.5rem,2.75rem)] text-white tracking-normal leading-[1.65] max-w-[560px] mb-10 sm:mb-14">
+            <span class="block pb-1 sm:pb-2">ការបោះពុម្ពធ្វើបានយ៉ាងត្រឹមត្រូវ,</span>
+            <span class="block">រាល់ពេលទាំងអស់។</span>
         </h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             @php
@@ -54,13 +55,13 @@
                 ];
             @endphp
             @foreach ($reasons as $reason)
-                <div class="group">
+                <div class="group w-full">
                     <div
                         class="text-3xl font-bold text-white/10 font-['Fraunces',serif] mb-4 group-hover:text-[#ffffff] transition-colors duration-300">
                         {{ $reason['num'] }}
                     </div>
-                    <h3 class="text-white font-semibold text-lg mb-2">{{ $reason['title'] }}</h3>
-                    <p class="text-white/50 text-sm leading-relaxed">{{ $reason['desc'] }}</p>
+                    <h3 class="text-white font-semibold text-[clamp(1.05rem,1.4vw+0.5rem,1.25rem)] leading-[1.6] mb-2">{{ $reason['title'] }}</h3>
+                    <p class="text-white/60 text-[clamp(0.875rem,1.05vw,0.95rem)] leading-[1.75]">{{ $reason['desc'] }}</p>
                 </div>
             @endforeach
         </div>

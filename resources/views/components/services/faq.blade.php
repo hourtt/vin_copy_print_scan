@@ -1,12 +1,13 @@
-<section class="py-20 bg-[#f8f9fa] font-['Kantumruy_Pro',sans-serif]" id="faq">
-    <div class="max-w-[1200px] mx-auto px-4 md:px-8">
-        <p class="inline-block text-[#305CDE] text-lg mb-4">សំណួរដែលសួរញឹកញាប់</p>
-        <h2 class="font-sans text-[clamp(2rem,4vw,3rem)] text-[#1a1a2e] tracking-tight leading-[1.15] mb-14">
-            មានចម្ងល់មែនទេ?<br>ពួកយើងអាចឆ្លើយជូនបាន
+<section class="scroll-mt-32 md:scroll-mt-36 py-12 sm:py-16 md:py-20 bg-[#f8f9fa] font-['Kantumruy_Pro',sans-serif]" id="faq">
+    <div class="max-w-[1200px] mx-auto px-4 sm:px-6 md:px-8 w-full">
+        <p class="inline-block text-[#305CDE] text-[clamp(0.875rem,1.1vw,1rem)] font-medium mb-3 sm:mb-4">សំណួរដែលសួរញឹកញាប់</p>
+        <h2 class="font-sans text-[clamp(1.5rem,3vw+0.5rem,2.75rem)] text-[#1a1a2e] tracking-normal leading-[1.65] mb-10 sm:mb-14">
+            <span class="block pb-1 sm:pb-2">មានចម្ងល់មែនទេ?</span>
+            <span class="block">ពួកយើងអាចឆ្លើយជូនបាន</span>
         </h2>
         <div class="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-10 items-start">
             {{-- FAQ list --}}
-            <div class="flex flex-col divide-y divide-[#e8ede9]" role="list">
+            <div class="flex flex-col divide-y divide-[#e8ede9] w-full" role="list">
                 @php
                     $faqs = [
                         [
@@ -51,7 +52,7 @@
                     <div class="faq-item py-5 border-b border-[#e8ede9] last:border-0" role="listitem"
                         x-data="{ open: false }">
                         <button
-                            class="faq-q w-full flex items-center justify-between gap-4 text-left text-[#1a1a2e] text-[0.95rem] hover:text-[#305CDE] transition-colors duration-200"
+                            class="faq-q w-full flex items-center justify-between gap-4 text-left text-[#1a1a2e] text-[clamp(0.9rem,1.1vw,1.05rem)] font-medium leading-[1.65] hover:text-[#305CDE] transition-colors duration-200"
                             @click="open = !open" :aria-expanded="open.toString()">
                             <span>{{ $faq['q'] }}</span>
                             <svg class="w-5 h-5 flex-shrink-0 text-[#305CDE] transition-transform duration-300"
@@ -62,7 +63,7 @@
                         </button>
                         <div class="grid transition-all duration-300 ease-in-out"
                             :class="open ? 'grid-rows-[1fr] opacity-100 mt-3' : 'grid-rows-[0fr] opacity-0 mt-0'">
-                            <div class="faq-a text-sm text-[#1a1a2e]/60 leading-relaxed overflow-hidden" role="region">
+                            <div class="faq-a text-[clamp(0.875rem,1.05vw,0.95rem)] text-[#1a1a2e]/70 leading-[1.75] overflow-hidden py-1" role="region">
                                 {{ $faq['a'] }}
                             </div>
                         </div>
@@ -70,9 +71,9 @@
                 @endforeach
             </div>
             {{-- Contact card --}}
-            <div class="bg-white rounded-2xl border border-[#e8ede9] p-8 sticky top-24">
-                <h3 class="font-sans text-xl text-[#1a1a2e] mb-3">នៅមានចម្ងល់មែនទេ?</h3>
-                <p class="text-sm text-[#1a1a2e]/60 leading-relaxed mb-6">ក្រុមការងាររបស់យើងរីករាយក្នុងការជួយ -
+            <div class="bg-white rounded-2xl border border-[#e8ede9] p-6 sm:p-8 sticky top-24 w-full">
+                <h3 class="font-sans text-[clamp(1.1rem,1.5vw,1.3rem)] text-[#1a1a2e] font-bold leading-[1.6] mb-3">នៅមានចម្ងល់មែនទេ?</h3>
+                <p class="text-[clamp(0.85rem,1vw,0.925rem)] text-[#1a1a2e]/70 leading-[1.75] mb-6">ក្រុមការងាររបស់យើងរីករាយក្នុងការជួយ -
                     មិនថាអ្នកត្រូវការការប្រឹក្សាពីផលិតផល ការប៉ាន់ស្មានតម្លៃសម្រាប់ការថតចម្លង
                     ឬគ្រាន់តែចង់ឆែកមើលស្តុកទំនិញ។</p>
                 @php
@@ -113,7 +114,7 @@
                 </div>
                 <a href="{{ route('login') }}"
                     class="mt-6 w-full inline-flex items-center justify-center px-6 py-3 bg-[#1a1a2e] text-white text-sm font-semibold rounded-xl hover:bg-[#2d2d4e] transition-colors duration-200">
-                    បង្កើតគណនីដោយឥតគិតថ្លៃ
+                    បង្កើតគណនី
                 </a>
             </div>
         </div>
